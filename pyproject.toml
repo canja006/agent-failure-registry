@@ -19,6 +19,12 @@ classifiers = [
 ]
 dependencies = []          # deliberately empty - the index is compiled JSON
 
+[project.urls]
+Homepage = "https://github.com/canja006/agent-failure-registry"
+Repository = "https://github.com/canja006/agent-failure-registry"
+Issues = "https://github.com/canja006/agent-failure-registry/issues"
+Schema = "https://github.com/canja006/agent-failure-registry/blob/main/registry/SCHEMA.md"
+
 [project.optional-dependencies]
 dev = ["pyyaml>=6.0"]      # required only to rebuild the index
 
