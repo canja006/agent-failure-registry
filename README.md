@@ -37,7 +37,7 @@ intellectual — it was giving the whole industry a shared noun.
 ## Install
 
 ```bash
-pip install afr        # zero runtime dependencies
+pip install agent-failure-registry     # zero runtime dependencies; imports as `afr`
 ```
 
 ## Use
