@@ -16,8 +16,9 @@ symptoms:
 discriminators:
   - "vs AF-0142: the content genuinely changed here"
   - "vs AF-0130: drift is in state, not in throughput limits"
+  - "vs AF-0149: the environment changed underneath the agent; a tool that fails against unchanged state is AF-0149"
 
-near_neighbors: [AF-0142, AF-0130]
+near_neighbors: [AF-0142, AF-0130, AF-0149]
 
 references: []
 examples: []

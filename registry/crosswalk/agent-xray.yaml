@@ -70,9 +70,10 @@ mappings:
     note: "Detector is step_count > 50 and < 2 URLs - the stuck_loop test at a higher threshold. An Agent-Xray AF-0125/AF-0058 split is partly a step-count artefact."
   - category: tool_bug
     af:
+      - {id: AF-0149, relation: overlaps}
       - {id: AF-0011, relation: overlaps}
       - {id: AF-0023, relation: overlaps}
-    note: "GAP: intended meaning is a tool-layer defect (right tool, bad result) - no AF mode for that yet. As detected it fires when unknown_tool + validation + other errors dominate, i.e. mostly fabricated tools (AF-0011) and schema errors (AF-0023)."
+    note: "Intended meaning (right tool, bad result) is AF-0149, which this category prompted. As detected it fires when unknown_tool + validation + other errors dominate, so it also captures fabricated tools (AF-0011) and schema errors (AF-0023); and its error-only signal misses AF-0149's soft-error cases. Hence overlaps x3, no exact."
   - category: valid_alternative_path
     af: []
     note: "Not a failure."

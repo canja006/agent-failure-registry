@@ -95,19 +95,18 @@ At most one `exact` per source category. One wrong `exact` discredits the table.
 
 ## Status
 
-Pre-v0. 18 modes, all `provisional`; 3 source taxonomies; 90% of AgentRx and
+Pre-v0. 19 modes, all `provisional`; 3 source taxonomies; 90% of AgentRx and
 86% of Agent-Xray mapped — Agent-Xray from a full read of its classifier, not
 its README (see [`registry/crosswalk/notes/`](registry/crosswalk/notes/)). The
 remaining modes are week-one reading, not coding — see
 [`registry/crosswalk/academic.yaml`](registry/crosswalk/academic.yaml) for the
 queue.
 
-Findings are already falling out of the structure, which is the point.
-`afr gaps` surfaces four:
+Findings are already falling out of the structure, which is the point. One
+has already changed the registry: Agent-Xray's `tool_bug` exposed an empty
+`tool` layer, and **`AF-0149`** (tool defect) now fills it. `afr gaps` surfaces
+three more:
 
-- `agent-xray:tool_bug` — a **tool-layer defect** has no AF mode; the registry
-  has no `tool`-layer entry yet. (As detected, the category mostly catches
-  fabricated tools and schema errors, which *do* map.)
 - `agent-xray:routing_bug` — **tool never exposed by the harness**. No AF mode.
 - `agent-xray:tool_selection_bug` — **wrong tool selected**. No AF mode.
 - **`AF-0142`** (stale context re-read) has **no source mapping** — a failure

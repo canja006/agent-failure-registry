@@ -14,10 +14,10 @@
 #   broader  - the AF mode is broader than this category
 #   overlaps - partial; neither contains the other
 #
-# Generated from AFR index 7dea313d683a on 2026-08-23.
+# Generated from AFR index 099433c64976 on 2026-08-23.
 # Corrections welcome as issues on the AFR repo.
 
-afr_index: "7dea313d683a"
+afr_index: "099433c64976"
 source: agent-xray
 
 categories:
@@ -101,13 +101,16 @@ categories:
       title: Time or step budget exhausted
     # Step budget (>= 40) plus a stalled final window; no elapsed-time signal. AF-0136 covers time or step budgets, hence exact; the stall requirement overlaps AF-0058.
   tool_bug:
+    - id: AF-0149
+      relation: overlaps
+      title: Tool defect
     - id: AF-0011
       relation: overlaps
       title: Fabricated tool signature
     - id: AF-0023
       relation: overlaps
       title: Invalid tool invocation
-    # GAP: intended meaning is a tool-layer defect (right tool, bad result) - no AF mode for that yet. As detected it fires when unknown_tool + validation + other errors dominate, i.e. mostly fabricated tools (AF-0011) and schema errors (AF-0023).
+    # Intended meaning (right tool, bad result) is AF-0149, which this category prompted. As detected it fires when unknown_tool + validation + other errors dominate, so it also captures fabricated tools (AF-0011) and schema errors (AF-0023); and its error-only signal misses AF-0149's soft-error cases. Hence overlaps x3, no exact.
   tool_rejection_mismatch:
     - id: AF-0095
       relation: overlaps

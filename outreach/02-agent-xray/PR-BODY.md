@@ -17,17 +17,19 @@ The mapping was made from a full read of `root_cause.py` and `analyzer.py`
 detectors are more specific than their one-line descriptions, and the mapping
 follows the detectors. The read notes are public in the AFR repo.
 
-### Your taxonomy found three gaps in ours
+### Your taxonomy changed ours
 
 This is the mapping working in the direction I hoped it would. Three Agent-Xray
-categories name things the registry cannot yet name exactly; all three are now
-recorded as open gaps and are the next modes to be written:
+categories name things the registry could not name; one is already fixed and
+two are recorded as open gaps:
 
 - **`tool_bug`** — the *intended* meaning (right tool, bad result) is a
-  tool-layer defect, and nothing in the registry covers the `tool` layer yet.
-  (As detected — `unknown_tool` + `validation` + `other` errors dominating —
-  it also overlaps two existing modes, fabricated tool signature and invalid
-  invocation, and the file maps those as `overlaps`.)
+  tool-layer defect, and the registry had no `tool`-layer mode at all. It now
+  has one, `AF-0149`, written because of this category and cited as such.
+  `tool_bug` maps `overlaps` to it rather than `exact` because, as detected
+  (`unknown_tool` + `validation` + `other` errors dominating), the category
+  also catches fabricated tools and schema errors, which map to two other
+  modes — the file lists all three.
 - **`routing_bug`** — a step whose exposed tool list is empty. Tool-not-exposed
   is a harness failure no taxonomy I have mapped names; the nearest AF mode is
   the user-intent-layer cousin "intent not supported", mapped `overlaps`.

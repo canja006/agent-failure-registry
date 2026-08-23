@@ -1,0 +1,28 @@
+id: AF-0149
+title: "Tool defect"
+status: provisional
+layer: tool
+
+description: >
+  An existing tool, called with a schema-valid invocation, fails on its own
+  account — raising an internal error, returning an empty, malformed or
+  truncated payload, or reporting a result that contradicts the state it
+  claims to describe. The call was right; the tool was not.
+
+symptoms:
+  - "schema-valid call returns an error originating inside the tool (internal exception, stack trace, 5xx)"
+  - "tool returns an empty, malformed, or truncated payload for a well-formed request"
+  - "tool reports success but the state it claims to have produced is not observed afterwards"
+  - "an identical call succeeds later, or elsewhere, with no change to arguments or target state"
+
+discriminators:
+  - "vs AF-0023: the call passed validation; the failure originates inside the tool"
+  - "vs AF-0011: the tool exists and was advertised; nothing was invented"
+  - "vs AF-0042: the output was genuinely wrong or unusable, not merely misread"
+  - "vs AF-0118: the same call against the same state fails; nothing in the environment changed between calls"
+
+near_neighbors: [AF-0023, AF-0011, AF-0042, AF-0118]
+
+references:
+  - "Agent-Xray `tool_bug` (https://github.com/GeeIHadAGoodTime/Agent-Xray/blob/main/src/agent_xray/root_cause.py) - the category that exposed the registry's empty tool layer"
+examples: []

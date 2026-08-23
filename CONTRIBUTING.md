@@ -12,7 +12,9 @@ CI fails if the index is stale.
 
 ## Adding a mode
 
-1. `registry/modes/AF-####.yaml`, next free id — never reuse a retired one.
+1. `registry/modes/AF-####.yaml`, any unused id above the current maximum —
+   the numbering is sparse on purpose, so ids do not read as a ranking. Never
+   reuse a retired one.
 2. Symptoms must be observable in a trajectory. If you cannot say what a
    classifier would look at, the mode is not ready.
 3. Every near neighbour gets a `vs AF-####:` discriminator, and vice versa.

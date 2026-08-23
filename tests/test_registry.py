@@ -10,7 +10,7 @@ from afr.model import invert
 
 class TestModes(unittest.TestCase):
     def test_every_mode_loads(self):
-        self.assertEqual(len(afr.modes()), 18)
+        self.assertEqual(len(afr.modes()), 19)
 
     def test_lookup(self):
         m = afr.mode("AF-0142")
@@ -112,9 +112,18 @@ class TestCrosswalk(unittest.TestCase):
         self.assertEqual(set(c["unmapped"]),
                          {"valid_alternative_path", "consultative_success", "unclassified"})
 
+    def test_tool_layer_exists(self):
+        # AF-0149 closed the registry's empty tool layer; tool_bug's best
+        # mapping lands there rather than on the agent-side error modes.
+        m = afr.mode("AF-0149")
+        self.assertEqual(m.layer, "tool")
+        labels = afr.normalize({"tool_bug": 1}, "agent-xray")
+        self.assertEqual(labels[0].best.id, "AF-0149")
+        self.assertEqual({h.id for h in labels[0].af}, {"AF-0149", "AF-0011", "AF-0023"})
+
     def test_gap_notes_survive_partial_mapping(self):
         # A category can be mapped by overlaps and still be a roadmap item.
-        for cat in ("tool_bug", "routing_bug", "tool_selection_bug"):
+        for cat in ("routing_bug", "tool_selection_bug"):
             hits = afr.map("agent-xray", cat)
             self.assertTrue(hits, cat)
             self.assertTrue(all(h.relation == "overlaps" for h in hits), cat)
