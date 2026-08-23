@@ -1,7 +1,12 @@
 # Outreach
 
 The distribution strategy in full. AFR does not need an audience — it needs
-three merges. Everything here is generated or drafted; nothing is sent yet.
+three merges.
+
+**Status:** #1 sent — [Agent-Xray PR #1](https://github.com/GeeIHadAGoodTime/Agent-Xray/pull/1),
+opened 2026-08-23 from AFR index `000b123a101d`. #2 (AgentDebugX issue) and
+#3 (AgentRx PR) are drafted and wait on #1's outcome, per the sequencing
+below — do not send them in parallel.
 
 ## Sequence — do not do these in parallel
 
