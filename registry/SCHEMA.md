@@ -29,11 +29,24 @@ localising it. Keeping layer as its own axis means a mode can be recorded from
 its **symptoms** without first resolving blame. The id stays stable even while
 attribution is argued about.
 
+Since 2026-08-23 the registry assigns layer by that paper's principle: **the
+fault lies with the component that could have acted correctly on the
+information it had.** Repetition, delegation loss and thin sourcing are
+therefore `model` — the information to avoid them was in context — while
+harness-driven compaction (AF-0064) and the harness's own policy gates
+(AF-0095) stay `harness`.
+
 ### Why `symptoms` must be observable
 
 Causes are contested; observations are not. A symptom you cannot see in a
 trajectory cannot be classified from one, and a mode nobody can apply
 consistently is worse than no mode at all.
+
+The same rule keeps **causes** out of the mode list even when multiple
+taxonomies name them: "poor prompt design" (Agent-Xray `prompt_bug`, AgentFail
+F1.5) is a repair location, not a trajectory observable — its manifestations
+already land on AF-0103, AF-0088 and their neighbours. Cause-level categories
+map `overlaps` to the modes their symptoms land on, and do not get ids.
 
 ### Why `discriminators` exist
 

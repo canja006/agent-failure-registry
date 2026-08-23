@@ -15,7 +15,7 @@ class TestModes(unittest.TestCase):
     def test_lookup(self):
         m = afr.mode("AF-0142")
         self.assertEqual(m.title, "Stale context re-read")
-        self.assertEqual(m.layer, "harness")
+        self.assertEqual(m.layer, "model")
 
     def test_unknown_mode_raises(self):
         with self.assertRaises(KeyError):
@@ -24,6 +24,23 @@ class TestModes(unittest.TestCase):
     def test_layers_are_legal(self):
         for m in afr.modes():
             self.assertIn(m.layer, afr.LAYERS)
+
+    def test_layer_principle(self):
+        # Fault lies with the component that could have acted correctly on
+        # the information it had (SCHEMA, adopted 2026-08-23).
+        for af_id in ("AF-0049", "AF-0058", "AF-0071", "AF-0086", "AF-0142"):
+            self.assertEqual(afr.mode(af_id).layer, "model", af_id)
+        self.assertEqual(afr.mode("AF-0064").layer, "harness")
+        self.assertEqual(afr.mode("AF-0095").layer, "harness")
+
+    def test_stable_modes_have_two_sources_and_an_exact(self):
+        for m in afr.modes():
+            if m.status != "stable":
+                continue
+            hits = [(s.id, e.relation) for s in afr.sources()
+                    for e in (afr.unmap(m.id, s.id) or [])]
+            self.assertGreaterEqual(len({s for s, _ in hits}), 2, m.id)
+            self.assertIn("exact", {r for _, r in hits}, m.id)
 
     def test_near_neighbors_resolve(self):
         ids = {m.id for m in afr.modes()}
@@ -171,7 +188,7 @@ class TestNormalizeAndProfile(unittest.TestCase):
     def test_profile_layers(self):
         p = afr.profile(afr.normalize(
             {"stuck_loop": 6, "timeout": 3}, "agent-xray"))
-        self.assertEqual(p.by_layer, {"harness": 6, "environment": 3})
+        self.assertEqual(p.by_layer, {"model": 6, "environment": 3})
 
     def test_no_double_counting_on_multi_map(self):
         # "System Failure" maps to three modes; it must count once.

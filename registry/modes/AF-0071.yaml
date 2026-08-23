@@ -1,7 +1,7 @@
 id: AF-0071
 title: "Delegation failure"
 status: provisional
-layer: harness
+layer: model
 
 description: >
   A sub-agent or delegated call is dispatched with an incomplete or

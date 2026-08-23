@@ -1,6 +1,6 @@
 id: AF-0023
 title: "Invalid tool invocation"
-status: provisional
+status: stable
 layer: model
 
 description: >

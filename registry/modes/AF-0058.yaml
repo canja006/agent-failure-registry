@@ -1,7 +1,7 @@
 id: AF-0058
 title: "Unproductive repetition"
-status: provisional
-layer: harness
+status: stable
+layer: model
 
 description: >
   The agent retries the same action, or cycles a small set of actions,

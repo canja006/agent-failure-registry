@@ -1,7 +1,7 @@
 id: AF-0049
 title: "Test failure loop"
-status: provisional
-layer: harness
+status: stable
+layer: model
 
 description: >
   In a code-editing workflow, the agent repeatedly edits and re-runs a

@@ -1,6 +1,6 @@
 id: AF-0095
 title: "Guardrail block"
-status: provisional
+status: stable
 layer: harness
 
 description: >

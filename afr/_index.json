@@ -249,7 +249,7 @@
       "relation": "overlaps"
      }
     ],
-    "note": "GAP: second most frequent (52). Harness prompt quality as a root cause - the same thing Agent-Xray's prompt_bug names. Cause-level rather than symptom-level, so it may not belong in a symptom registry at all; recorded as a gap to decide, not to fill by default."
+    "note": "Second most frequent (52). Harness prompt quality as a root cause - the same thing Agent-Xray's prompt_bug names. Decided 2026-08-23: cause-level, so it does not get a mode (see SCHEMA, symptoms-not-causes); its manifestations land on AF-0103/AF-0088."
    },
    "F1.6 Language or Encoding Issue": {
     "af": [],
@@ -995,7 +995,7 @@
     "AF-0077"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "no available tool covers the requested capability",
     "agent substitutes a partial or adjacent action without saying so",
@@ -1023,7 +1023,7 @@
     "AF-0161"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "tool name absent from the advertised tool list",
     "parameter key absent from the tool's schema",
@@ -1053,7 +1053,7 @@
     "AF-0157"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "schema validation error returned by the harness",
     "required parameter absent or null",
@@ -1099,13 +1099,13 @@
    ],
    "examples": [],
    "id": "AF-0049",
-   "layer": "harness",
+   "layer": "model",
    "near_neighbors": [
     "AF-0058",
     "AF-0125"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "identical test failure output across three or more cycles",
     "edits revert or oscillate between the same two states",
@@ -1125,7 +1125,7 @@
    ],
    "examples": [],
    "id": "AF-0058",
-   "layer": "harness",
+   "layer": "model",
    "near_neighbors": [
     "AF-0142",
     "AF-0049",
@@ -1135,7 +1135,7 @@
     "AF-0166"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "identical action repeated with identical arguments",
     "step count grows while observable state is unchanged",
@@ -1157,7 +1157,7 @@
     "AF-0125"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "reference to content no longer in the window",
     "harness truncation or eviction event in the trace",
@@ -1175,7 +1175,7 @@
     "Magentic-One traj 8b3379c0 (AgentRx ground truth): the Orchestrator's search brief to WebSurfer omits the key phrase 'Monterey Bay Aquarium', so the sub-agent cannot find the target video - the constraint was lost at the delegation boundary"
    ],
    "id": "AF-0071",
-   "layer": "harness",
+   "layer": "model",
    "near_neighbors": [
     "AF-0088",
     "AF-0086"
@@ -1211,7 +1211,7 @@
     "AF-0153"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "final response claims done with open sub-goals in the plan",
     "verification step named in the plan never executed",
@@ -1232,7 +1232,7 @@
     "Magentic-One traj 0ec43718 (AgentRx ground truth): WebSurfer returns a partial list of gyms near the Mothman Museum and the Orchestrator concludes from it without verifying completeness"
    ],
    "id": "AF-0086",
-   "layer": "harness",
+   "layer": "model",
    "near_neighbors": [
     "AF-0042",
     "AF-0077",
@@ -1241,7 +1241,7 @@
     "AF-0161"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "single source underpins a load-bearing claim",
     "available search or read tools left unused",
@@ -1273,7 +1273,7 @@
     "AF-0166"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "plan steps do not map onto stated goal criteria",
     "agent optimises a proxy objective not requested",
@@ -1299,7 +1299,7 @@
     "AF-0077"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "approval or policy rejection event in the trace",
     "agent retries the blocked action unchanged",
@@ -1323,7 +1323,7 @@
     "AF-0007"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "multiple defensible interpretations of the request",
     "agent's chosen reading never stated to the user",
@@ -1349,7 +1349,7 @@
     "AF-0170"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "read value differs from a previously read value with no agent write between",
     "credential or session invalidated mid-run",
@@ -1373,7 +1373,7 @@
     "AF-0049"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "repeated qualitatively different attempts, all failing",
     "failure persists across harness changes",
@@ -1399,7 +1399,7 @@
     "AF-0170"
    ],
    "references": [],
-   "status": "provisional",
+   "status": "stable",
    "symptoms": [
     "429 or quota errors clustering in time",
     "retry rate increasing rather than backing off",
@@ -1442,7 +1442,7 @@
    ],
    "examples": [],
    "id": "AF-0142",
-   "layer": "harness",
+   "layer": "model",
    "near_neighbors": [
     "AF-0058",
     "AF-0064",
@@ -1715,5 +1715,5 @@
    "vendor": "academic"
   }
  ],
- "version": "b2f6d166a2a2"
+ "version": "000b123a101d"
 }

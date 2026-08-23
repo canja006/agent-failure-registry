@@ -1,6 +1,6 @@
 id: AF-0130
 title: "Rate limit cascade"
-status: provisional
+status: stable
 layer: environment
 
 description: >

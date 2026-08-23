@@ -1,7 +1,7 @@
 id: AF-0142
 title: "Stale context re-read"
 status: provisional
-layer: harness
+layer: model
 
 description: >
   The agent re-reads a source it has already read within the same context

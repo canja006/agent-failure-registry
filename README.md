@@ -15,7 +15,7 @@ that share nothing. This is the mapping layer between them.
 >>> afr.map("agent-xray", "spin")
 [AF-0058 (exact)]
 >>> afr.mode("AF-0058").layer
-'harness'
+'model'
 ```
 
 The analogy is CVE, not CWE. Plenty of people have proposed taxonomies; nobody
@@ -56,7 +56,7 @@ failure profile  (source: agent-xray, n=49)
 AF-0058    63.3%  ######################              Unproductive repetition
 AF-0064    36.7%  ############                        Context overflow truncation
 --------------------------------------------------------------------
-by layer: harness=49
+by layer: model=49
 ```
 
 That is the pitch in one output. `67% pass` tells you nothing you can act on.
@@ -95,7 +95,7 @@ At most one `exact` per source category. One wrong `exact` discredits the table.
 
 ## Status
 
-Pre-v0. **24 modes**, all `provisional`; **6 source taxonomies**, every one
+Pre-v0. **24 modes** — 14 `stable`, 10 `provisional`; **6 source taxonomies**, every one
 mapped from a full read of its operative definitions (classifier code, judge
 prompts, paper text, ground-truth annotations), with the evidence in
 [`registry/crosswalk/notes/`](registry/crosswalk/notes/):
@@ -122,11 +122,11 @@ behind them are the next candidates; the single-source ones (the whole memory
 family, recovery failure, sycophancy, prompt injection, external access
 blocks) wait for a second.
 
-One open question the read surfaced rather than settled: [Model or
-Harness?](https://arxiv.org/abs/2607.28802) puts repetition, delegation and
-insufficient-sourcing failures on the **model** side because the information
-to avoid them was in context; AFR currently has them on `harness`. See
-[`notes/model-or-harness.md`](registry/crosswalk/notes/model-or-harness.md).
+Layer attribution follows a stated principle (SCHEMA.md, adopted from
+[Model or Harness?](https://arxiv.org/abs/2607.28802)): the fault lies with
+the component that could have acted correctly on the information it had.
+Promotion to `stable` required two independent sources, at least one `exact`
+mapping, and a definition that survived the full-read pass unchanged.
 
 ## Repo layout
 

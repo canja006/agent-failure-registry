@@ -37,7 +37,7 @@ mappings:
   - category: "F1.5 Poor Prompt Design"
     af:
       - {id: AF-0103, relation: overlaps}
-    note: "GAP: second most frequent (52). Harness prompt quality as a root cause - the same thing Agent-Xray's prompt_bug names. Cause-level rather than symptom-level, so it may not belong in a symptom registry at all; recorded as a gap to decide, not to fill by default."
+    note: "Second most frequent (52). Harness prompt quality as a root cause - the same thing Agent-Xray's prompt_bug names. Decided 2026-08-23: cause-level, so it does not get a mode (see SCHEMA, symptoms-not-causes); its manifestations land on AF-0103/AF-0088."
   - category: "F1.6 Language or Encoding Issue"
     af: []
     note: "Wrong language or character encoding in a node's output (15). No AF mode; borderline in scope."

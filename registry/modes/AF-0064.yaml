@@ -1,6 +1,6 @@
 id: AF-0064
 title: "Context overflow truncation"
-status: provisional
+status: stable
 layer: harness
 
 description: >

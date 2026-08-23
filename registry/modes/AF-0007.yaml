@@ -1,6 +1,6 @@
 id: AF-0007
 title: "Intent not supported"
-status: provisional
+status: stable
 layer: user-intent
 
 description: >

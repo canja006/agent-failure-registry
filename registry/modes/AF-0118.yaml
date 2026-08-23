@@ -1,6 +1,6 @@
 id: AF-0118
 title: "Environment drift"
-status: provisional
+status: stable
 layer: environment
 
 description: >

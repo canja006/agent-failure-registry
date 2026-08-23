@@ -1,6 +1,6 @@
 id: AF-0103
 title: "Underspecified intent"
-status: provisional
+status: stable
 layer: user-intent
 
 description: >

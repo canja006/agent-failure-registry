@@ -54,10 +54,10 @@ The five disagreements share a shape: AFR put "the harness should have caught
 this" failures on the harness; the paper puts them on the model because *the
 information to avoid them was in context*. The SCHEMA calls layer "the most
 contested judgement in this space" and deliberately keeps it separate from
-the id, so this is a maintainer decision. Recommendation: adopt the paper's
-principle and move the five to `model` — it is the only principled rule
-either side has written down, and it would make AFR's `by layer` profile line
-comparable with a published taxonomy. Not done here.
+the id, so this is a maintainer decision. **Adopted 2026-08-23**: the five
+moved to `model`, and the principle is now stated in SCHEMA.md — it is the
+only principled rule either side has written down, and it makes AFR's
+`by layer` profile line comparable with a published taxonomy.
 
 ## Gaps this paper records (single source, so recorded, not filled)
 
