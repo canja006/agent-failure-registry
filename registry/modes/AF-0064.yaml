@@ -1,0 +1,23 @@
+id: AF-0064
+title: "Context overflow truncation"
+status: provisional
+layer: harness
+
+description: >
+  Content the agent needs is silently dropped from context by window
+  management — truncation, eviction, or summarisation — and the agent
+  proceeds as though it were still present.
+
+symptoms:
+  - "reference to content no longer in the window"
+  - "harness truncation or eviction event in the trace"
+  - "agent re-derives a fact it had already established"
+
+discriminators:
+  - "vs AF-0142: content is genuinely gone here, not present-but-re-read"
+  - "vs AF-0125: a window-management failure, not a capability ceiling"
+
+near_neighbors: [AF-0142, AF-0125]
+
+references: []
+examples: []

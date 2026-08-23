@@ -1,0 +1,23 @@
+id: AF-0088
+title: "Plan/intent misalignment"
+status: provisional
+layer: model
+
+description: >
+  The agent constructs a plan, or routes to a sub-task, that does not serve
+  the user's actual goal — solving an adjacent or reformulated problem
+  instead.
+
+symptoms:
+  - "plan steps do not map onto stated goal criteria"
+  - "agent optimises a proxy objective not requested"
+  - "successful execution of the wrong task"
+
+discriminators:
+  - "vs AF-0103: the intent was clear enough to plan against"
+  - "vs AF-0023: the plan is wrong, not the mechanics of a call"
+
+near_neighbors: [AF-0103, AF-0023]
+
+references: []
+examples: []

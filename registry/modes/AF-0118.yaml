@@ -1,0 +1,23 @@
+id: AF-0118
+title: "Environment drift"
+status: provisional
+layer: environment
+
+description: >
+  The environment changes underneath the agent mid-run — file contents,
+  credentials, service versions, network state — and the agent continues
+  acting on a stale model of it.
+
+symptoms:
+  - "read value differs from a previously read value with no agent write between"
+  - "credential or session invalidated mid-run"
+  - "dependency or service version changes between steps"
+
+discriminators:
+  - "vs AF-0142: the content genuinely changed here"
+  - "vs AF-0130: drift is in state, not in throughput limits"
+
+near_neighbors: [AF-0142, AF-0130]
+
+references: []
+examples: []

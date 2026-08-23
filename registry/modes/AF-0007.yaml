@@ -1,0 +1,23 @@
+id: AF-0007
+title: "Intent not supported"
+status: provisional
+layer: user-intent
+
+description: >
+  The user's goal is coherent and well specified, but lies outside what the
+  agent's tool set or permissions can accomplish. The agent proceeds anyway
+  instead of reporting the gap.
+
+symptoms:
+  - "no available tool covers the requested capability"
+  - "agent substitutes a partial or adjacent action without saying so"
+  - "final response claims completion of an action never performed"
+
+discriminators:
+  - "vs AF-0103: the intent here is clear, not underspecified"
+  - "vs AF-0095: nothing blocked the agent; the capability was simply absent"
+
+near_neighbors: [AF-0103, AF-0095]
+
+references: []
+examples: []

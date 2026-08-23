@@ -1,0 +1,17 @@
+source:
+  id: academic
+  name: Published taxonomies
+  vendor: various
+  url: https://arxiv.org
+  license: n/a
+  taxonomy_size: 0
+  observed: "2026-08-23"
+  note: >
+    Placeholder. Section-level mappings into the published taxonomies are week-1 work
+    and must be read from the papers directly rather than from abstracts.
+    Priority order: 2603.06847 (types/symptoms/root causes), 2607.28802 (model vs harness
+    localisation - cross-check against the `layer` field on every mode), 2509.23735
+    (AgentFail, 307 real-world failures - the best source of `examples`),
+    2607.04686 (ToolFailBench - tool-use failures specifically).
+
+mappings: []

@@ -1,0 +1,22 @@
+id: AF-0086
+title: "Insufficient sources"
+status: provisional
+layer: harness
+
+description: >
+  The agent commits to a conclusion on evidence too thin to support it,
+  without gathering readily available additional sources.
+
+symptoms:
+  - "single source underpins a load-bearing claim"
+  - "available search or read tools left unused"
+  - "confidence in the final answer not matched by evidence in the trace"
+
+discriminators:
+  - "vs AF-0042: the sources read were interpreted correctly, there were just too few"
+  - "vs AF-0077: the agent did not stop early; it concluded early"
+
+near_neighbors: [AF-0042, AF-0077]
+
+references: []
+examples: []

@@ -1,0 +1,22 @@
+id: AF-0011
+title: "Fabricated tool signature"
+status: provisional
+layer: model
+
+description: >
+  The agent invents a tool, parameter, endpoint or field that does not exist
+  in the provided schema, and calls it as though it did.
+
+symptoms:
+  - "tool name absent from the advertised tool list"
+  - "parameter key absent from the tool's schema"
+  - "invocation rejected by the harness as unknown"
+
+discriminators:
+  - "vs AF-0023: the tool exists here only in the model's output, not in the schema"
+  - "vs AF-0042: the fabrication is in the call, not in reading the result"
+
+near_neighbors: [AF-0023, AF-0042]
+
+references: []
+examples: []

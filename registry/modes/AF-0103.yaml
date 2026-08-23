@@ -1,0 +1,22 @@
+id: AF-0103
+title: "Underspecified intent"
+status: provisional
+layer: user-intent
+
+description: >
+  The request admits several materially different readings and the agent
+  picks one silently, without flagging the ambiguity or asking.
+
+symptoms:
+  - "multiple defensible interpretations of the request"
+  - "agent's chosen reading never stated to the user"
+  - "no clarifying question despite a consequential fork"
+
+discriminators:
+  - "vs AF-0088: ambiguity originates upstream of the plan"
+  - "vs AF-0007: the request may be entirely achievable once disambiguated"
+
+near_neighbors: [AF-0088, AF-0007]
+
+references: []
+examples: []

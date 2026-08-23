@@ -1,0 +1,22 @@
+id: AF-0077
+title: "Premature termination"
+status: provisional
+layer: model
+
+description: >
+  The agent stops and reports completion while parts of the requested task
+  remain undone, unverified, or explicitly deferred.
+
+symptoms:
+  - "final response claims done with open sub-goals in the plan"
+  - "verification step named in the plan never executed"
+  - "agent asks no clarifying question yet stops short"
+
+discriminators:
+  - "vs AF-0007: the work was possible with available tools"
+  - "vs AF-0095: nothing blocked the agent from continuing"
+
+near_neighbors: [AF-0007, AF-0095]
+
+references: []
+examples: []

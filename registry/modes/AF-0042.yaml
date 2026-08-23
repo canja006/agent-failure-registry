@@ -1,0 +1,23 @@
+id: AF-0042
+title: "Tool output misread"
+status: provisional
+layer: model
+
+description: >
+  The tool returned correct output and the agent drew a conclusion the
+  output does not support — inverting a boolean, missing an error field,
+  reading a truncated result as complete.
+
+symptoms:
+  - "agent's stated conclusion contradicts the returned payload"
+  - "error field present in output but not acknowledged"
+  - "downstream steps proceed on a value not present in the result"
+
+discriminators:
+  - "vs AF-0023: the call succeeded; the failure is in interpretation"
+  - "vs AF-0011: nothing was invented at call time"
+
+near_neighbors: [AF-0023, AF-0011]
+
+references: []
+examples: []

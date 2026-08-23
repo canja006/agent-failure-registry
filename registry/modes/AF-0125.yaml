@@ -1,0 +1,23 @@
+id: AF-0125
+title: "Model capability limit"
+status: provisional
+layer: model
+
+description: >
+  The task exceeds what the underlying model can do at all — reasoning
+  depth, context length, domain knowledge — rather than failing on procedure
+  or tooling.
+
+symptoms:
+  - "repeated qualitatively different attempts, all failing"
+  - "failure persists across harness changes"
+  - "task succeeds when the model is upgraded, harness held constant"
+
+discriminators:
+  - "vs AF-0058: attempts vary rather than repeat"
+  - "vs AF-0064: not a window-management artefact"
+
+near_neighbors: [AF-0058, AF-0064]
+
+references: []
+examples: []

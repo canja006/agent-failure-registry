@@ -1,0 +1,23 @@
+id: AF-0023
+title: "Invalid tool invocation"
+status: provisional
+layer: model
+
+description: >
+  The agent calls a tool that genuinely exists but with arguments that
+  violate its schema — wrong types, missing required fields, malformed
+  structure, or a call made in an invalid state.
+
+symptoms:
+  - "schema validation error returned by the harness"
+  - "required parameter absent or null"
+  - "argument type mismatch against the declared schema"
+
+discriminators:
+  - "vs AF-0011: the tool and parameters exist; only the values are wrong"
+  - "vs AF-0088: the tool choice is appropriate for the plan; the call itself is malformed"
+
+near_neighbors: [AF-0011, AF-0088]
+
+references: []
+examples: []

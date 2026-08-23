@@ -1,0 +1,23 @@
+id: AF-0071
+title: "Delegation failure"
+status: provisional
+layer: harness
+
+description: >
+  A sub-agent or delegated call is dispatched with an incomplete or
+  distorted brief, returns a result the parent cannot use, or its result is
+  discarded without being incorporated.
+
+symptoms:
+  - "sub-agent brief omits constraints present in the parent task"
+  - "sub-agent result not referenced in subsequent parent steps"
+  - "parent re-does work the sub-agent already completed"
+
+discriminators:
+  - "vs AF-0088: the parent's plan is sound; the loss happens at the delegation boundary"
+  - "vs AF-0086: information was gathered but not transferred"
+
+near_neighbors: [AF-0088, AF-0086]
+
+references: []
+examples: []

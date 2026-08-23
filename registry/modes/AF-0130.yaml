@@ -1,0 +1,22 @@
+id: AF-0130
+title: "Rate limit cascade"
+status: provisional
+layer: environment
+
+description: >
+  A throughput or quota limit triggers retries which themselves consume
+  quota, degrading the run beyond the original limit.
+
+symptoms:
+  - "429 or quota errors clustering in time"
+  - "retry rate increasing rather than backing off"
+  - "unrelated later steps failing on exhausted quota"
+
+discriminators:
+  - "vs AF-0058: repetition is driven by the limit, not by the agent's reasoning"
+  - "vs AF-0136: quota exhaustion rather than elapsed-time expiry"
+
+near_neighbors: [AF-0058, AF-0136]
+
+references: []
+examples: []

@@ -1,0 +1,24 @@
+id: AF-0142
+title: "Stale context re-read"
+status: provisional
+layer: harness
+
+description: >
+  The agent re-reads a source it has already read within the same context
+  window, with no intervening change to the target, and treats the result as
+  new information.
+
+symptoms:
+  - "repeated identical read call within one context window"
+  - "no intervening write to the read target"
+  - "step count grows without state change"
+
+discriminators:
+  - "vs AF-0058: repetition here is of reads specifically, not action retries"
+  - "vs AF-0064: context is not overflowing; the content is still present"
+  - "vs AF-0118: the target genuinely did not change"
+
+near_neighbors: [AF-0058, AF-0064, AF-0118]
+
+references: []
+examples: []

@@ -1,0 +1,23 @@
+id: AF-0058
+title: "Unproductive repetition"
+status: provisional
+layer: harness
+
+description: >
+  The agent retries the same action, or cycles a small set of actions,
+  without the environment state or its own information changing between
+  attempts.
+
+symptoms:
+  - "identical action repeated with identical arguments"
+  - "step count grows while observable state is unchanged"
+  - "no new information enters context between attempts"
+
+discriminators:
+  - "vs AF-0142: repetition here is of actions, not of reads"
+  - "vs AF-0049: not scoped to a test/verify cycle"
+
+near_neighbors: [AF-0142, AF-0049]
+
+references: []
+examples: []

@@ -1,0 +1,64 @@
+source:
+  id: agent-xray
+  name: Agent-Xray
+  vendor: community
+  url: https://github.com/GeeIHadAGoodTime/Agent-Xray
+  license: MIT
+  taxonomy_size: 22
+  observed: "2026-08-23"
+
+mappings:
+  - category: spin
+    af: [{id: AF-0058, relation: overlaps}]
+  - category: stuck_loop
+    af: [{id: AF-0058, relation: exact}]
+  - category: test_failure_loop
+    af: [{id: AF-0049, relation: exact}]
+  - category: early_abort
+    af: [{id: AF-0077, relation: exact}]
+  - category: routing_bug
+    af: [{id: AF-0088, relation: overlaps}]
+  - category: tool_selection_bug
+    af:
+      - {id: AF-0088, relation: overlaps}
+      - {id: AF-0023, relation: overlaps}
+    note: "Wrong-tool-chosen sits between planning and invocation; deliberately not exact to either."
+  - category: reasoning_bug
+    af:
+      - {id: AF-0042, relation: overlaps}
+      - {id: AF-0125, relation: overlaps}
+    note: "Broad; overlaps both misreading output and hitting a capability ceiling."
+  - category: approval_block
+    af: [{id: AF-0095, relation: exact}]
+  - category: tool_rejection_mismatch
+    af: [{id: AF-0095, relation: overlaps}]
+  - category: prompt_bug
+    af: [{id: AF-0103, relation: overlaps}]
+  - category: context_overflow
+    af: [{id: AF-0064, relation: exact}]
+  - category: memory_overload
+    af: [{id: AF-0064, relation: overlaps}]
+  - category: environment_drift
+    af: [{id: AF-0118, relation: exact}]
+  - category: rate_limit_cascade
+    af: [{id: AF-0130, relation: exact}]
+  - category: timeout
+    af: [{id: AF-0136, relation: exact}]
+  - category: delegation_failure
+    af: [{id: AF-0071, relation: exact}]
+  - category: insufficient_sources
+    af: [{id: AF-0086, relation: exact}]
+  - category: model_limit
+    af: [{id: AF-0125, relation: exact}]
+  - category: tool_bug
+    af: []
+    note: "GAP: tool-layer defect (the tool itself is broken). No AF mode yet - candidate for the tool layer."
+  - category: valid_alternative_path
+    af: []
+    note: "Not a failure."
+  - category: consultative_success
+    af: []
+    note: "Not a failure."
+  - category: unclassified
+    af: []
+    note: "Residual label."

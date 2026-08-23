@@ -1,0 +1,11 @@
+{
+  "stuck_loop": 31,
+  "context_overflow": 18,
+  "tool_selection_bug": 12,
+  "early_abort": 9,
+  "environment_drift": 6,
+  "timeout": 4,
+  "model_limit": 3,
+  "tool_bug": 2,
+  "unclassified": 2
+}

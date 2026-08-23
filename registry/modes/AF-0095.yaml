@@ -1,0 +1,22 @@
+id: AF-0095
+title: "Guardrail block"
+status: provisional
+layer: harness
+
+description: >
+  A policy, approval gate, or safety filter halts the agent, and the agent
+  neither surfaces the block clearly nor adapts its approach around it.
+
+symptoms:
+  - "approval or policy rejection event in the trace"
+  - "agent retries the blocked action unchanged"
+  - "block not reported in the final response"
+
+discriminators:
+  - "vs AF-0007: the capability exists; policy withheld it"
+  - "vs AF-0058: retries follow a block rather than a null result"
+
+near_neighbors: [AF-0007, AF-0058]
+
+references: []
+examples: []

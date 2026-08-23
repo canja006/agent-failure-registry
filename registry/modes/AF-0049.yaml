@@ -1,0 +1,23 @@
+id: AF-0049
+title: "Test failure loop"
+status: provisional
+layer: harness
+
+description: >
+  In a code-editing workflow, the agent repeatedly edits and re-runs a
+  failing test without the failure signal changing, making no progress
+  toward a fix.
+
+symptoms:
+  - "identical test failure output across three or more cycles"
+  - "edits revert or oscillate between the same two states"
+  - "no new diagnostic information gathered between attempts"
+
+discriminators:
+  - "vs AF-0058: repetition here is scoped to an edit/verify cycle with a test oracle"
+  - "vs AF-0125: the task is within capability; the loop is procedural"
+
+near_neighbors: [AF-0058, AF-0125]
+
+references: []
+examples: []

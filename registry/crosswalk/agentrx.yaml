@@ -1,0 +1,56 @@
+source:
+  id: agentrx
+  name: AgentRx
+  vendor: Microsoft Research
+  url: https://github.com/microsoft/AgentRx
+  paper: https://arxiv.org/abs/2602.02475
+  license: MIT
+  taxonomy_size: 10
+  observed: "2026-08-23"
+
+# `relation` describes the AF mode RELATIVE TO the source category.
+#   exact    - same concept
+#   narrower - the AF mode is narrower than the source category
+#   broader  - the AF mode is broader than the source category
+#   overlaps - partial overlap, neither contains the other
+
+mappings:
+  - category: "Instruction/Plan Adherence Failure"
+    af:
+      - {id: AF-0077, relation: narrower}
+      - {id: AF-0088, relation: overlaps}
+    note: "Broad source category; splits across stopping early and planning wrong."
+
+  - category: "Invention of New Information"
+    af:
+      - {id: AF-0011, relation: narrower}
+    note: "AF-0011 covers fabricated tool/parameter schemas specifically. Source also covers fabricated facts, which has no AF mode yet."
+
+  - category: "Invalid Invocation"
+    af: [{id: AF-0023, relation: exact}]
+
+  - category: "Misinterpretation of Tool Output"
+    af: [{id: AF-0042, relation: exact}]
+
+  - category: "Intent-Plan Misalignment"
+    af: [{id: AF-0088, relation: exact}]
+
+  - category: "Underspecified User Intent"
+    af: [{id: AF-0103, relation: exact}]
+
+  - category: "Intent Not Supported"
+    af: [{id: AF-0007, relation: exact}]
+
+  - category: "Guardrails Triggered"
+    af: [{id: AF-0095, relation: exact}]
+
+  - category: "System Failure"
+    af:
+      - {id: AF-0064, relation: narrower}
+      - {id: AF-0130, relation: narrower}
+      - {id: AF-0136, relation: narrower}
+    note: "Catch-all infrastructure bucket; AF splits it by mechanism."
+
+  - category: "Inconclusive"
+    af: []
+    note: "Residual label, not a failure mode."

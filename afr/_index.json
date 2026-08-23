@@ -1,0 +1,722 @@
+{
+ "edges": {
+  "academic": {},
+  "agent-xray": {
+   "approval_block": {
+    "af": [
+     {
+      "id": "AF-0095",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "consultative_success": {
+    "af": [],
+    "note": "Not a failure."
+   },
+   "context_overflow": {
+    "af": [
+     {
+      "id": "AF-0064",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "delegation_failure": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "early_abort": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "environment_drift": {
+    "af": [
+     {
+      "id": "AF-0118",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "insufficient_sources": {
+    "af": [
+     {
+      "id": "AF-0086",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "memory_overload": {
+    "af": [
+     {
+      "id": "AF-0064",
+      "relation": "overlaps"
+     }
+    ],
+    "note": ""
+   },
+   "model_limit": {
+    "af": [
+     {
+      "id": "AF-0125",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "prompt_bug": {
+    "af": [
+     {
+      "id": "AF-0103",
+      "relation": "overlaps"
+     }
+    ],
+    "note": ""
+   },
+   "rate_limit_cascade": {
+    "af": [
+     {
+      "id": "AF-0130",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "reasoning_bug": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0125",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Broad; overlaps both misreading output and hitting a capability ceiling."
+   },
+   "routing_bug": {
+    "af": [
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": ""
+   },
+   "spin": {
+    "af": [
+     {
+      "id": "AF-0058",
+      "relation": "overlaps"
+     }
+    ],
+    "note": ""
+   },
+   "stuck_loop": {
+    "af": [
+     {
+      "id": "AF-0058",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "test_failure_loop": {
+    "af": [
+     {
+      "id": "AF-0049",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "timeout": {
+    "af": [
+     {
+      "id": "AF-0136",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "tool_bug": {
+    "af": [],
+    "note": "GAP: tool-layer defect (the tool itself is broken). No AF mode yet - candidate for the tool layer."
+   },
+   "tool_rejection_mismatch": {
+    "af": [
+     {
+      "id": "AF-0095",
+      "relation": "overlaps"
+     }
+    ],
+    "note": ""
+   },
+   "tool_selection_bug": {
+    "af": [
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0023",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Wrong-tool-chosen sits between planning and invocation; deliberately not exact to either."
+   },
+   "unclassified": {
+    "af": [],
+    "note": "Residual label."
+   },
+   "valid_alternative_path": {
+    "af": [],
+    "note": "Not a failure."
+   }
+  },
+  "agentrx": {
+   "Guardrails Triggered": {
+    "af": [
+     {
+      "id": "AF-0095",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "Inconclusive": {
+    "af": [],
+    "note": "Residual label, not a failure mode."
+   },
+   "Instruction/Plan Adherence Failure": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Broad source category; splits across stopping early and planning wrong."
+   },
+   "Intent Not Supported": {
+    "af": [
+     {
+      "id": "AF-0007",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "Intent-Plan Misalignment": {
+    "af": [
+     {
+      "id": "AF-0088",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "Invalid Invocation": {
+    "af": [
+     {
+      "id": "AF-0023",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "Invention of New Information": {
+    "af": [
+     {
+      "id": "AF-0011",
+      "relation": "narrower"
+     }
+    ],
+    "note": "AF-0011 covers fabricated tool/parameter schemas specifically. Source also covers fabricated facts, which has no AF mode yet."
+   },
+   "Misinterpretation of Tool Output": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   },
+   "System Failure": {
+    "af": [
+     {
+      "id": "AF-0064",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0130",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0136",
+      "relation": "narrower"
+     }
+    ],
+    "note": "Catch-all infrastructure bucket; AF splits it by mechanism."
+   },
+   "Underspecified User Intent": {
+    "af": [
+     {
+      "id": "AF-0103",
+      "relation": "exact"
+     }
+    ],
+    "note": ""
+   }
+  }
+ },
+ "modes": [
+  {
+   "description": "The user's goal is coherent and well specified, but lies outside what the agent's tool set or permissions can accomplish. The agent proceeds anyway instead of reporting the gap.",
+   "discriminators": [
+    "vs AF-0103: the intent here is clear, not underspecified",
+    "vs AF-0095: nothing blocked the agent; the capability was simply absent"
+   ],
+   "examples": [],
+   "id": "AF-0007",
+   "layer": "user-intent",
+   "near_neighbors": [
+    "AF-0103",
+    "AF-0095"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "no available tool covers the requested capability",
+    "agent substitutes a partial or adjacent action without saying so",
+    "final response claims completion of an action never performed"
+   ],
+   "title": "Intent not supported"
+  },
+  {
+   "description": "The agent invents a tool, parameter, endpoint or field that does not exist in the provided schema, and calls it as though it did.",
+   "discriminators": [
+    "vs AF-0023: the tool exists here only in the model's output, not in the schema",
+    "vs AF-0042: the fabrication is in the call, not in reading the result"
+   ],
+   "examples": [],
+   "id": "AF-0011",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0023",
+    "AF-0042"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "tool name absent from the advertised tool list",
+    "parameter key absent from the tool's schema",
+    "invocation rejected by the harness as unknown"
+   ],
+   "title": "Fabricated tool signature"
+  },
+  {
+   "description": "The agent calls a tool that genuinely exists but with arguments that violate its schema \u2014 wrong types, missing required fields, malformed structure, or a call made in an invalid state.",
+   "discriminators": [
+    "vs AF-0011: the tool and parameters exist; only the values are wrong",
+    "vs AF-0088: the tool choice is appropriate for the plan; the call itself is malformed"
+   ],
+   "examples": [],
+   "id": "AF-0023",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0011",
+    "AF-0088"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "schema validation error returned by the harness",
+    "required parameter absent or null",
+    "argument type mismatch against the declared schema"
+   ],
+   "title": "Invalid tool invocation"
+  },
+  {
+   "description": "The tool returned correct output and the agent drew a conclusion the output does not support \u2014 inverting a boolean, missing an error field, reading a truncated result as complete.",
+   "discriminators": [
+    "vs AF-0023: the call succeeded; the failure is in interpretation",
+    "vs AF-0011: nothing was invented at call time"
+   ],
+   "examples": [],
+   "id": "AF-0042",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0023",
+    "AF-0011"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "agent's stated conclusion contradicts the returned payload",
+    "error field present in output but not acknowledged",
+    "downstream steps proceed on a value not present in the result"
+   ],
+   "title": "Tool output misread"
+  },
+  {
+   "description": "In a code-editing workflow, the agent repeatedly edits and re-runs a failing test without the failure signal changing, making no progress toward a fix.",
+   "discriminators": [
+    "vs AF-0058: repetition here is scoped to an edit/verify cycle with a test oracle",
+    "vs AF-0125: the task is within capability; the loop is procedural"
+   ],
+   "examples": [],
+   "id": "AF-0049",
+   "layer": "harness",
+   "near_neighbors": [
+    "AF-0058",
+    "AF-0125"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "identical test failure output across three or more cycles",
+    "edits revert or oscillate between the same two states",
+    "no new diagnostic information gathered between attempts"
+   ],
+   "title": "Test failure loop"
+  },
+  {
+   "description": "The agent retries the same action, or cycles a small set of actions, without the environment state or its own information changing between attempts.",
+   "discriminators": [
+    "vs AF-0142: repetition here is of actions, not of reads",
+    "vs AF-0049: not scoped to a test/verify cycle"
+   ],
+   "examples": [],
+   "id": "AF-0058",
+   "layer": "harness",
+   "near_neighbors": [
+    "AF-0142",
+    "AF-0049"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "identical action repeated with identical arguments",
+    "step count grows while observable state is unchanged",
+    "no new information enters context between attempts"
+   ],
+   "title": "Unproductive repetition"
+  },
+  {
+   "description": "Content the agent needs is silently dropped from context by window management \u2014 truncation, eviction, or summarisation \u2014 and the agent proceeds as though it were still present.",
+   "discriminators": [
+    "vs AF-0142: content is genuinely gone here, not present-but-re-read",
+    "vs AF-0125: a window-management failure, not a capability ceiling"
+   ],
+   "examples": [],
+   "id": "AF-0064",
+   "layer": "harness",
+   "near_neighbors": [
+    "AF-0142",
+    "AF-0125"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "reference to content no longer in the window",
+    "harness truncation or eviction event in the trace",
+    "agent re-derives a fact it had already established"
+   ],
+   "title": "Context overflow truncation"
+  },
+  {
+   "description": "A sub-agent or delegated call is dispatched with an incomplete or distorted brief, returns a result the parent cannot use, or its result is discarded without being incorporated.",
+   "discriminators": [
+    "vs AF-0088: the parent's plan is sound; the loss happens at the delegation boundary",
+    "vs AF-0086: information was gathered but not transferred"
+   ],
+   "examples": [],
+   "id": "AF-0071",
+   "layer": "harness",
+   "near_neighbors": [
+    "AF-0088",
+    "AF-0086"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "sub-agent brief omits constraints present in the parent task",
+    "sub-agent result not referenced in subsequent parent steps",
+    "parent re-does work the sub-agent already completed"
+   ],
+   "title": "Delegation failure"
+  },
+  {
+   "description": "The agent stops and reports completion while parts of the requested task remain undone, unverified, or explicitly deferred.",
+   "discriminators": [
+    "vs AF-0007: the work was possible with available tools",
+    "vs AF-0095: nothing blocked the agent from continuing"
+   ],
+   "examples": [],
+   "id": "AF-0077",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0007",
+    "AF-0095"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "final response claims done with open sub-goals in the plan",
+    "verification step named in the plan never executed",
+    "agent asks no clarifying question yet stops short"
+   ],
+   "title": "Premature termination"
+  },
+  {
+   "description": "The agent commits to a conclusion on evidence too thin to support it, without gathering readily available additional sources.",
+   "discriminators": [
+    "vs AF-0042: the sources read were interpreted correctly, there were just too few",
+    "vs AF-0077: the agent did not stop early; it concluded early"
+   ],
+   "examples": [],
+   "id": "AF-0086",
+   "layer": "harness",
+   "near_neighbors": [
+    "AF-0042",
+    "AF-0077"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "single source underpins a load-bearing claim",
+    "available search or read tools left unused",
+    "confidence in the final answer not matched by evidence in the trace"
+   ],
+   "title": "Insufficient sources"
+  },
+  {
+   "description": "The agent constructs a plan, or routes to a sub-task, that does not serve the user's actual goal \u2014 solving an adjacent or reformulated problem instead.",
+   "discriminators": [
+    "vs AF-0103: the intent was clear enough to plan against",
+    "vs AF-0023: the plan is wrong, not the mechanics of a call"
+   ],
+   "examples": [],
+   "id": "AF-0088",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0103",
+    "AF-0023"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "plan steps do not map onto stated goal criteria",
+    "agent optimises a proxy objective not requested",
+    "successful execution of the wrong task"
+   ],
+   "title": "Plan/intent misalignment"
+  },
+  {
+   "description": "A policy, approval gate, or safety filter halts the agent, and the agent neither surfaces the block clearly nor adapts its approach around it.",
+   "discriminators": [
+    "vs AF-0007: the capability exists; policy withheld it",
+    "vs AF-0058: retries follow a block rather than a null result"
+   ],
+   "examples": [],
+   "id": "AF-0095",
+   "layer": "harness",
+   "near_neighbors": [
+    "AF-0007",
+    "AF-0058"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "approval or policy rejection event in the trace",
+    "agent retries the blocked action unchanged",
+    "block not reported in the final response"
+   ],
+   "title": "Guardrail block"
+  },
+  {
+   "description": "The request admits several materially different readings and the agent picks one silently, without flagging the ambiguity or asking.",
+   "discriminators": [
+    "vs AF-0088: ambiguity originates upstream of the plan",
+    "vs AF-0007: the request may be entirely achievable once disambiguated"
+   ],
+   "examples": [],
+   "id": "AF-0103",
+   "layer": "user-intent",
+   "near_neighbors": [
+    "AF-0088",
+    "AF-0007"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "multiple defensible interpretations of the request",
+    "agent's chosen reading never stated to the user",
+    "no clarifying question despite a consequential fork"
+   ],
+   "title": "Underspecified intent"
+  },
+  {
+   "description": "The environment changes underneath the agent mid-run \u2014 file contents, credentials, service versions, network state \u2014 and the agent continues acting on a stale model of it.",
+   "discriminators": [
+    "vs AF-0142: the content genuinely changed here",
+    "vs AF-0130: drift is in state, not in throughput limits"
+   ],
+   "examples": [],
+   "id": "AF-0118",
+   "layer": "environment",
+   "near_neighbors": [
+    "AF-0142",
+    "AF-0130"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "read value differs from a previously read value with no agent write between",
+    "credential or session invalidated mid-run",
+    "dependency or service version changes between steps"
+   ],
+   "title": "Environment drift"
+  },
+  {
+   "description": "The task exceeds what the underlying model can do at all \u2014 reasoning depth, context length, domain knowledge \u2014 rather than failing on procedure or tooling.",
+   "discriminators": [
+    "vs AF-0058: attempts vary rather than repeat",
+    "vs AF-0064: not a window-management artefact"
+   ],
+   "examples": [],
+   "id": "AF-0125",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0058",
+    "AF-0064"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "repeated qualitatively different attempts, all failing",
+    "failure persists across harness changes",
+    "task succeeds when the model is upgraded, harness held constant"
+   ],
+   "title": "Model capability limit"
+  },
+  {
+   "description": "A throughput or quota limit triggers retries which themselves consume quota, degrading the run beyond the original limit.",
+   "discriminators": [
+    "vs AF-0058: repetition is driven by the limit, not by the agent's reasoning",
+    "vs AF-0136: quota exhaustion rather than elapsed-time expiry"
+   ],
+   "examples": [],
+   "id": "AF-0130",
+   "layer": "environment",
+   "near_neighbors": [
+    "AF-0058",
+    "AF-0136"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "429 or quota errors clustering in time",
+    "retry rate increasing rather than backing off",
+    "unrelated later steps failing on exhausted quota"
+   ],
+   "title": "Rate limit cascade"
+  },
+  {
+   "description": "A step or the whole run exceeds its time budget and is cut off, leaving the task partially executed and the agent unaware of the boundary.",
+   "discriminators": [
+    "vs AF-0130: elapsed time rather than quota",
+    "vs AF-0077: termination is external, not the agent's decision"
+   ],
+   "examples": [],
+   "id": "AF-0136",
+   "layer": "environment",
+   "near_neighbors": [
+    "AF-0130",
+    "AF-0077"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "run or step terminated by an external deadline",
+    "no completion signal in the trace",
+    "partial writes or half-applied state left behind"
+   ],
+   "title": "Timeout"
+  },
+  {
+   "description": "The agent re-reads a source it has already read within the same context window, with no intervening change to the target, and treats the result as new information.",
+   "discriminators": [
+    "vs AF-0058: repetition here is of reads specifically, not action retries",
+    "vs AF-0064: context is not overflowing; the content is still present",
+    "vs AF-0118: the target genuinely did not change"
+   ],
+   "examples": [],
+   "id": "AF-0142",
+   "layer": "harness",
+   "near_neighbors": [
+    "AF-0058",
+    "AF-0064",
+    "AF-0118"
+   ],
+   "references": [],
+   "status": "provisional",
+   "symptoms": [
+    "repeated identical read call within one context window",
+    "no intervening write to the read target",
+    "step count grows without state change"
+   ],
+   "title": "Stale context re-read"
+  }
+ ],
+ "sources": [
+  {
+   "id": "academic",
+   "license": "n/a",
+   "name": "Published taxonomies",
+   "observed": "2026-08-23",
+   "taxonomy_size": 0,
+   "url": "https://arxiv.org",
+   "vendor": "various"
+  },
+  {
+   "id": "agent-xray",
+   "license": "MIT",
+   "name": "Agent-Xray",
+   "observed": "2026-08-23",
+   "taxonomy_size": 22,
+   "url": "https://github.com/GeeIHadAGoodTime/Agent-Xray",
+   "vendor": "community"
+  },
+  {
+   "id": "agentrx",
+   "license": "MIT",
+   "name": "AgentRx",
+   "observed": "2026-08-23",
+   "taxonomy_size": 10,
+   "url": "https://github.com/microsoft/AgentRx",
+   "vendor": "Microsoft Research"
+  }
+ ],
+ "version": "393d57546211"
+}
