@@ -14,10 +14,10 @@
 #   broader  - the AF mode is broader than this category
 #   overlaps - partial; neither contains the other
 #
-# Generated from AFR index ae6acc1fab99 on 2026-08-23.
+# Generated from AFR index 7dea313d683a on 2026-08-23.
 # Corrections welcome as issues on the AFR repo.
 
-afr_index: "ae6acc1fab99"
+afr_index: "7dea313d683a"
 source: agent-xray
 
 categories:
@@ -27,20 +27,24 @@ categories:
       title: Guardrail block
   context_overflow:
     - id: AF-0064
-      relation: exact
+      relation: overlaps
       title: Context overflow truncation
+    # Context-pressure text followed by shorter reasoning or more errors - degradation under pressure, not content dropped and acted on as if present. Not exact.
   delegation_failure:
     - id: AF-0071
-      relation: exact
+      relation: broader
       title: Delegation failure
+    # Fires only when a delegation-marker tool returns an error-like result. AF-0071 also covers brief distortion and discarded results, so it is broader.
   early_abort:
     - id: AF-0077
       relation: exact
       title: Premature termination
+    # Fires on 0 < step_count < 3; does not require a completion claim.
   environment_drift:
     - id: AF-0118
       relation: exact
       title: Environment drift
+    # Detector is 'environment-style errors (timeout, click_fail, not_found) dominate' - a proxy for the described 'page changed underneath the runner'.
   insufficient_sources:
     - id: AF-0086
       relation: exact
@@ -49,14 +53,17 @@ categories:
     - id: AF-0064
       relation: overlaps
       title: Context overflow truncation
+    # Context usage >= 85% plus degradation evidence; this is the category that can carry AF-0064's eviction/compaction counters. Near-synonym of context_overflow by design.
   model_limit:
     - id: AF-0125
       relation: exact
       title: Model capability limit
+    # Detector is step_count > 50 and < 2 URLs - the stuck_loop test at a higher threshold. An Agent-Xray AF-0125/AF-0058 split is partly a step-count artefact.
   prompt_bug:
     - id: AF-0103
       relation: overlaps
       title: Underspecified intent
+    # Confusion/uncertainty regex in reasoning; also the fallback when nothing else matches but a prompt-section pattern does. Harness prompt quality rather than user-request ambiguity.
   rate_limit_cascade:
     - id: AF-0130
       relation: exact
@@ -68,19 +75,22 @@ categories:
     - id: AF-0125
       relation: overlaps
       title: Model capability limit
-    # Broad; overlaps both misreading output and hitting a capability ceiling.
+    # errors == 0, > 1 tool, > 1 URL, still failed - effectively 'progressed cleanly with no hard signal'. Broad by design.
   routing_bug:
-    - id: AF-0088
+    - id: AF-0007
       relation: overlaps
-      title: Plan/intent misalignment
+      title: Intent not supported
+    # GAP: fires when a step's exposed tool list is EMPTY - the harness never scoped the tool in. Shares AF-0007's symptom at the harness layer; no AF mode for tool-not-exposed yet.
   spin:
-    - id: AF-0058
-      relation: overlaps
-      title: Unproductive repetition
-  stuck_loop:
     - id: AF-0058
       relation: exact
       title: Unproductive repetition
+    # Longest consecutive streak of the same tool name >= 5 - AF-0058's first symptom nearly verbatim. Third in the cascade, so it wins over stuck_loop when both fire.
+  stuck_loop:
+    - id: AF-0058
+      relation: overlaps
+      title: Unproductive repetition
+    # unique_urls <= 1 and step_count >= 5. No repetition required - absence of navigation progress. Same test as model_limit at a lower threshold.
   test_failure_loop:
     - id: AF-0049
       relation: exact
@@ -88,25 +98,32 @@ categories:
   timeout:
     - id: AF-0136
       relation: exact
-      title: Timeout
+      title: Time or step budget exhausted
+    # Step budget (>= 40) plus a stalled final window; no elapsed-time signal. AF-0136 covers time or step budgets, hence exact; the stall requirement overlaps AF-0058.
+  tool_bug:
+    - id: AF-0011
+      relation: overlaps
+      title: Fabricated tool signature
+    - id: AF-0023
+      relation: overlaps
+      title: Invalid tool invocation
+    # GAP: intended meaning is a tool-layer defect (right tool, bad result) - no AF mode for that yet. As detected it fires when unknown_tool + validation + other errors dominate, i.e. mostly fabricated tools (AF-0011) and schema errors (AF-0023).
   tool_rejection_mismatch:
     - id: AF-0095
       relation: overlaps
       title: Guardrail block
+    # Non-expected tool rejections on >= 30% of steps.
   tool_selection_bug:
     - id: AF-0088
       relation: overlaps
       title: Plan/intent misalignment
-    - id: AF-0023
-      relation: overlaps
-      title: Invalid tool invocation
-    # Wrong-tool-chosen sits between planning and invocation; deliberately not exact to either.
+    # GAP: right tool available, agent used something else (search-only when browser exposed; or one tool across many URLs). No invocation error involved. No AF mode for wrong-tool-selected yet; AF-0088 is the nearest.
 
-# Categories with no AF mode. Three different things:
-#   - residual labels and non-failures (correct to leave empty)
-#   - genuine registry gaps, marked GAP - these are AFR's roadmap
+# Categories with no AF mode: residual labels and non-failures, left
+# empty on purpose. Registry gaps - things this taxonomy names that AFR
+# cannot yet name exactly - are marked GAP in the notes above; they are
+# AFR's roadmap, not a judgement on the category.
 unmapped:
   consultative_success: "Not a failure."
-  tool_bug: "GAP: tool-layer defect (the tool itself is broken). No AF mode yet - candidate for the tool layer."
   unclassified: "Residual label."
   valid_alternative_path: "Not a failure."

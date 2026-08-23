@@ -12,9 +12,9 @@ that share nothing. This is the mapping layer between them.
 >>> import afr
 >>> afr.map("agentrx", "Invalid Invocation")
 [AF-0023 (exact)]
->>> afr.map("agent-xray", "context_overflow")
-[AF-0064 (exact)]
->>> afr.mode("AF-0064").layer
+>>> afr.map("agent-xray", "spin")
+[AF-0058 (exact)]
+>>> afr.mode("AF-0058").layer
 'harness'
 ```
 
@@ -96,14 +96,20 @@ At most one `exact` per source category. One wrong `exact` discredits the table.
 ## Status
 
 Pre-v0. 18 modes, all `provisional`; 3 source taxonomies; 90% of AgentRx and
-82% of Agent-Xray mapped. The remaining modes are week-one reading, not coding —
-see [`registry/crosswalk/academic.yaml`](registry/crosswalk/academic.yaml) for
-the queue.
+86% of Agent-Xray mapped — Agent-Xray from a full read of its classifier, not
+its README (see [`registry/crosswalk/notes/`](registry/crosswalk/notes/)). The
+remaining modes are week-one reading, not coding — see
+[`registry/crosswalk/academic.yaml`](registry/crosswalk/academic.yaml) for the
+queue.
 
-Two findings are already falling out of the structure, which is the point:
+Findings are already falling out of the structure, which is the point.
+`afr gaps` surfaces four:
 
-- `agent-xray:tool_bug` has **no AF mode** — the registry has no `tool`-layer
-  entry yet. `afr gaps` surfaces it.
+- `agent-xray:tool_bug` — a **tool-layer defect** has no AF mode; the registry
+  has no `tool`-layer entry yet. (As detected, the category mostly catches
+  fabricated tools and schema errors, which *do* map.)
+- `agent-xray:routing_bug` — **tool never exposed by the harness**. No AF mode.
+- `agent-xray:tool_selection_bug` — **wrong tool selected**. No AF mode.
 - **`AF-0142`** (stale context re-read) has **no source mapping** — a failure
   everyone has seen that no published taxonomy names.
 

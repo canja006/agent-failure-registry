@@ -64,9 +64,10 @@ def render(source_id: str, date: str) -> str:
 
     if unmapped:
         w("")
-        w("# Categories with no AF mode. Three different things:")
-        w("#   - residual labels and non-failures (correct to leave empty)")
-        w("#   - genuine registry gaps, marked GAP - these are AFR's roadmap")
+        w("# Categories with no AF mode: residual labels and non-failures, left")
+        w("# empty on purpose. Registry gaps - things this taxonomy names that AFR")
+        w("# cannot yet name exactly - are marked GAP in the notes above; they are")
+        w("# AFR's roadmap, not a judgement on the category.")
         w("unmapped:")
         for cat, note in unmapped:
             w("  %s: \"%s\"" % (cat, note or "not a failure mode"))

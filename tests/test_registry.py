@@ -107,7 +107,18 @@ class TestCrosswalk(unittest.TestCase):
     def test_coverage(self):
         c = afr.coverage("agent-xray")
         self.assertEqual(c["categories"], 22)
-        self.assertIn("tool_bug", c["unmapped"])
+        # tool_bug is partially covered (overlaps) but still a flagged GAP.
+        self.assertNotIn("tool_bug", c["unmapped"])
+        self.assertEqual(set(c["unmapped"]),
+                         {"valid_alternative_path", "consultative_success", "unclassified"})
+
+    def test_gap_notes_survive_partial_mapping(self):
+        # A category can be mapped by overlaps and still be a roadmap item.
+        for cat in ("tool_bug", "routing_bug", "tool_selection_bug"):
+            hits = afr.map("agent-xray", cat)
+            self.assertTrue(hits, cat)
+            self.assertTrue(all(h.relation == "overlaps" for h in hits), cat)
+            self.assertTrue(hits[0].note.startswith("GAP"), cat)
 
 
 class TestNormalizeAndProfile(unittest.TestCase):
@@ -125,7 +136,7 @@ class TestNormalizeAndProfile(unittest.TestCase):
     def test_best_prefers_exact(self):
         labels = afr.normalize({"tool_selection_bug": 1}, "agent-xray")
         self.assertEqual(labels[0].best.relation, "overlaps")
-        labels = afr.normalize({"context_overflow": 1}, "agent-xray")
+        labels = afr.normalize({"spin": 1}, "agent-xray")
         self.assertEqual(labels[0].best.relation, "exact")
 
     def test_profile_totals(self):

@@ -7,52 +7,72 @@ source:
   taxonomy_size: 22
   observed: "2026-08-23"
 
+# Mapped from a full read of src/agent_xray/root_cause.py and analyzer.py at
+# main (last push 2026-04-05), not from the README table. Per-category
+# detector logic and the reasoning behind every verdict: notes/agent-xray.md.
+#
+# Agent-Xray runs every classifier and reports the FIRST match in a fixed
+# cascade as primary (spin before stuck_loop; model_limit before stuck_loop).
+# Profiles built from its primary label inherit that ordering.
+
 mappings:
   - category: spin
-    af: [{id: AF-0058, relation: overlaps}]
-  - category: stuck_loop
     af: [{id: AF-0058, relation: exact}]
+    note: "Longest consecutive streak of the same tool name >= 5 - AF-0058's first symptom nearly verbatim. Third in the cascade, so it wins over stuck_loop when both fire."
+  - category: stuck_loop
+    af: [{id: AF-0058, relation: overlaps}]
+    note: "unique_urls <= 1 and step_count >= 5. No repetition required - absence of navigation progress. Same test as model_limit at a lower threshold."
   - category: test_failure_loop
     af: [{id: AF-0049, relation: exact}]
   - category: early_abort
     af: [{id: AF-0077, relation: exact}]
+    note: "Fires on 0 < step_count < 3; does not require a completion claim."
   - category: routing_bug
-    af: [{id: AF-0088, relation: overlaps}]
+    af: [{id: AF-0007, relation: overlaps}]
+    note: "GAP: fires when a step's exposed tool list is EMPTY - the harness never scoped the tool in. Shares AF-0007's symptom at the harness layer; no AF mode for tool-not-exposed yet."
   - category: tool_selection_bug
-    af:
-      - {id: AF-0088, relation: overlaps}
-      - {id: AF-0023, relation: overlaps}
-    note: "Wrong-tool-chosen sits between planning and invocation; deliberately not exact to either."
+    af: [{id: AF-0088, relation: overlaps}]
+    note: "GAP: right tool available, agent used something else (search-only when browser exposed; or one tool across many URLs). No invocation error involved. No AF mode for wrong-tool-selected yet; AF-0088 is the nearest."
   - category: reasoning_bug
     af:
       - {id: AF-0042, relation: overlaps}
       - {id: AF-0125, relation: overlaps}
-    note: "Broad; overlaps both misreading output and hitting a capability ceiling."
+    note: "errors == 0, > 1 tool, > 1 URL, still failed - effectively 'progressed cleanly with no hard signal'. Broad by design."
   - category: approval_block
     af: [{id: AF-0095, relation: exact}]
   - category: tool_rejection_mismatch
     af: [{id: AF-0095, relation: overlaps}]
+    note: "Non-expected tool rejections on >= 30% of steps."
   - category: prompt_bug
     af: [{id: AF-0103, relation: overlaps}]
+    note: "Confusion/uncertainty regex in reasoning; also the fallback when nothing else matches but a prompt-section pattern does. Harness prompt quality rather than user-request ambiguity."
   - category: context_overflow
-    af: [{id: AF-0064, relation: exact}]
+    af: [{id: AF-0064, relation: overlaps}]
+    note: "Context-pressure text followed by shorter reasoning or more errors - degradation under pressure, not content dropped and acted on as if present. Not exact."
   - category: memory_overload
     af: [{id: AF-0064, relation: overlaps}]
+    note: "Context usage >= 85% plus degradation evidence; this is the category that can carry AF-0064's eviction/compaction counters. Near-synonym of context_overflow by design."
   - category: environment_drift
     af: [{id: AF-0118, relation: exact}]
+    note: "Detector is 'environment-style errors (timeout, click_fail, not_found) dominate' - a proxy for the described 'page changed underneath the runner'."
   - category: rate_limit_cascade
     af: [{id: AF-0130, relation: exact}]
   - category: timeout
     af: [{id: AF-0136, relation: exact}]
+    note: "Step budget (>= 40) plus a stalled final window; no elapsed-time signal. AF-0136 covers time or step budgets, hence exact; the stall requirement overlaps AF-0058."
   - category: delegation_failure
-    af: [{id: AF-0071, relation: exact}]
+    af: [{id: AF-0071, relation: broader}]
+    note: "Fires only when a delegation-marker tool returns an error-like result. AF-0071 also covers brief distortion and discarded results, so it is broader."
   - category: insufficient_sources
     af: [{id: AF-0086, relation: exact}]
   - category: model_limit
     af: [{id: AF-0125, relation: exact}]
+    note: "Detector is step_count > 50 and < 2 URLs - the stuck_loop test at a higher threshold. An Agent-Xray AF-0125/AF-0058 split is partly a step-count artefact."
   - category: tool_bug
-    af: []
-    note: "GAP: tool-layer defect (the tool itself is broken). No AF mode yet - candidate for the tool layer."
+    af:
+      - {id: AF-0011, relation: overlaps}
+      - {id: AF-0023, relation: overlaps}
+    note: "GAP: intended meaning is a tool-layer defect (right tool, bad result) - no AF mode for that yet. As detected it fires when unknown_tool + validation + other errors dominate, i.e. mostly fabricated tools (AF-0011) and schema errors (AF-0023)."
   - category: valid_alternative_path
     af: []
     note: "Not a failure."

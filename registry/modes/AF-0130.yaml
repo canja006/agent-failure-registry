@@ -14,7 +14,7 @@ symptoms:
 
 discriminators:
   - "vs AF-0058: repetition is driven by the limit, not by the agent's reasoning"
-  - "vs AF-0136: quota exhaustion rather than elapsed-time expiry"
+  - "vs AF-0136: quota exhaustion rather than a time or step ceiling"
   - "vs AF-0118: the environment's state is unchanged; only its quota is exhausted"
 
 near_neighbors: [AF-0058, AF-0136, AF-0118]

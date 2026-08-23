@@ -1,19 +1,21 @@
 id: AF-0136
-title: "Timeout"
+title: "Time or step budget exhausted"
 status: provisional
 layer: environment
 
 description: >
-  A step or the whole run exceeds its time budget and is cut off, leaving
-  the task partially executed and the agent unaware of the boundary.
+  A step or the whole run exceeds an externally imposed budget — wall-clock
+  time, or a maximum step / iteration count — and is cut off, leaving the
+  task partially executed and the agent unaware of the boundary. The two
+  budgets present identically in a trajectory, so they share a mode.
 
 symptoms:
-  - "run or step terminated by an external deadline"
+  - "run or step terminated by an external time limit or step/iteration cap"
   - "no completion signal in the trace"
   - "partial writes or half-applied state left behind"
 
 discriminators:
-  - "vs AF-0130: elapsed time rather than quota"
+  - "vs AF-0130: a time or step ceiling, not a throughput quota; no 429-style errors"
   - "vs AF-0077: termination is external, not the agent's decision"
 
 near_neighbors: [AF-0130, AF-0077]

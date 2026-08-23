@@ -92,14 +92,19 @@ def cmd_coverage(args):
 
 
 def cmd_gaps(args):
-    _p("source categories with no AF mode:")
+    # A GAP note marks something the source names and the registry cannot
+    # yet name exactly - whether the category is unmapped or only partially
+    # covered by overlaps. Both are roadmap.
+    _p("source categories flagged GAP (no exact AF mode):")
     found = False
     for src in data.sources():
-        for cat in _coverage(src.id)["unmapped"]:
+        for cat in data.categories(src.id):
             note = data._load()["edges"][src.id][cat].get("note", "")
-            if note.startswith("GAP"):
-                found = True
-                _p("  %-12s %-26s %s" % (src.id, cat, note))
+            if not note.startswith("GAP"):
+                continue
+            found = True
+            partial = ", ".join(str(e) for e in data.edges(src.id, cat)) or "-"
+            _p("  %-12s %-22s %-34s %s" % (src.id, cat, "[" + partial + "]", note))
     if not found:
         _p("  (none flagged)")
     _p("\nAF modes no taxonomy maps to:")

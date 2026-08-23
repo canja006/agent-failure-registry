@@ -22,9 +22,12 @@ this ask. Resist it.
       `make outreach`
 - [x] Publish the AFR repo publicly — every PR links to it, and a 404 kills the ask
 - [x] Drop the canonical Apache-2.0 text into `LICENSE-CODE`
-- [ ] Re-read each target's *current* taxonomy. These files record
-      `observed: 2026-08-23`; if a taxonomy has changed since, fix the mapping
-      before sending, not after
+- [x] Re-read each target's *current* taxonomy before sending. Agent-Xray:
+      **done** — full read of `root_cause.py`/`analyzer.py` on 2026-08-23, notes in
+      `registry/crosswalk/notes/agent-xray.md`, mapping corrected from it.
+- [ ] AgentRx: README-level check on 2026-08-23 found all ten labels unchanged,
+      but the paper (2602.02475) and any judge prompt / label definitions in the
+      repo have not been read in full. Do that before sending PR #3.
 - [x] `make check` green
 
 ## What each PR deliberately does not do
