@@ -47,6 +47,10 @@ class Mapping:
     def __str__(self):
         return "%s (%s)" % (self.id, self.relation)
 
+    # The README's first example is `afr.map(...)` at a REPL; the dataclass
+    # repr would drown the two fields that matter in five that do not.
+    __repr__ = __str__
+
 
 @dataclass(frozen=True)
 class Mode:

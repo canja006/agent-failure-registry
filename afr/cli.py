@@ -57,9 +57,13 @@ def cmd_show(args):
 
 
 def cmd_map(args):
+    try:
+        cats = data.categories(args.source)
+    except KeyError as exc:
+        sys.exit(str(exc))
     hits = crosswalk.map(args.source, args.category)
     if not hits:
-        known = args.category in data.categories(args.source)
+        known = args.category in cats
         _p("no AF mapping" if known else "unknown category %r" % args.category)
         return
     for h in hits:

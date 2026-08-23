@@ -19,7 +19,8 @@ demo:
 	@python3 -m afr.cli profile examples/agent-xray-counts.json -s agent-xray
 
 clean:
-	rm -rf **/__pycache__ .pytest_cache
+	find . -name __pycache__ -type d -prune -exec rm -rf {} +
+	rm -rf .pytest_cache
 
 outreach:
 	python3 scripts/export_mapping.py agentrx    > outreach/01-agentrx/afr-mapping.yaml

@@ -62,6 +62,7 @@ mappings:
     af:
       - {id: AF-0064, relation: narrower}
       - {id: AF-0130, relation: narrower}
+      - {id: AF-0136, relation: narrower}
     note: "Catch-all infrastructure bucket; AF splits it by mechanism."
 ```
 

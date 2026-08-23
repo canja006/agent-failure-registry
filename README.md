@@ -52,8 +52,10 @@ print(afr.profile(labels).render())
 
 ```
 failure profile  (source: agent-xray, n=49)
-AF-0058    63.3%  ####################   Unproductive repetition
-AF-0064    36.7%  ############           Context overflow truncation
+--------------------------------------------------------------------
+AF-0058    63.3%  ######################              Unproductive repetition
+AF-0064    36.7%  ############                        Context overflow truncation
+--------------------------------------------------------------------
 by layer: harness=49
 ```
 

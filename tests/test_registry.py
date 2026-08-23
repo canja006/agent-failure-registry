@@ -31,6 +31,13 @@ class TestModes(unittest.TestCase):
             for nn in m.near_neighbors:
                 self.assertIn(nn, ids)
 
+    def test_near_neighbors_are_reciprocal(self):
+        by_id = {m.id: m for m in afr.modes()}
+        for m in afr.modes():
+            for nn in m.near_neighbors:
+                self.assertIn(m.id, by_id[nn].near_neighbors,
+                              "%s lists %s but not vice versa" % (m.id, nn))
+
 
 class TestRelations(unittest.TestCase):
     def test_inversion_is_involutive(self):
@@ -44,6 +51,13 @@ class TestRelations(unittest.TestCase):
     def test_symmetric_relations_hold(self):
         self.assertEqual(invert("exact"), "exact")
         self.assertEqual(invert("overlaps"), "overlaps")
+
+    def test_mapping_repr_is_compact(self):
+        # What the README promises `afr.map()` prints at a REPL.
+        self.assertEqual(repr(afr.Mapping(id="AF-0023", relation="exact")),
+                         "AF-0023 (exact)")
+        self.assertEqual(repr(afr.map("agentrx", "Invalid Invocation")),
+                         "[AF-0023 (exact)]")
 
     def test_bad_relation_rejected(self):
         with self.assertRaises(ValueError):
