@@ -105,12 +105,21 @@ queue.
 Findings are already falling out of the structure, which is the point. One
 has already changed the registry: Agent-Xray's `tool_bug` exposed an empty
 `tool` layer, and **`AF-0149`** (tool defect) now fills it. `afr gaps` surfaces
-three more:
+six more from the two tools, plus one orphan:
 
-- `agent-xray:routing_bug` — **tool never exposed by the harness**. No AF mode.
-- `agent-xray:tool_selection_bug` — **wrong tool selected**. No AF mode.
+- **tool never exposed by the harness** (`agent-xray:routing_bug`)
+- **wrong tool selected** (`agent-xray:tool_selection_bug`)
+- **required step skipped with the goal correct** (`agentrx:Instruction/Plan
+  Adherence Failure` — the most common failure event in AgentRx's own data)
+- **fabricated fact or claim about state** (`agentrx:Invention of New Information`)
+- **external access block** — CAPTCHA / 403 / paywall (`agentrx:Guardrails Triggered`)
+- **connectivity failure** — DNS / refused / unreachable (`agentrx:System Failure`)
 - **`AF-0142`** (stale context re-read) has **no source mapping** — a failure
   everyone has seen that no published taxonomy names.
+
+Modes for these get written once a second independent source names the same
+thing — one mode per vendor category is how a shared namespace becomes a house
+style.
 
 ## Repo layout
 

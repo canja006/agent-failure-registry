@@ -13,6 +13,12 @@ point is comparability: a practitioner running AgentRx and a second diagnostic
 tool currently gets two reports with no shared vocabulary, and no way to tell
 whether the two tools found the same thing.
 
+The mapping was made from the judge's operative definitions and checklists in
+`agentrx/judge/judge.py`, the paper (§2.2), and the ground-truth annotations —
+not from the README table. The checklists are more precise than the one-line
+descriptions, and the mapping follows them. The read notes are public in the
+AFR repo.
+
 ### Why here rather than only in our repo
 
 The mapping is published on our side regardless. Having it sit alongside the
@@ -20,31 +26,53 @@ taxonomy it describes means it stays visible to the people it helps, and it
 gets noticed when the taxonomy changes. If you would rather it live only
 upstream, say so and I will close this — the mapping is useful either way.
 
+### Your taxonomy found four gaps in ours
+
+This is the mapping working in the direction I hoped it would. Four AgentRx
+categories name things the registry cannot yet name exactly; all four are
+recorded as open gaps:
+
+- **`Instruction/Plan Adherence Failure`** — your checklist defines this as
+  *goal correct, required step skipped / reordered / padded*. The registry has
+  "premature termination" (one kind of under-execution, mapped `narrower`) but
+  no mode for the general case — which, by your own annotations, is the most
+  common failure event in the corpus.
+- **`Invention of New Information`** — the registry's nearest mode is
+  fabricated *tool and parameter schemas* (mapped `narrower`). Fabricated
+  facts, hallucinated state ("download succeeded"), and unjustified omission
+  have no mode.
+- **`Guardrails Triggered`** — your definition spans RAI/safety refusals *and*
+  external site access restrictions (CAPTCHA, 403, paywall, robots.txt). The
+  registry's "guardrail block" is the harness's own policy gate, so it maps
+  `narrower`; the external-access half is an environment-layer block nobody
+  has named.
+- **`System Failure`** — splits into time/step budget, rate-limit cascade and
+  tool-internal error (all `narrower`), but pure connectivity failure
+  (DNS / connection refused / endpoint unreachable) has no mode.
+
 ### Mapping decisions worth flagging
 
-Three needed judgement, and I would rather surface them than have them found
-later:
+Surfaced rather than buried — the registry allows at most one `exact` per
+category precisely so a single wrong `exact` cannot quietly discredit the rest
+of the table.
 
-- **`System Failure` → three `narrower` mappings** (`AF-0064` context overflow,
-  `AF-0130` rate-limit cascade, `AF-0136` timeout). Read as a deliberate
-  catch-all for infrastructure faults; AFR splits it by mechanism. If you
-  intend it more narrowly, this is wrong and I will fix it.
-- **`Invention of New Information` → `AF-0011` (`narrower`)**. `AF-0011` covers
-  fabricated *tool and parameter schemas* specifically. Your category also
-  covers fabricated facts, which AFR has no mode for yet — a gap on our side,
-  recorded as such.
-- **`Instruction/Plan Adherence Failure`** splits across `AF-0077` (stopping
-  early, `narrower`) and `AF-0088` (planning wrong, `overlaps`).
-
-`Inconclusive` is deliberately left unmapped as a residual label rather than
-forced onto a mode.
+- **`Misinterpretation of Tool Output`** is `narrower` to "tool output
+  misread", not `exact`, because the judge's name for it is
+  "… / Handoff Failure" and the checklist covers *another agent's* output. The
+  handoff half also maps `overlaps` to "delegation failure". 15 of 44 Magentic
+  root causes are Orchestrator-misreads-WebSurfer, so this matters for profiles.
+- **`Instruction/Plan Adherence Failure`** no longer maps to "plan/intent
+  misalignment" at all — checklist question 1 requires the goal to be correct,
+  which makes the two categories disjoint by construction.
+- `Inconclusive` is left unmapped as a residual; the file notes that the judge
+  emits a free-text `custom_category` with it.
 
 ### On the category count
 
-The README lists ten labels; the paper (arXiv 2602.02475) describes nine
-root-cause categories with `Inconclusive` as the residual. The file follows the
-README's ten and treats `Inconclusive` as unmapped, which I believe matches the
-intent. Correct me if not.
+The README lists ten labels; the paper (§2.2) describes nine with
+`Inconclusive` as the residual. The file follows the README's ten and treats
+`Inconclusive` as unmapped, which I believe matches the intent. Correct me if
+not.
 
 ### Not an endorsement
 

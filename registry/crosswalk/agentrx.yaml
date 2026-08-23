@@ -13,44 +13,62 @@ source:
 #   narrower - the AF mode is narrower than the source category
 #   broader  - the AF mode is broader than the source category
 #   overlaps - partial overlap, neither contains the other
+#
+# Mapped from the judge's operative definitions and per-category checklists
+# (agentrx/judge/judge.py TAXONOMY_DATA at main, 2026-06-22), the paper
+# (2602.02475 v1, S2-2.2) and the ground-truth annotations - not from the
+# README table. Reasoning per verdict: notes/agentrx.md.
+#
+# AgentRx reports ONE label per trajectory: the category of the first
+# unrecoverable ("critical") failure. Category names below follow the README
+# and ground-truth spelling; the judge's own strings differ slightly
+# ("Misinterpretation of Tool Output / Handoff Failure", "Inconclusive
+# (USE SPARINGLY)").
 
 mappings:
   - category: "Instruction/Plan Adherence Failure"
     af:
       - {id: AF-0077, relation: narrower}
-      - {id: AF-0088, relation: overlaps}
-    note: "Broad source category; splits across stopping early and planning wrong."
+    note: "GAP: goal is correct (checklist Q1 excludes wrong-problem cases) but a step required by the plan, domain policy or orchestrator was skipped, reordered or padded with unneeded actions. Stopping early (AF-0077) is one kind of under-execution; the general 'required step skipped / policy deviated from' has no AF mode - and it is the most common failure event in AgentRx's own annotations."
 
   - category: "Invention of New Information"
     af:
       - {id: AF-0011, relation: narrower}
-    note: "AF-0011 covers fabricated tool/parameter schemas specifically. Source also covers fabricated facts, which has no AF mode yet."
+    note: "GAP: AF-0011 covers fabricated tool/parameter schemas only. The category also covers fabricated facts, hallucinated state ('download succeeded'), and unjustified omission of relevant information - no AF mode for fabricated fact/claim yet."
 
   - category: "Invalid Invocation"
     af: [{id: AF-0023, relation: exact}]
+    note: "Explicit parse/validation/schema/syntax error for a concrete call; checklist excludes infra and access-block causes."
 
   - category: "Misinterpretation of Tool Output"
-    af: [{id: AF-0042, relation: exact}]
+    af:
+      - {id: AF-0042, relation: narrower}
+      - {id: AF-0071, relation: overlaps}
+    note: "Judge name is 'Misinterpretation of Tool Output / Handoff Failure': reasoning that contradicts, omits part of, or miscomputes from the agent's OWN OR ANOTHER AGENT's output. AF-0042 is the own-tool-output slice; a parent misusing a sub-agent's result is AF-0071's third symptom. 15/44 Magentic root causes are orchestrator-misreads-WebSurfer."
 
   - category: "Intent-Plan Misalignment"
     af: [{id: AF-0088, relation: exact}]
+    note: "Wrong objective or key constraint violated because intent was misunderstood; checklist excludes missing-information and tool-error causes."
 
   - category: "Underspecified User Intent"
     af: [{id: AF-0103, relation: exact}]
+    note: "A specific required piece of information is absent from all evidence and the agent proceeded without it or failed to ask. AF-0103 describes the same failure from the 'picked a reading silently' side."
 
   - category: "Intent Not Supported"
     af: [{id: AF-0007, relation: exact}]
+    note: "Requested action needs a capability no available tool provides. In multi-agent runs the requester is often the orchestrator (FileSurfer asked to listen to audio) - same shape one level down."
 
   - category: "Guardrails Triggered"
-    af: [{id: AF-0095, relation: exact}]
+    af: [{id: AF-0095, relation: narrower}]
+    note: "GAP: the category is an RAI/safety-policy refusal OR an external site access restriction (CAPTCHA, login wall, 403, paywall, robots.txt). AF-0095 is the harness's own policy/approval gate and covers the first half; the external-access block is environment-layer and has no AF mode. Magentic's 9/44 here are a mix of Azure RAI filters and Cloudflare/CAPTCHA."
 
   - category: "System Failure"
     af:
-      - {id: AF-0064, relation: narrower}
-      - {id: AF-0130, relation: narrower}
       - {id: AF-0136, relation: narrower}
-    note: "Catch-all infrastructure bucket; AF splits it by mechanism."
+      - {id: AF-0130, relation: narrower}
+      - {id: AF-0149, relation: narrower}
+    note: "GAP: explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it: time/step budget, rate-limit cascade, and tool-internal errors (5xx). Pure connectivity failure (DNS/refused/unreachable) has no AF mode yet. Context truncation is not in the definition and is no longer mapped here."
 
   - category: "Inconclusive"
     af: []
-    note: "Residual label, not a failure mode."
+    note: "Residual label, not a failure mode. The judge must supply a free-text custom_category with it, so AgentRx output can carry labels outside the ten."

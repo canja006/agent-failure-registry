@@ -88,10 +88,10 @@ class TestCrosswalk(unittest.TestCase):
             afr.map("agentrx", "Nonexistent", strict=True)
 
     def test_roundtrip_inverts_relation(self):
-        # AgentRx "System Failure" is broader than AF-0064.
-        forward = [h for h in afr.map("agentrx", "System Failure") if h.id == "AF-0064"]
+        # AgentRx "System Failure" is broader than AF-0136.
+        forward = [h for h in afr.map("agentrx", "System Failure") if h.id == "AF-0136"]
         self.assertEqual(forward[0].relation, "narrower")
-        back = [h for h in afr.unmap("AF-0064", "agentrx")]
+        back = [h for h in afr.unmap("AF-0136", "agentrx")]
         self.assertEqual(back[0].relation, "broader")
 
     def test_unmap_across_sources(self):

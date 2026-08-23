@@ -203,27 +203,23 @@
     "af": [
      {
       "id": "AF-0095",
-      "relation": "exact"
+      "relation": "narrower"
      }
     ],
-    "note": ""
+    "note": "GAP: the category is an RAI/safety-policy refusal OR an external site access restriction (CAPTCHA, login wall, 403, paywall, robots.txt). AF-0095 is the harness's own policy/approval gate and covers the first half; the external-access block is environment-layer and has no AF mode. Magentic's 9/44 here are a mix of Azure RAI filters and Cloudflare/CAPTCHA."
    },
    "Inconclusive": {
     "af": [],
-    "note": "Residual label, not a failure mode."
+    "note": "Residual label, not a failure mode. The judge must supply a free-text custom_category with it, so AgentRx output can carry labels outside the ten."
    },
    "Instruction/Plan Adherence Failure": {
     "af": [
      {
       "id": "AF-0077",
       "relation": "narrower"
-     },
-     {
-      "id": "AF-0088",
-      "relation": "overlaps"
      }
     ],
-    "note": "Broad source category; splits across stopping early and planning wrong."
+    "note": "GAP: goal is correct (checklist Q1 excludes wrong-problem cases) but a step required by the plan, domain policy or orchestrator was skipped, reordered or padded with unneeded actions. Stopping early (AF-0077) is one kind of under-execution; the general 'required step skipped / policy deviated from' has no AF mode - and it is the most common failure event in AgentRx's own annotations."
    },
    "Intent Not Supported": {
     "af": [
@@ -232,7 +228,7 @@
       "relation": "exact"
      }
     ],
-    "note": ""
+    "note": "Requested action needs a capability no available tool provides. In multi-agent runs the requester is often the orchestrator (FileSurfer asked to listen to audio) - same shape one level down."
    },
    "Intent-Plan Misalignment": {
     "af": [
@@ -241,7 +237,7 @@
       "relation": "exact"
      }
     ],
-    "note": ""
+    "note": "Wrong objective or key constraint violated because intent was misunderstood; checklist excludes missing-information and tool-error causes."
    },
    "Invalid Invocation": {
     "af": [
@@ -250,7 +246,7 @@
       "relation": "exact"
      }
     ],
-    "note": ""
+    "note": "Explicit parse/validation/schema/syntax error for a concrete call; checklist excludes infra and access-block causes."
    },
    "Invention of New Information": {
     "af": [
@@ -259,21 +255,25 @@
       "relation": "narrower"
      }
     ],
-    "note": "AF-0011 covers fabricated tool/parameter schemas specifically. Source also covers fabricated facts, which has no AF mode yet."
+    "note": "GAP: AF-0011 covers fabricated tool/parameter schemas only. The category also covers fabricated facts, hallucinated state ('download succeeded'), and unjustified omission of relevant information - no AF mode for fabricated fact/claim yet."
    },
    "Misinterpretation of Tool Output": {
     "af": [
      {
       "id": "AF-0042",
-      "relation": "exact"
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0071",
+      "relation": "overlaps"
      }
     ],
-    "note": ""
+    "note": "Judge name is 'Misinterpretation of Tool Output / Handoff Failure': reasoning that contradicts, omits part of, or miscomputes from the agent's OWN OR ANOTHER AGENT's output. AF-0042 is the own-tool-output slice; a parent misusing a sub-agent's result is AF-0071's third symptom. 15/44 Magentic root causes are orchestrator-misreads-WebSurfer."
    },
    "System Failure": {
     "af": [
      {
-      "id": "AF-0064",
+      "id": "AF-0136",
       "relation": "narrower"
      },
      {
@@ -281,11 +281,11 @@
       "relation": "narrower"
      },
      {
-      "id": "AF-0136",
+      "id": "AF-0149",
       "relation": "narrower"
      }
     ],
-    "note": "Catch-all infrastructure bucket; AF splits it by mechanism."
+    "note": "GAP: explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it: time/step budget, rate-limit cascade, and tool-internal errors (5xx). Pure connectivity failure (DNS/refused/unreachable) has no AF mode yet. Context truncation is not in the definition and is no longer mapped here."
    },
    "Underspecified User Intent": {
     "af": [
@@ -294,7 +294,7 @@
       "relation": "exact"
      }
     ],
-    "note": ""
+    "note": "A specific required piece of information is absent from all evidence and the agent proceeded without it or failed to ask. AF-0103 describes the same failure from the 'picked a reading silently' side."
    }
   }
  },
@@ -790,5 +790,5 @@
    "vendor": "Microsoft Research"
   }
  ],
- "version": "099433c64976"
+ "version": "d6c5eeba84bc"
 }

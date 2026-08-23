@@ -14,65 +14,71 @@
 #   broader  - the AF mode is broader than this category
 #   overlaps - partial; neither contains the other
 #
-# Generated from AFR index 099433c64976 on 2026-08-23.
+# Generated from AFR index d6c5eeba84bc on 2026-08-23.
 # Corrections welcome as issues on the AFR repo.
 
-afr_index: "099433c64976"
+afr_index: "d6c5eeba84bc"
 source: agentrx
 
 categories:
   "Guardrails Triggered":
     - id: AF-0095
-      relation: exact
+      relation: narrower
       title: Guardrail block
+    # GAP: the category is an RAI/safety-policy refusal OR an external site access restriction (CAPTCHA, login wall, 403, paywall, robots.txt). AF-0095 is the harness's own policy/approval gate and covers the first half; the external-access block is environment-layer and has no AF mode. Magentic's 9/44 here are a mix of Azure RAI filters and Cloudflare/CAPTCHA.
   "Instruction/Plan Adherence Failure":
     - id: AF-0077
       relation: narrower
       title: Premature termination
-    - id: AF-0088
-      relation: overlaps
-      title: Plan/intent misalignment
-    # Broad source category; splits across stopping early and planning wrong.
+    # GAP: goal is correct (checklist Q1 excludes wrong-problem cases) but a step required by the plan, domain policy or orchestrator was skipped, reordered or padded with unneeded actions. Stopping early (AF-0077) is one kind of under-execution; the general 'required step skipped / policy deviated from' has no AF mode - and it is the most common failure event in AgentRx's own annotations.
   "Intent Not Supported":
     - id: AF-0007
       relation: exact
       title: Intent not supported
+    # Requested action needs a capability no available tool provides. In multi-agent runs the requester is often the orchestrator (FileSurfer asked to listen to audio) - same shape one level down.
   "Intent-Plan Misalignment":
     - id: AF-0088
       relation: exact
       title: Plan/intent misalignment
+    # Wrong objective or key constraint violated because intent was misunderstood; checklist excludes missing-information and tool-error causes.
   "Invalid Invocation":
     - id: AF-0023
       relation: exact
       title: Invalid tool invocation
+    # Explicit parse/validation/schema/syntax error for a concrete call; checklist excludes infra and access-block causes.
   "Invention of New Information":
     - id: AF-0011
       relation: narrower
       title: Fabricated tool signature
-    # AF-0011 covers fabricated tool/parameter schemas specifically. Source also covers fabricated facts, which has no AF mode yet.
+    # GAP: AF-0011 covers fabricated tool/parameter schemas only. The category also covers fabricated facts, hallucinated state ('download succeeded'), and unjustified omission of relevant information - no AF mode for fabricated fact/claim yet.
   "Misinterpretation of Tool Output":
     - id: AF-0042
-      relation: exact
+      relation: narrower
       title: Tool output misread
+    - id: AF-0071
+      relation: overlaps
+      title: Delegation failure
+    # Judge name is 'Misinterpretation of Tool Output / Handoff Failure': reasoning that contradicts, omits part of, or miscomputes from the agent's OWN OR ANOTHER AGENT's output. AF-0042 is the own-tool-output slice; a parent misusing a sub-agent's result is AF-0071's third symptom. 15/44 Magentic root causes are orchestrator-misreads-WebSurfer.
   "System Failure":
-    - id: AF-0064
-      relation: narrower
-      title: Context overflow truncation
-    - id: AF-0130
-      relation: narrower
-      title: Rate limit cascade
     - id: AF-0136
       relation: narrower
       title: Time or step budget exhausted
-    # Catch-all infrastructure bucket; AF splits it by mechanism.
+    - id: AF-0130
+      relation: narrower
+      title: Rate limit cascade
+    - id: AF-0149
+      relation: narrower
+      title: Tool defect
+    # GAP: explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it: time/step budget, rate-limit cascade, and tool-internal errors (5xx). Pure connectivity failure (DNS/refused/unreachable) has no AF mode yet. Context truncation is not in the definition and is no longer mapped here.
   "Underspecified User Intent":
     - id: AF-0103
       relation: exact
       title: Underspecified intent
+    # A specific required piece of information is absent from all evidence and the agent proceeded without it or failed to ask. AF-0103 describes the same failure from the 'picked a reading silently' side.
 
 # Categories with no AF mode: residual labels and non-failures, left
 # empty on purpose. Registry gaps - things this taxonomy names that AFR
 # cannot yet name exactly - are marked GAP in the notes above; they are
 # AFR's roadmap, not a judgement on the category.
 unmapped:
-  Inconclusive: "Residual label, not a failure mode."
+  Inconclusive: "Residual label, not a failure mode. The judge must supply a free-text custom_category with it, so AgentRx output can carry labels outside the ten."

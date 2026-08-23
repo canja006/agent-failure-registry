@@ -25,9 +25,9 @@ this ask. Resist it.
 - [x] Re-read each target's *current* taxonomy before sending. Agent-Xray:
       **done** — full read of `root_cause.py`/`analyzer.py` on 2026-08-23, notes in
       `registry/crosswalk/notes/agent-xray.md`, mapping corrected from it.
-- [ ] AgentRx: README-level check on 2026-08-23 found all ten labels unchanged,
-      but the paper (2602.02475) and any judge prompt / label definitions in the
-      repo have not been read in full. Do that before sending PR #3.
+- [x] AgentRx: **done** — full read of `judge.py` `TAXONOMY_DATA` + checklists,
+      paper §2–2.2/§3.4/§6, and both ground-truth files on 2026-08-23; notes in
+      `registry/crosswalk/notes/agentrx.md`, mapping corrected from it.
 - [x] `make check` green
 
 ## What each PR deliberately does not do
