@@ -3,10 +3,15 @@
 The distribution strategy in full. AFR does not need an audience — it needs
 three merges.
 
-**Status:** #1 sent — [Agent-Xray PR #1](https://github.com/GeeIHadAGoodTime/Agent-Xray/pull/1),
-opened 2026-08-23 from AFR index `000b123a101d`. #2 (AgentDebugX issue) and
-#3 (AgentRx PR) are drafted and wait on #1's outcome, per the sequencing
-below — do not send them in parallel.
+**Status:**
+- #1 sent — [Agent-Xray PR #1](https://github.com/GeeIHadAGoodTime/Agent-Xray/pull/1), 2026-08-23. Awaiting response.
+- #2 sent — [AgentDebugX issue #7](https://github.com/AgentDebugX/AgentDebugX/issues/7), 2026-08-23,
+  after a full read of their seed taxonomy (mapped as source #7, notes in
+  `registry/crosswalk/notes/agentdebugx.md`). Sent ahead of #1's outcome on
+  this file's own rationale — academic cycles take weeks, and it is a
+  question, not a diff. Awaiting response.
+- #3 (AgentRx PR) drafted and **held until #1 merges**, so it can say
+  "Agent-Xray carries the equivalent file" — that dependency is real and stays.
 
 ## Sequence — do not do these in parallel
 
