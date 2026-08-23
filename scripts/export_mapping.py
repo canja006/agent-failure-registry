@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import afr
 from afr import data
 
-REPO = "https://github.com/YOURNAME/agent-failure-registry"
+REPO = "https://github.com/canja006/agent-failure-registry"
 
 
 def render(source_id: str, date: str) -> str:

@@ -9,23 +9,23 @@ Order matters more than speed. Each yes strengthens the next ask.
 
 | # | Target | Kind | Why this position in the order |
 |---|---|---|---|
-| 1 | **Agent-Xray** | PR | Solo maintainer, 115 commits, 1 star. Most likely to reply, and genuinely pleased someone read the code. Their `tool_bug` category exposed a real gap in the registry, so the PR arrives carrying a finding rather than a request. |
-| 2 | **AgentDebugX** | Issue | Academic authors, slower cycle, already have an Error Hub. Open the conversation early because it will take weeks, but ask a question rather than filing a diff. |
-| 3 | **AgentRx** | PR | Microsoft Research. Highest credibility, hardest yes. Go last so the PR can say *"Agent-Xray merged the equivalent file"* instead of *"please be first."* |
+| 1 | **[Agent-Xray](https://github.com/GeeIHadAGoodTime/Agent-Xray)** | PR | Solo maintainer, 115 commits, 1 star. Most likely to reply, and genuinely pleased someone read the code. Their `tool_bug` category exposed a real gap in the registry, so the PR arrives carrying a finding rather than a request. |
+| 2 | **[AgentDebugX](https://github.com/AgentDebugX/AgentDebugX)** | Issue | Academic authors, slower cycle, already have an Error Hub. Open the conversation early because it will take weeks, but ask a question rather than filing a diff. |
+| 3 | **[AgentRx](https://github.com/microsoft/AgentRx)** | PR | Microsoft Research. Highest credibility, hardest yes. Go last so the PR can say *"Agent-Xray merged the equivalent file"* instead of *"please be first."* |
 
 Approaching MSR first with zero adoption is the weakest possible version of
 this ask. Resist it.
 
 ## Before sending anything
 
-- [ ] Replace `YOURNAME` in `scripts/export_mapping.py` (`REPO`) and regenerate:
+- [x] Replace `YOURNAME` in `scripts/export_mapping.py` (`REPO`) and regenerate:
       `make outreach`
-- [ ] Publish the AFR repo publicly — every PR links to it, and a 404 kills the ask
-- [ ] Drop the canonical Apache-2.0 text into `LICENSE-CODE`
+- [x] Publish the AFR repo publicly — every PR links to it, and a 404 kills the ask
+- [x] Drop the canonical Apache-2.0 text into `LICENSE-CODE`
 - [ ] Re-read each target's *current* taxonomy. These files record
       `observed: 2026-08-23`; if a taxonomy has changed since, fix the mapping
       before sending, not after
-- [ ] `make check` green
+- [x] `make check` green
 
 ## What each PR deliberately does not do
 
