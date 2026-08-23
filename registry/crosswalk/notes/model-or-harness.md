@@ -61,7 +61,8 @@ only principled rule either side has written down, and it makes AFR's
 
 ## Gaps this paper records (single source, so recorded, not filled)
 
-Memory family (8 modes — AFR has no memory edge at all); Unauthorized
+Memory family (6 of its 8 modes; Missed Read and Memory Following Failure
+became AF-0174 once AgentDebugX supplied the second source); Unauthorized
 Irreversible Action; Sycophancy; Contextual Sycophancy; Indirect Prompt
 Injection; Specification Gaming; Goal Drift; Suboptimal Arguments;
 Over-/Under-initiative; Stale State Delivery; Recovery Failure (named three

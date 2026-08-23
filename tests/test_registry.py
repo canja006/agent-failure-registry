@@ -10,7 +10,7 @@ from afr.model import invert
 
 class TestModes(unittest.TestCase):
     def test_every_mode_loads(self):
-        self.assertEqual(len(afr.modes()), 24)
+        self.assertEqual(len(afr.modes()), 25)
 
     def test_lookup(self):
         m = afr.mode("AF-0142")
@@ -115,7 +115,7 @@ class TestCrosswalk(unittest.TestCase):
         hits = afr.unmap("AF-0064", "agent-xray")
         cats = {h.category for h in hits}
         self.assertEqual(cats, {"context_overflow", "memory_overload"})
-        self.assertEqual(len(afr.sources()), 6)
+        self.assertEqual(len(afr.sources()), 7)
 
     def test_no_orphan_modes(self):
         # Every mode has at least one source. AF-0142 was the last orphan;
@@ -153,7 +153,7 @@ class TestCrosswalk(unittest.TestCase):
 
     def test_two_source_modes(self):
         # Each mode written from the academic read has >= 2 independent sources.
-        for af_id in ("AF-0153", "AF-0157", "AF-0161", "AF-0166", "AF-0170"):
+        for af_id in ("AF-0153", "AF-0157", "AF-0161", "AF-0166", "AF-0170", "AF-0174"):
             srcs = {s.id for s in afr.sources() if afr.unmap(af_id, s.id)}
             self.assertGreaterEqual(len(srcs), 2, "%s: %s" % (af_id, srcs))
         self.assertEqual(afr.normalize({"tool_selection_bug": 1}, "agent-xray")[0].best.id, "AF-0157")

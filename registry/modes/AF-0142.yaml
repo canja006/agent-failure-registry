@@ -17,8 +17,9 @@ discriminators:
   - "vs AF-0058: repetition here is of reads specifically, not action retries"
   - "vs AF-0064: context is not overflowing; the content is still present"
   - "vs AF-0118: the target genuinely did not change"
+  - "vs AF-0174: a source is redundantly re-read; in AF-0174 stored memory is not read at all"
 
-near_neighbors: [AF-0058, AF-0064, AF-0118]
+near_neighbors: [AF-0058, AF-0064, AF-0118, AF-0174]
 
 references: []
 examples: []

@@ -1,0 +1,27 @@
+id: AF-0174
+title: "Stored memory unused"
+status: provisional
+layer: model
+
+description: >
+  The agent's persistent memory holds a relevant, current entry, and the
+  agent acts without it — the store is never consulted, or the entry is
+  retrieved and then not honoured. The fact was written and available; the
+  action does not reflect it.
+
+symptoms:
+  - "a relevant, current entry exists in the memory store at the time of the action"
+  - "no read of that entry appears in the trace, or a read appears and its content is absent from the subsequent action"
+  - "the agent re-asks or re-derives something the store already held, or contradicts it"
+
+discriminators:
+  - "vs AF-0064: nothing was evicted or truncated; the store still holds the entry"
+  - "vs AF-0142: failing to read something stored, not redundantly re-reading something unchanged"
+  - "vs AF-0086: the missing evidence was the agent's own stored memory, not an external source left ungathered"
+
+near_neighbors: [AF-0064, AF-0142, AF-0086]
+
+references:
+  - "Model or Harness? 'Missed Read' and 'Memory Following Failure' - https://arxiv.org/abs/2607.28802"
+  - "AgentDebugX 'memory.retrieval_failure' - https://github.com/AgentDebugX/AgentDebugX"
+examples: []

@@ -95,7 +95,7 @@ At most one `exact` per source category. One wrong `exact` discredits the table.
 
 ## Status
 
-Pre-v0. **24 modes** — 14 `stable`, 10 `provisional`; **6 source taxonomies**, every one
+Pre-v0. **25 modes** — 14 `stable`, 11 `provisional`; **7 source taxonomies**, every one
 mapped from a full read of its operative definitions (classifier code, judge
 prompts, paper text, ground-truth annotations), with the evidence in
 [`registry/crosswalk/notes/`](registry/crosswalk/notes/):
@@ -108,19 +108,21 @@ prompts, paper text, ground-truth annotations), with the evidence in
 | [AgentFail](https://arxiv.org/abs/2509.23735) | 307 annotated failures, 16 root causes | 15/16 |
 | [Model or Harness?](https://arxiv.org/abs/2607.28802) | 41 modes with fault side | 27/41 |
 | [Characterizing Faults](https://arxiv.org/abs/2603.06847) | 385 framework defects, 14 categories | 5/14 — mostly out of scope by design |
+| [AgentDebugX](https://github.com/AgentDebugX/AgentDebugX) | debugger, 19 seed modes | 16/19 |
 
-No mode is an orphan: every AF id has at least one source, and the five
+No mode is an orphan: every AF id has at least one source, and the six
 newest (`AF-0153` required step omitted, `AF-0157` wrong tool selected,
 `AF-0161` fabricated content, `AF-0166` unnecessary action, `AF-0170`
-external service failure) each have two or more. The rule that produced them:
+external service failure, `AF-0174` stored memory unused) each have two or
+more. The rule that produced them:
 **a gap becomes a mode only when a second independent taxonomy names the same
 thing** — one mode per vendor category is how a shared namespace becomes a
 house style.
 
 `afr gaps` lists what is still unnamed. The ones with more than one source
-behind them are the next candidates; the single-source ones (the whole memory
+behind them are the next candidates; the single-source ones (most of the memory
 family, recovery failure, sycophancy, prompt injection, external access
-blocks) wait for a second.
+blocks, role drift, non-text perception) wait for a second.
 
 Layer attribution follows a stated principle (SCHEMA.md, adopted from
 [Model or Harness?](https://arxiv.org/abs/2607.28802)): the fault lies with

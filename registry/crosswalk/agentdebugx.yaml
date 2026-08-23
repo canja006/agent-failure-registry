@@ -1,0 +1,97 @@
+source:
+  id: agentdebugx
+  name: AgentDebugX
+  vendor: community
+  url: https://github.com/AgentDebugX/AgentDebugX
+  license: MIT
+  taxonomy_size: 19
+  observed: "2026-08-23"
+
+# Read in full: src/agentdebug/schema/taxonomy.py at main (last push
+# 2026-08-21) - the seed failure taxonomy the Detect stage classifies into.
+# 19 seed modes in 8 families (memory, reflection, planning, action, system,
+# multiagent, verification, multimodal), each with signals, repair
+# suggestions and a `source` citation (AgentDebug, MAST, Who&When, AgentRx,
+# AgentSight) - the taxonomy already crosswalks informally. The seed set is
+# "designed to be extended by generated, project-specific taxonomy nodes"
+# (taxonomy induction); only the seed modes are mapped here - induced nodes
+# are per-project and unmappable by definition. Error Hub bundles carry
+# `failure_mode_ids: List[str]`, so AF ids are derivable from a bundle via
+# this file with no schema change. Notes: notes/agentdebugx.md.
+
+mappings:
+  - category: "memory.retrieval_failure"
+    af: [{id: AF-0174, relation: broader}]
+    note: "Failed to retrieve relevant prior state or context. AF-0174 also covers retrieved-then-ignored, so broader. This category, with Model-or-Harness's Missed Read, is why AF-0174 exists."
+  - category: "memory.hallucination"
+    af: [{id: AF-0161, relation: overlaps}]
+    note: "Unobserved or invented state treated as remembered fact - the memory-flavoured slice of AF-0161."
+  - category: "reflection.progress_misjudge"
+    af: [{id: AF-0077, relation: overlaps}]
+    note: "Premature success judgement; AF-0077 is its downstream observable (stops and reports done)."
+  - category: "reflection.causal_misattribution"
+    af: []
+    note: "GAP: the agent explains its own failure with the wrong cause and optimises the wrong behaviour. No AF mode; single source so far."
+  - category: "planning.constraint_ignorance"
+    af:
+      - {id: AF-0153, relation: overlaps}
+      - {id: AF-0088, relation: overlaps}
+    note: "Plan ignores task/policy/schema/safety constraints."
+  - category: "planning.impossible_action"
+    af: [{id: AF-0007, relation: overlaps}]
+    note: "Plans an action the current environment cannot execute - AF-0007's shape at the single-action level."
+  - category: "planning.inefficient_plan"
+    af:
+      - {id: AF-0058, relation: overlaps}
+      - {id: AF-0166, relation: overlaps}
+    note: "Loops, over-decomposition, steps burnt without progress."
+  - category: "action.wrong_tool"
+    af:
+      - {id: AF-0157, relation: overlaps}
+      - {id: AF-0011, relation: overlaps}
+    note: "Tool does not match intent or state; its signal list includes 'unknown tool', blurring into AF-0011 - hence overlaps to both rather than exact to AF-0157."
+  - category: "action.invalid_action"
+    af: [{id: AF-0023, relation: broader}]
+    note: "Syntactically or semantically invalid action (including invalid state transitions). One of three action.* slices of AF-0023."
+  - category: "action.format_error"
+    af: [{id: AF-0023, relation: broader}]
+    note: "Malformed JSON/arguments/protocol messages - the malformed-structure slice of AF-0023."
+  - category: "action.parameter_error"
+    af:
+      - {id: AF-0023, relation: broader}
+      - {id: AF-0011, relation: overlaps}
+    note: "Right tool, missing/invalid/hallucinated parameters. Hallucinated parameter names are AF-0011."
+  - category: "system.tool_execution_error"
+    af:
+      - {id: AF-0149, relation: narrower}
+      - {id: AF-0170, relation: narrower}
+    note: "Catch-all: tool, API, browser, environment or dependency failed during execution. AF splits it into the tool's own defect and upstream service failure."
+  - category: "system.llm_limit"
+    af:
+      - {id: AF-0125, relation: narrower}
+      - {id: AF-0064, relation: narrower}
+      - {id: AF-0130, relation: narrower}
+      - {id: AF-0095, relation: narrower}
+    note: "Catch-all: context, rate, content or capability limits. AF splits it: capability ceiling, window management, rate limits, policy refusal."
+  - category: "system.environment_error"
+    af: [{id: AF-0118, relation: narrower}]
+    note: "Environment changed or returned noisy observations; AF-0118 is the changed-state half, noisy-observation has no AF mode."
+  - category: "multiagent.handoff_loss"
+    af: [{id: AF-0071, relation: broader}]
+    note: "Receiving agent loses constraints, rejected alternatives or rationale - the brief/context-loss slice of AF-0071."
+  - category: "multiagent.role_drift"
+    af: []
+    note: "GAP: agent acts outside its assigned responsibility or duplicates another role. No AF mode; single source so far."
+  - category: "verification.missing_task_validation"
+    af:
+      - {id: AF-0077, relation: overlaps}
+      - {id: AF-0086, relation: overlaps}
+    note: "Completion accepted without an independent final-state check; AF-0077's 'verification step never executed' symptom."
+  - category: "verification.premature_stop"
+    af:
+      - {id: AF-0077, relation: narrower}
+      - {id: AF-0136, relation: narrower}
+    note: "Stops before satisfying the task OR exits on a hidden stop condition (max steps). AF splits it: agent-decided stop vs external budget cutoff."
+  - category: "multimodal.perception_error"
+    af: [{id: AF-0042, relation: overlaps}]
+    note: "GAP: misreads an image, UI, audio or file artifact and acts on bad perception. AF-0042 is the nearest (misreading an observation); non-text perception has no AF mode."

@@ -197,6 +197,209 @@
     "note": "Not a failure."
    }
   },
+  "agentdebugx": {
+   "action.format_error": {
+    "af": [
+     {
+      "id": "AF-0023",
+      "relation": "broader"
+     }
+    ],
+    "note": "Malformed JSON/arguments/protocol messages - the malformed-structure slice of AF-0023."
+   },
+   "action.invalid_action": {
+    "af": [
+     {
+      "id": "AF-0023",
+      "relation": "broader"
+     }
+    ],
+    "note": "Syntactically or semantically invalid action (including invalid state transitions). One of three action.* slices of AF-0023."
+   },
+   "action.parameter_error": {
+    "af": [
+     {
+      "id": "AF-0023",
+      "relation": "broader"
+     },
+     {
+      "id": "AF-0011",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Right tool, missing/invalid/hallucinated parameters. Hallucinated parameter names are AF-0011."
+   },
+   "action.wrong_tool": {
+    "af": [
+     {
+      "id": "AF-0157",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0011",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Tool does not match intent or state; its signal list includes 'unknown tool', blurring into AF-0011 - hence overlaps to both rather than exact to AF-0157."
+   },
+   "memory.hallucination": {
+    "af": [
+     {
+      "id": "AF-0161",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Unobserved or invented state treated as remembered fact - the memory-flavoured slice of AF-0161."
+   },
+   "memory.retrieval_failure": {
+    "af": [
+     {
+      "id": "AF-0174",
+      "relation": "broader"
+     }
+    ],
+    "note": "Failed to retrieve relevant prior state or context. AF-0174 also covers retrieved-then-ignored, so broader. This category, with Model-or-Harness's Missed Read, is why AF-0174 exists."
+   },
+   "multiagent.handoff_loss": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "broader"
+     }
+    ],
+    "note": "Receiving agent loses constraints, rejected alternatives or rationale - the brief/context-loss slice of AF-0071."
+   },
+   "multiagent.role_drift": {
+    "af": [],
+    "note": "GAP: agent acts outside its assigned responsibility or duplicates another role. No AF mode; single source so far."
+   },
+   "multimodal.perception_error": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: misreads an image, UI, audio or file artifact and acts on bad perception. AF-0042 is the nearest (misreading an observation); non-text perception has no AF mode."
+   },
+   "planning.constraint_ignorance": {
+    "af": [
+     {
+      "id": "AF-0153",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Plan ignores task/policy/schema/safety constraints."
+   },
+   "planning.impossible_action": {
+    "af": [
+     {
+      "id": "AF-0007",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Plans an action the current environment cannot execute - AF-0007's shape at the single-action level."
+   },
+   "planning.inefficient_plan": {
+    "af": [
+     {
+      "id": "AF-0058",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0166",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Loops, over-decomposition, steps burnt without progress."
+   },
+   "reflection.causal_misattribution": {
+    "af": [],
+    "note": "GAP: the agent explains its own failure with the wrong cause and optimises the wrong behaviour. No AF mode; single source so far."
+   },
+   "reflection.progress_misjudge": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Premature success judgement; AF-0077 is its downstream observable (stops and reports done)."
+   },
+   "system.environment_error": {
+    "af": [
+     {
+      "id": "AF-0118",
+      "relation": "narrower"
+     }
+    ],
+    "note": "Environment changed or returned noisy observations; AF-0118 is the changed-state half, noisy-observation has no AF mode."
+   },
+   "system.llm_limit": {
+    "af": [
+     {
+      "id": "AF-0125",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0064",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0130",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0095",
+      "relation": "narrower"
+     }
+    ],
+    "note": "Catch-all: context, rate, content or capability limits. AF splits it: capability ceiling, window management, rate limits, policy refusal."
+   },
+   "system.tool_execution_error": {
+    "af": [
+     {
+      "id": "AF-0149",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0170",
+      "relation": "narrower"
+     }
+    ],
+    "note": "Catch-all: tool, API, browser, environment or dependency failed during execution. AF splits it into the tool's own defect and upstream service failure."
+   },
+   "verification.missing_task_validation": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0086",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Completion accepted without an independent final-state check; AF-0077's 'verification step never executed' symptom."
+   },
+   "verification.premature_stop": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0136",
+      "relation": "narrower"
+     }
+    ],
+    "note": "Stops before satisfying the task OR exits on a hidden stop condition (max steps). AF splits it: agent-decided stop vs external budget cutoff."
+   }
+  },
   "agentfail": {
    "F1.1 Tool or Action Planning Error": {
     "af": [
@@ -713,16 +916,26 @@
     "note": "Call does not fit the tool's schema; immediate exception."
    },
    "Memory Following Failure": {
-    "af": [],
-    "note": "GAP: memory read and then ignored. No AF mode."
+    "af": [
+     {
+      "id": "AF-0174",
+      "relation": "broader"
+     }
+    ],
+    "note": "Memory read and then ignored. The retrieved-then-not-honoured half of AF-0174."
    },
    "Memory Rationale Erosion": {
     "af": [],
     "note": "GAP: memory written without the reasoning behind it, later reversed. Memory twin of Context Rationale Erosion; no AF mode."
    },
    "Missed Read": {
-    "af": [],
-    "note": "GAP: memory holds the fact; model does not consult it. No AF mode."
+    "af": [
+     {
+      "id": "AF-0174",
+      "relation": "broader"
+     }
+    ],
+    "note": "Memory holds the fact; the model does not consult it. AF-0174 also covers retrieved-then-ignored, so broader. This category, with AgentDebugX's memory.retrieval_failure, is why AF-0174 exists."
    },
    "Missed Write": {
     "af": [],
@@ -1147,14 +1360,16 @@
    "description": "Content the agent needs is silently dropped from context by window management \u2014 truncation, eviction, or summarisation \u2014 and the agent proceeds as though it were still present.",
    "discriminators": [
     "vs AF-0142: content is genuinely gone here, not present-but-re-read",
-    "vs AF-0125: a window-management failure, not a capability ceiling"
+    "vs AF-0125: a window-management failure, not a capability ceiling",
+    "vs AF-0174: the content was dropped by window management; in AF-0174 the store still holds it"
    ],
    "examples": [],
    "id": "AF-0064",
    "layer": "harness",
    "near_neighbors": [
     "AF-0142",
-    "AF-0125"
+    "AF-0125",
+    "AF-0174"
    ],
    "references": [],
    "status": "stable",
@@ -1226,7 +1441,8 @@
     "vs AF-0077: the agent did not stop early; it concluded early",
     "vs AF-0071: no sub-agent is involved; evidence was never gathered rather than gathered and dropped",
     "vs AF-0153: too little evidence behind a conclusion, not a prescribed step left out",
-    "vs AF-0161: the claim is under-sourced, not invented; AF-0161 has no support at all"
+    "vs AF-0161: the claim is under-sourced, not invented; AF-0161 has no support at all",
+    "vs AF-0174: external evidence was left ungathered; in AF-0174 the agent's own store held the fact"
    ],
    "examples": [
     "Magentic-One traj 0ec43718 (AgentRx ground truth): WebSurfer returns a partial list of gyms near the Mothman Museum and the Orchestrator concludes from it without verifying completeness"
@@ -1238,7 +1454,8 @@
     "AF-0077",
     "AF-0071",
     "AF-0153",
-    "AF-0161"
+    "AF-0161",
+    "AF-0174"
    ],
    "references": [],
    "status": "stable",
@@ -1438,7 +1655,8 @@
    "discriminators": [
     "vs AF-0058: repetition here is of reads specifically, not action retries",
     "vs AF-0064: context is not overflowing; the content is still present",
-    "vs AF-0118: the target genuinely did not change"
+    "vs AF-0118: the target genuinely did not change",
+    "vs AF-0174: a source is redundantly re-read; in AF-0174 stored memory is not read at all"
    ],
    "examples": [],
    "id": "AF-0142",
@@ -1446,7 +1664,8 @@
    "near_neighbors": [
     "AF-0058",
     "AF-0064",
-    "AF-0118"
+    "AF-0118",
+    "AF-0174"
    ],
    "references": [],
    "status": "provisional",
@@ -1657,6 +1876,33 @@
     "the run halts or degrades at the dependent step"
    ],
    "title": "External service failure"
+  },
+  {
+   "description": "The agent's persistent memory holds a relevant, current entry, and the agent acts without it \u2014 the store is never consulted, or the entry is retrieved and then not honoured. The fact was written and available; the action does not reflect it.",
+   "discriminators": [
+    "vs AF-0064: nothing was evicted or truncated; the store still holds the entry",
+    "vs AF-0142: failing to read something stored, not redundantly re-reading something unchanged",
+    "vs AF-0086: the missing evidence was the agent's own stored memory, not an external source left ungathered"
+   ],
+   "examples": [],
+   "id": "AF-0174",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0064",
+    "AF-0142",
+    "AF-0086"
+   ],
+   "references": [
+    "Model or Harness? 'Missed Read' and 'Memory Following Failure' - https://arxiv.org/abs/2607.28802",
+    "AgentDebugX 'memory.retrieval_failure' - https://github.com/AgentDebugX/AgentDebugX"
+   ],
+   "status": "provisional",
+   "symptoms": [
+    "a relevant, current entry exists in the memory store at the time of the action",
+    "no read of that entry appears in the trace, or a read appears and its content is absent from the subsequent action",
+    "the agent re-asks or re-derives something the store already held, or contradicts it"
+   ],
+   "title": "Stored memory unused"
   }
  ],
  "sources": [
@@ -1667,6 +1913,15 @@
    "observed": "2026-08-23",
    "taxonomy_size": 22,
    "url": "https://github.com/GeeIHadAGoodTime/Agent-Xray",
+   "vendor": "community"
+  },
+  {
+   "id": "agentdebugx",
+   "license": "MIT",
+   "name": "AgentDebugX",
+   "observed": "2026-08-23",
+   "taxonomy_size": 19,
+   "url": "https://github.com/AgentDebugX/AgentDebugX",
    "vendor": "community"
   },
   {
@@ -1715,5 +1970,5 @@
    "vendor": "academic"
   }
  ],
- "version": "000b123a101d"
+ "version": "6f0a765b82e1"
 }

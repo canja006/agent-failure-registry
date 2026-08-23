@@ -16,8 +16,9 @@ symptoms:
 discriminators:
   - "vs AF-0142: content is genuinely gone here, not present-but-re-read"
   - "vs AF-0125: a window-management failure, not a capability ceiling"
+  - "vs AF-0174: the content was dropped by window management; in AF-0174 the store still holds it"
 
-near_neighbors: [AF-0142, AF-0125]
+near_neighbors: [AF-0142, AF-0125, AF-0174]
 
 references: []
 examples: []

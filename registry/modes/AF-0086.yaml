@@ -18,8 +18,9 @@ discriminators:
   - "vs AF-0071: no sub-agent is involved; evidence was never gathered rather than gathered and dropped"
   - "vs AF-0153: too little evidence behind a conclusion, not a prescribed step left out"
   - "vs AF-0161: the claim is under-sourced, not invented; AF-0161 has no support at all"
+  - "vs AF-0174: external evidence was left ungathered; in AF-0174 the agent's own store held the fact"
 
-near_neighbors: [AF-0042, AF-0077, AF-0071, AF-0153, AF-0161]
+near_neighbors: [AF-0042, AF-0077, AF-0071, AF-0153, AF-0161, AF-0174]
 
 references: []
 examples:

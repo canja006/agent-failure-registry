@@ -105,11 +105,11 @@ mappings:
     af: []
     note: "GAP: same information written repeatedly to memory. No AF mode."
   - category: "Missed Read"
-    af: []
-    note: "GAP: memory holds the fact; model does not consult it. No AF mode."
+    af: [{id: AF-0174, relation: broader}]
+    note: "Memory holds the fact; the model does not consult it. AF-0174 also covers retrieved-then-ignored, so broader. This category, with AgentDebugX's memory.retrieval_failure, is why AF-0174 exists."
   - category: "Memory Following Failure"
-    af: []
-    note: "GAP: memory read and then ignored. No AF mode."
+    af: [{id: AF-0174, relation: broader}]
+    note: "Memory read and then ignored. The retrieved-then-not-honoured half of AF-0174."
   # --- harness: model - tool ---
   - category: "Malformed Arguments"
     af: [{id: AF-0023, relation: exact}]
