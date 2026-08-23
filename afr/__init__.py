@@ -15,7 +15,7 @@ from .data import categories, mode, modes, reload, source, sources, version
 from .model import LAYERS, RELATIONS, Label, Mapping, Mode, Source, invert
 from .profile import Profile, profile
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 __all__ = [
     "map", "unmap", "normalize", "coverage",
