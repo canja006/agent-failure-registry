@@ -19,4 +19,5 @@ discriminators:
 near_neighbors: [AF-0088, AF-0007]
 
 references: []
-examples: []
+examples:
+  - "tau-bench traj 71 (AgentRx ground truth): the instruction asks for 'the black lamp' but the catalogue has several; the assistant picks one silently and cannot match the intended order"

@@ -27,4 +27,5 @@ references:
   - "AgentRx 'System Failure' - https://arxiv.org/abs/2602.02475"
   - "Model or Harness? 'Service Failure' - https://arxiv.org/abs/2607.28802"
   - "AgentFail 'F3.1 Network and Resource Fluctuation', 'F3.2 Service Unavailability' - https://arxiv.org/abs/2509.23735"
-examples: []
+examples:
+  - "Characterizing Faults (2603.06847), haystack issue #617: requests to the external search service repeatedly time out, interrupting the agent's retrieval workflow"

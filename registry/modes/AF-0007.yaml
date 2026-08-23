@@ -21,4 +21,5 @@ discriminators:
 near_neighbors: [AF-0103, AF-0095, AF-0077]
 
 references: []
-examples: []
+examples:
+  - "Magentic-One traj a1e91b78 (AgentRx ground truth): WebSurfer is asked to take a snapshot inside a YouTube video, an action no available tool can perform; the request is repeated instead of the gap being reported"

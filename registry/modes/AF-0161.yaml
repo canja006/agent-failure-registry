@@ -26,4 +26,6 @@ near_neighbors: [AF-0011, AF-0042, AF-0149, AF-0086]
 references:
   - "AgentRx 'Invention of New Information' - https://arxiv.org/abs/2602.02475"
   - "ToolFailBench 'Output-Fabrication' and tool-style answers without a call (App. D.1) - https://arxiv.org/abs/2607.04686"
-examples: []
+examples:
+  - "Magentic-One traj 14569e28 (AgentRx ground truth): the assistant invents a Unlambda operator that does not exist in the language and builds its answer on it"
+  - "AgentRx paper App. B: FileSurfer saves a PDF to one path, then 'reads' a non-existent invented path (file:///workspace/path_to_july_2020_paper...) and the run never recovers"

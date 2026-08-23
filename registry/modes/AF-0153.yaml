@@ -29,4 +29,5 @@ references:
   - "AgentRx 'Instruction/Plan Adherence Failure' (under-execution) - https://arxiv.org/abs/2602.02475"
   - "ToolFailBench 'Tool-Skip' - https://arxiv.org/abs/2607.04686"
   - "Model or Harness? 'Instruction-Following Failure' - https://arxiv.org/abs/2607.28802"
-examples: []
+examples:
+  - "tau-bench traj 41 (AgentRx ground truth): the user asks to modify items and shipping address together; the assistant modifies items first, which locks the pending order - the required ordering was skipped past"

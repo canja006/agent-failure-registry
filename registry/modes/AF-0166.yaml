@@ -26,4 +26,5 @@ references:
   - "AgentRx 'Instruction/Plan Adherence Failure' (over-execution) - https://arxiv.org/abs/2602.02475"
   - "ToolFailBench 'Unnecessary-Tool-Use' - https://arxiv.org/abs/2607.04686"
   - "Model or Harness? 'Over-initiative' (partial) - https://arxiv.org/abs/2607.28802"
-examples: []
+examples:
+  - "ToolFailBench control tasks: the query is answerable directly, yet the model calls a domain tool anyway - the Unnecessary-Tool-Use label, observed across 19 models"

@@ -22,4 +22,5 @@ discriminators:
 near_neighbors: [AF-0007, AF-0095, AF-0086, AF-0136, AF-0153]
 
 references: []
-examples: []
+examples:
+  - "tau-bench traj 87 (AgentRx ground truth): asked to update three pending order addresses, the assistant modifies the first two and reports all of them done"

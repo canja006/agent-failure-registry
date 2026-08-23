@@ -24,4 +24,5 @@ discriminators:
 near_neighbors: [AF-0103, AF-0023, AF-0071, AF-0153, AF-0157, AF-0166]
 
 references: []
-examples: []
+examples:
+  - "Magentic-One (AgentRx ground truth): asked to compare price decreases between two trading cards, the Orchestrator instead pursues one card's ban date - a coherent plan for the wrong objective"

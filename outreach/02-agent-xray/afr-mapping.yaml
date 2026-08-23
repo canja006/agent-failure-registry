@@ -14,10 +14,10 @@
 #   broader  - the AF mode is broader than this category
 #   overlaps - partial; neither contains the other
 #
-# Generated from AFR index cc5833e72923 on 2026-08-23.
+# Generated from AFR index b2f6d166a2a2 on 2026-08-23.
 # Corrections welcome as issues on the AFR repo.
 
-afr_index: "cc5833e72923"
+afr_index: "b2f6d166a2a2"
 source: agent-xray
 
 categories:

@@ -984,7 +984,9 @@
     "vs AF-0095: nothing blocked the agent; the capability was simply absent",
     "vs AF-0077: the capability was absent; the agent did not stop short of work it could have done"
    ],
-   "examples": [],
+   "examples": [
+    "Magentic-One traj a1e91b78 (AgentRx ground truth): WebSurfer is asked to take a snapshot inside a YouTube video, an action no available tool can perform; the request is repeated instead of the gap being reported"
+   ],
    "id": "AF-0007",
    "layer": "user-intent",
    "near_neighbors": [
@@ -1038,7 +1040,9 @@
     "vs AF-0149: the call itself violates the schema; a schema-valid call that fails inside the tool is AF-0149",
     "vs AF-0157: the call is malformed; in AF-0157 the call is valid and the tool is the wrong choice"
    ],
-   "examples": [],
+   "examples": [
+    "tau-bench traj 20 (AgentRx ground truth): at step 49 the assistant calls the exchange tool on an order in processed status - arguments invalid for the order state, and the same illegal call is retried at step 61"
+   ],
    "id": "AF-0023",
    "layer": "model",
    "near_neighbors": [
@@ -1066,7 +1070,9 @@
     "vs AF-0149: the output was correct and misread; an incorrect or unusable output is AF-0149",
     "vs AF-0161: a real output was misread; in AF-0161 content was added that no output supports"
    ],
-   "examples": [],
+   "examples": [
+    "tau-bench traj 38 (AgentRx ground truth): at step 37 the assistant picks the cheapest umbrella from the tool output without registering that the listing marks it unavailable"
+   ],
    "id": "AF-0042",
    "layer": "model",
    "near_neighbors": [
@@ -1165,7 +1171,9 @@
     "vs AF-0088: the parent's plan is sound; the loss happens at the delegation boundary",
     "vs AF-0086: information was gathered but not transferred"
    ],
-   "examples": [],
+   "examples": [
+    "Magentic-One traj 8b3379c0 (AgentRx ground truth): the Orchestrator's search brief to WebSurfer omits the key phrase 'Monterey Bay Aquarium', so the sub-agent cannot find the target video - the constraint was lost at the delegation boundary"
+   ],
    "id": "AF-0071",
    "layer": "harness",
    "near_neighbors": [
@@ -1190,7 +1198,9 @@
     "vs AF-0136: the agent chose to stop; no external deadline cut it off",
     "vs AF-0153: the agent stopped; in AF-0153 it continued past the missing step"
    ],
-   "examples": [],
+   "examples": [
+    "tau-bench traj 87 (AgentRx ground truth): asked to update three pending order addresses, the assistant modifies the first two and reports all of them done"
+   ],
    "id": "AF-0077",
    "layer": "model",
    "near_neighbors": [
@@ -1218,7 +1228,9 @@
     "vs AF-0153: too little evidence behind a conclusion, not a prescribed step left out",
     "vs AF-0161: the claim is under-sourced, not invented; AF-0161 has no support at all"
    ],
-   "examples": [],
+   "examples": [
+    "Magentic-One traj 0ec43718 (AgentRx ground truth): WebSurfer returns a partial list of gyms near the Mothman Museum and the Orchestrator concludes from it without verifying completeness"
+   ],
    "id": "AF-0086",
    "layer": "harness",
    "near_neighbors": [
@@ -1247,7 +1259,9 @@
     "vs AF-0157: the goal is wrong; AF-0157 has the right goal and the wrong instrument for a step",
     "vs AF-0166: the plan serves the wrong goal; AF-0166 serves the right goal with a surplus action"
    ],
-   "examples": [],
+   "examples": [
+    "Magentic-One (AgentRx ground truth): asked to compare price decreases between two trading cards, the Orchestrator instead pursues one card's ban date - a coherent plan for the wrong objective"
+   ],
    "id": "AF-0088",
    "layer": "model",
    "near_neighbors": [
@@ -1274,7 +1288,9 @@
     "vs AF-0058: retries follow a block rather than a null result",
     "vs AF-0077: a block event precedes the stop; the halt is imposed, not chosen"
    ],
-   "examples": [],
+   "examples": [
+    "Magentic-One traj 840bfca7 (AgentRx ground truth): WebSurfer's generation trips Azure OpenAI's Responsible AI filter (jailbreak=true, error 400); the response is filtered and the task cannot proceed"
+   ],
    "id": "AF-0095",
    "layer": "harness",
    "near_neighbors": [
@@ -1297,7 +1313,9 @@
     "vs AF-0088: ambiguity originates upstream of the plan",
     "vs AF-0007: the request may be entirely achievable once disambiguated"
    ],
-   "examples": [],
+   "examples": [
+    "tau-bench traj 71 (AgentRx ground truth): the instruction asks for 'the black lamp' but the catalogue has several; the assistant picks one silently and cannot match the intended order"
+   ],
    "id": "AF-0103",
    "layer": "user-intent",
    "near_neighbors": [
@@ -1396,7 +1414,9 @@
     "vs AF-0077: termination is external, not the agent's decision",
     "vs AF-0170: the run's own budget was exhausted, not a single upstream call failing"
    ],
-   "examples": [],
+   "examples": [
+    "Magentic-One traj 9baaa267 (AgentRx ground truth): WebSurfer repeatedly fails to enter the date on a weather site; the retries consume the run's budget and it is cut off by timeout"
+   ],
    "id": "AF-0136",
    "layer": "environment",
    "near_neighbors": [
@@ -1447,7 +1467,9 @@
     "vs AF-0161: the tool returned the bad value; in AF-0161 the agent produced it",
     "vs AF-0170: the tool's own code or integration failed; in AF-0170 the tool ran and its upstream dependency failed"
    ],
-   "examples": [],
+   "examples": [
+    "Characterizing Faults (2603.06847), MetaGPT issue #334: a tool invocation fails with NotImplementedError inside the tool, interrupting the task workflow"
+   ],
    "id": "AF-0149",
    "layer": "tool",
    "near_neighbors": [
@@ -1479,7 +1501,9 @@
     "vs AF-0157: nothing was done in the step's place; AF-0157 substitutes a wrong tool",
     "vs AF-0166: something required is absent; AF-0166 is something unrequired present"
    ],
-   "examples": [],
+   "examples": [
+    "tau-bench traj 41 (AgentRx ground truth): the user asks to modify items and shipping address together; the assistant modifies items first, which locks the pending order - the required ordering was skipped past"
+   ],
    "id": "AF-0153",
    "layer": "model",
    "near_neighbors": [
@@ -1544,7 +1568,10 @@
     "vs AF-0149: the tool did not return the bad value; the agent produced it",
     "vs AF-0086: the claim is ungrounded, not merely under-sourced"
    ],
-   "examples": [],
+   "examples": [
+    "Magentic-One traj 14569e28 (AgentRx ground truth): the assistant invents a Unlambda operator that does not exist in the language and builds its answer on it",
+    "AgentRx paper App. B: FileSurfer saves a PDF to one path, then 'reads' a non-existent invented path (file:///workspace/path_to_july_2020_paper...) and the run never recovers"
+   ],
    "id": "AF-0161",
    "layer": "model",
    "near_neighbors": [
@@ -1574,7 +1601,9 @@
     "vs AF-0153: the inverse - something unrequired is present rather than something required absent",
     "vs AF-0157: no tool was needed for the step at all, rather than the wrong one chosen for a needed step"
    ],
-   "examples": [],
+   "examples": [
+    "ToolFailBench control tasks: the query is answerable directly, yet the model calls a domain tool anyway - the Unnecessary-Tool-Use label, observed across 19 models"
+   ],
    "id": "AF-0166",
    "layer": "model",
    "near_neighbors": [
@@ -1604,7 +1633,9 @@
     "vs AF-0136: a single upstream call timed out, rather than the run's own budget being exhausted",
     "vs AF-0118: nothing about the target's state changed; it is unavailable"
    ],
-   "examples": [],
+   "examples": [
+    "Characterizing Faults (2603.06847), haystack issue #617: requests to the external search service repeatedly time out, interrupting the agent's retrieval workflow"
+   ],
    "id": "AF-0170",
    "layer": "environment",
    "near_neighbors": [
@@ -1684,5 +1715,5 @@
    "vendor": "academic"
   }
  ],
- "version": "cc5833e72923"
+ "version": "b2f6d166a2a2"
 }

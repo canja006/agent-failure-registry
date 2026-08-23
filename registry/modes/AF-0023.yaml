@@ -23,4 +23,5 @@ discriminators:
 near_neighbors: [AF-0011, AF-0088, AF-0042, AF-0149, AF-0157]
 
 references: []
-examples: []
+examples:
+  - "tau-bench traj 20 (AgentRx ground truth): at step 49 the assistant calls the exchange tool on an order in processed status - arguments invalid for the order state, and the same illegal call is retried at step 61"

@@ -22,4 +22,5 @@ discriminators:
 near_neighbors: [AF-0042, AF-0077, AF-0071, AF-0153, AF-0161]
 
 references: []
-examples: []
+examples:
+  - "Magentic-One traj 0ec43718 (AgentRx ground truth): WebSurfer returns a partial list of gyms near the Mothman Museum and the Orchestrator concludes from it without verifying completeness"

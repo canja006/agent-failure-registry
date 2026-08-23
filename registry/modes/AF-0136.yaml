@@ -22,4 +22,5 @@ discriminators:
 near_neighbors: [AF-0130, AF-0077, AF-0170]
 
 references: []
-examples: []
+examples:
+  - "Magentic-One traj 9baaa267 (AgentRx ground truth): WebSurfer repeatedly fails to enter the date on a weather site; the retries consume the run's budget and it is cut off by timeout"

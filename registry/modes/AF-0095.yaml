@@ -20,4 +20,5 @@ discriminators:
 near_neighbors: [AF-0007, AF-0058, AF-0077]
 
 references: []
-examples: []
+examples:
+  - "Magentic-One traj 840bfca7 (AgentRx ground truth): WebSurfer's generation trips Azure OpenAI's Responsible AI filter (jailbreak=true, error 400); the response is filtered and the task cannot proceed"

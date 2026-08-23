@@ -20,4 +20,5 @@ discriminators:
 near_neighbors: [AF-0088, AF-0086]
 
 references: []
-examples: []
+examples:
+  - "Magentic-One traj 8b3379c0 (AgentRx ground truth): the Orchestrator's search brief to WebSurfer omits the key phrase 'Monterey Bay Aquarium', so the sub-agent cannot find the target video - the constraint was lost at the delegation boundary"

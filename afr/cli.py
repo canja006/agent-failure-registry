@@ -39,6 +39,8 @@ def cmd_show(args):
     for header, items in (
         ("symptoms", m.symptoms),
         ("discriminators", m.discriminators),
+        ("examples", m.examples),
+        ("references", m.references),
     ):
         if items:
             _p("\n%s:" % header)
