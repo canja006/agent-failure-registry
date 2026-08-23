@@ -18,8 +18,9 @@ discriminators:
   - "vs AF-0088: the tool choice is appropriate for the plan; the call itself is malformed"
   - "vs AF-0042: the call itself is malformed or rejected; nothing was misread downstream"
   - "vs AF-0149: the call itself violates the schema; a schema-valid call that fails inside the tool is AF-0149"
+  - "vs AF-0157: the call is malformed; in AF-0157 the call is valid and the tool is the wrong choice"
 
-near_neighbors: [AF-0011, AF-0088, AF-0042, AF-0149]
+near_neighbors: [AF-0011, AF-0088, AF-0042, AF-0149, AF-0157]
 
 references: []
 examples: []

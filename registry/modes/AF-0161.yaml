@@ -1,0 +1,29 @@
+id: AF-0161
+title: "Fabricated content"
+status: provisional
+layer: model
+
+description: >
+  The agent introduces a fact, value, citation or claim about state that no
+  input, context item or tool output supports — inventing a figure, asserting
+  that a file was written or a step succeeded, or attributing a result to a
+  tool that did not return it — and proceeds on it.
+
+symptoms:
+  - "a value or claim in the agent's output is absent from every input, context item and tool result up to that step"
+  - "a result is attributed to a tool that was not called or did not return it"
+  - "a state change is asserted (file written, order placed, download complete) that later observation does not confirm"
+  - "downstream steps rely on the invented claim"
+
+discriminators:
+  - "vs AF-0011: the fabrication is in content or claims, not in a tool or parameter name at call time"
+  - "vs AF-0042: no real output was misread; content was added that no output supports"
+  - "vs AF-0149: the tool did not return the bad value; the agent produced it"
+  - "vs AF-0086: the claim is ungrounded, not merely under-sourced"
+
+near_neighbors: [AF-0011, AF-0042, AF-0149, AF-0086]
+
+references:
+  - "AgentRx 'Invention of New Information' - https://arxiv.org/abs/2602.02475"
+  - "ToolFailBench 'Output-Fabrication' and tool-style answers without a call (App. D.1) - https://arxiv.org/abs/2607.04686"
+examples: []

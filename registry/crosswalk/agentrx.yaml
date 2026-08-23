@@ -28,13 +28,16 @@ source:
 mappings:
   - category: "Instruction/Plan Adherence Failure"
     af:
+      - {id: AF-0153, relation: narrower}
+      - {id: AF-0166, relation: narrower}
       - {id: AF-0077, relation: narrower}
-    note: "GAP: goal is correct (checklist Q1 excludes wrong-problem cases) but a step required by the plan, domain policy or orchestrator was skipped, reordered or padded with unneeded actions. Stopping early (AF-0077) is one kind of under-execution; the general 'required step skipped / policy deviated from' has no AF mode - and it is the most common failure event in AgentRx's own annotations."
+    note: "Goal is correct (checklist Q1 excludes wrong-problem cases) but a step required by the plan, domain policy or orchestrator was skipped, reordered or padded with unneeded actions. AF splits it: under-execution (AF-0153, with stopping early AF-0077 as its own mode) and over-execution (AF-0166). The most common failure event in AgentRx's own annotations; this category is one of the sources for AF-0153 and AF-0166."
 
   - category: "Invention of New Information"
     af:
+      - {id: AF-0161, relation: narrower}
       - {id: AF-0011, relation: narrower}
-    note: "GAP: AF-0011 covers fabricated tool/parameter schemas only. The category also covers fabricated facts, hallucinated state ('download succeeded'), and unjustified omission of relevant information - no AF mode for fabricated fact/claim yet."
+    note: "Fabricated facts and hallucinated state ('download succeeded') are AF-0161; fabricated tool/parameter schemas are AF-0011. The category also covers unjustified OMISSION of relevant information, which neither mode does - hence narrower, not exact. One of the sources for AF-0161."
 
   - category: "Invalid Invocation"
     af: [{id: AF-0023, relation: exact}]
@@ -64,10 +67,11 @@ mappings:
 
   - category: "System Failure"
     af:
+      - {id: AF-0170, relation: narrower}
       - {id: AF-0136, relation: narrower}
       - {id: AF-0130, relation: narrower}
       - {id: AF-0149, relation: narrower}
-    note: "GAP: explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it: time/step budget, rate-limit cascade, and tool-internal errors (5xx). Pure connectivity failure (DNS/refused/unreachable) has no AF mode yet. Context truncation is not in the definition and is no longer mapped here."
+    note: "Explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it by mechanism: upstream service failure (AF-0170, listed first), time/step budget, rate-limit cascade, tool-internal error. 'Premature termination' of the run itself is the residue none of them names. Context truncation is not in the definition and is not mapped here. One of the sources for AF-0170."
 
   - category: "Inconclusive"
     af: []

@@ -17,8 +17,9 @@ discriminators:
   - "vs AF-0095: nothing blocked the agent from continuing"
   - "vs AF-0086: sub-goals are left undone; the issue is stopping, not thin evidence behind a conclusion"
   - "vs AF-0136: the agent chose to stop; no external deadline cut it off"
+  - "vs AF-0153: the agent stopped; in AF-0153 it continued past the missing step"
 
-near_neighbors: [AF-0007, AF-0095, AF-0086, AF-0136]
+near_neighbors: [AF-0007, AF-0095, AF-0086, AF-0136, AF-0153]
 
 references: []
 examples: []

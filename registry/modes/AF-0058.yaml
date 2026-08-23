@@ -19,8 +19,9 @@ discriminators:
   - "vs AF-0095: no policy or approval event in the trace; the repetition is unprompted"
   - "vs AF-0125: attempts are identical, not varied failing approaches"
   - "vs AF-0130: no quota or 429 errors in the trace; the repetition originates in the agent"
+  - "vs AF-0166: the same action repeated, not a superfluous distinct one"
 
-near_neighbors: [AF-0142, AF-0049, AF-0095, AF-0125, AF-0130]
+near_neighbors: [AF-0142, AF-0049, AF-0095, AF-0125, AF-0130, AF-0166]
 
 references: []
 examples: []

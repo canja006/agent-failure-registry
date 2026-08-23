@@ -1,0 +1,40 @@
+source:
+  id: toolfailbench
+  name: ToolFailBench
+  vendor: academic
+  url: https://arxiv.org/abs/2607.04686
+  license: n/a
+  taxonomy_size: 5
+  observed: "2026-08-23"
+
+# Read in full: S3 (design, taxonomy, metrics) and App. C-D, v1. 1,000
+# single-turn tasks in five domains: 750 tool-required "parametric traps"
+# (mock tool return contradicts a plausible memorised value) and 250 control
+# tasks where no tool is needed. ONE label per trace within its task type;
+# label = majority of a rule classifier and two LLM judges. "Correct" is not
+# mapped. Notes: notes/toolfailbench.md.
+
+mappings:
+  - category: "Tool-Skip"
+    af:
+      - {id: AF-0153, relation: broader}
+    note: "No valid executed tool call on a tool-required task; includes answers written in a tool-style format with no call behind them (App. D.1). AF-0153 covers any prescribed step left out, so it is broader. The tool-style-answer variant also brushes AF-0161."
+
+  - category: "Result-Ignore"
+    af:
+      - {id: AF-0042, relation: broader}
+    note: "Tool called; final answer omits the returned value (typically in favour of the memorised prior). The ignore-in-favour-of-prior slice of AF-0042, which also covers misinterpretation."
+
+  - category: "Output-Fabrication"
+    af:
+      - {id: AF-0161, relation: broader}
+    note: "Tool called; answer adds invented structured information not present in the return. AF-0161 covers fabricated content in general, so it is broader."
+
+  - category: "Unnecessary-Tool-Use"
+    af:
+      - {id: AF-0166, relation: broader}
+    note: "Control task (no tool needed) answered with a tool call anyway. The one-extra-call slice of AF-0166. Rare label; judge kappa 0.23 but raw agreement 0.95."
+
+  - category: "Wrong-Answer"
+    af: []
+    note: "Control task answered directly and incorrectly - a parametric knowledge error, not a tool-use failure. Left unmapped on purpose; AF-0125 would overstate it."

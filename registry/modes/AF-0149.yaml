@@ -20,8 +20,10 @@ discriminators:
   - "vs AF-0011: the tool exists and was advertised; nothing was invented"
   - "vs AF-0042: the output was genuinely wrong or unusable, not merely misread"
   - "vs AF-0118: the same call against the same state fails; nothing in the environment changed between calls"
+  - "vs AF-0161: the tool returned the bad value; in AF-0161 the agent produced it"
+  - "vs AF-0170: the tool's own code or integration failed; in AF-0170 the tool ran and its upstream dependency failed"
 
-near_neighbors: [AF-0023, AF-0011, AF-0042, AF-0118]
+near_neighbors: [AF-0023, AF-0011, AF-0042, AF-0118, AF-0161, AF-0170]
 
 references:
   - "Agent-Xray `tool_bug` (https://github.com/GeeIHadAGoodTime/Agent-Xray/blob/main/src/agent_xray/root_cause.py) - the category that exposed the registry's empty tool layer"

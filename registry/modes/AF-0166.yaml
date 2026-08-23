@@ -1,0 +1,29 @@
+id: AF-0166
+title: "Unnecessary action"
+status: provisional
+layer: model
+
+description: >
+  The agent performs an action the task did not require and the plan did
+  not need — a tool call, a side-effect, a sub-task — while the goal stays
+  correct. The result may still be right; cost, latency or risk is incurred
+  for nothing.
+
+symptoms:
+  - "a tool call or step appears that the reference solution or control condition does not contain"
+  - "the action's result is not used by any later step or by the final answer"
+  - "the task is otherwise completed correctly"
+
+discriminators:
+  - "vs AF-0058: a superfluous distinct action, not a repetition of the same one"
+  - "vs AF-0088: goal and plan are right; one action is surplus"
+  - "vs AF-0153: the inverse - something unrequired is present rather than something required absent"
+  - "vs AF-0157: no tool was needed for the step at all, rather than the wrong one chosen for a needed step"
+
+near_neighbors: [AF-0058, AF-0088, AF-0153, AF-0157]
+
+references:
+  - "AgentRx 'Instruction/Plan Adherence Failure' (over-execution) - https://arxiv.org/abs/2602.02475"
+  - "ToolFailBench 'Unnecessary-Tool-Use' - https://arxiv.org/abs/2607.04686"
+  - "Model or Harness? 'Over-initiative' (partial) - https://arxiv.org/abs/2607.28802"
+examples: []

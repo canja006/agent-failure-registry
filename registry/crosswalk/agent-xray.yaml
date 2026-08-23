@@ -31,8 +31,8 @@ mappings:
     af: [{id: AF-0007, relation: overlaps}]
     note: "GAP: fires when a step's exposed tool list is EMPTY - the harness never scoped the tool in. Shares AF-0007's symptom at the harness layer; no AF mode for tool-not-exposed yet."
   - category: tool_selection_bug
-    af: [{id: AF-0088, relation: overlaps}]
-    note: "GAP: right tool available, agent used something else (search-only when browser exposed; or one tool across many URLs). No invocation error involved. No AF mode for wrong-tool-selected yet; AF-0088 is the nearest."
+    af: [{id: AF-0157, relation: exact}]
+    note: "Right tool available, agent used something else (search-only when browser exposed; or one tool across many URLs). No invocation error involved. This category, with Model-or-Harness 'Incorrect Tool Selection', is why AF-0157 exists."
   - category: reasoning_bug
     af:
       - {id: AF-0042, relation: overlaps}

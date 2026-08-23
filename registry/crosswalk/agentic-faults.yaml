@@ -1,0 +1,79 @@
+source:
+  id: agentic-faults
+  name: "Characterizing Faults in Agentic AI (fault-type taxonomy)"
+  vendor: academic
+  url: https://arxiv.org/abs/2603.06847
+  license: n/a
+  taxonomy_size: 14
+  observed: "2026-08-23"
+
+# Read in full: S3.1.1-3.1.3 (v1). 385 faults sampled from 13,602 GitHub
+# issues/PRs across 40 agent FRAMEWORK repositories (autogen, langflow,
+# haystack, crewAI, letta, ...). This is a taxonomy of SOFTWARE DEFECTS in
+# frameworks - 34 fault types in 14 categories - not of trajectory-observable
+# agent failures. Most categories have no runtime manifestation an AF mode
+# could describe; they are left empty with an out-of-scope note, NOT marked
+# GAP (the registry should not grow modes for documentation or UI bugs). The
+# few that do manifest in a trace map `overlaps` at best. The paper's separate
+# symptom (12) and root-cause (12) taxonomies are not mapped. Notes:
+# notes/agentic-faults.md.
+
+mappings:
+  # I. Agent Reasoning & Control
+  - category: "LLM Interaction Faults"
+    af:
+      - {id: AF-0064, relation: overlaps}
+      - {id: AF-0166, relation: overlaps}
+    note: "48. Model/provider misconfiguration, incompatible API usage, token accounting, context-window handling. Runtime face: context overflow / truncated prompts (AF-0064), unintended or redundant tool invocation (AF-0166), rejected API calls."
+  - category: "Agent Lifecycle and State"
+    af:
+      - {id: AF-0058, relation: overlaps}
+      - {id: AF-0071, relation: overlaps}
+      - {id: AF-0077, relation: overlaps}
+      - {id: AF-0153, relation: overlaps}
+    note: "38. Scheduling, delegation logic, state transitions, termination logic. Runtime face: skipped tasks, repeated actions, lost intermediate state, uncontrolled loops, failure to stop."
+  # II. Context & Memory
+  - category: "Memory Management"
+    af: []
+    note: "8. Serialization, timestamps, persistent-storage bugs in the memory implementation. Framework defect; not a trajectory-observable agent failure."
+  - category: "Input Interpretation"
+    af: []
+    note: "59. Parsing, validation, encoding and type-assumption bugs in pipeline code. Framework defect; out of scope. (Its 'Data Schema Mismatch' root cause is the same shape as AgentFail F1.2.)"
+  # III. Tooling, Integration & Actuation
+  - category: "Tool Invocation"
+    af:
+      - {id: AF-0023, relation: overlaps}
+      - {id: AF-0149, relation: overlaps}
+    note: "11. Defective tool, or tool invoked against its API contract (unsupported args, malformed request). Both sides of the AF-0023 / AF-0149 line."
+  - category: "External Access"
+    af:
+      - {id: AF-0170, relation: overlaps}
+      - {id: AF-0118, relation: overlaps}
+    note: "19. Invalid endpoints, connection settings, credentials, permissions. Runtime face: unreachable service (AF-0170), credential invalidated mid-run (AF-0118)."
+  - category: "Resource Interaction"
+    af: []
+    note: "21. Invalid paths, filesystem assumptions, storage/database misconfiguration. Framework/config defect; out of scope."
+  - category: "System Coordination"
+    af: []
+    note: "6. Race conditions in concurrent/streaming execution. Out of scope."
+  - category: "Execution Monitoring"
+    af: []
+    note: "5. Logging/tracing/metrics defects. Out of scope."
+  # IV. System Infrastructure & Reliability
+  - category: "Dependency and Environment Management"
+    af: []
+    note: "72 - the largest category. Dependency resolution, installation, upstream breaking changes. Out of scope."
+  - category: "Platform & Integration Compatibility"
+    af: []
+    note: "15. OS/architecture/container assumptions. Out of scope."
+  - category: "Failure Handling & Implementation Robustness"
+    af:
+      - {id: AF-0042, relation: overlaps}
+      - {id: AF-0149, relation: overlaps}
+    note: "47. Suppressed exceptions, mis-propagated errors, broken recovery. Runtime face: silent failures and the system continuing on erroneous state - the harness-side cause of what a trajectory shows as AF-0042 / AF-0149."
+  - category: "User Interface Defects"
+    af: []
+    note: "13. Dashboards misrepresenting state. Out of scope."
+  - category: "Documentation Issues"
+    af: []
+    note: "8. Out of scope."

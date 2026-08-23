@@ -95,37 +95,45 @@ At most one `exact` per source category. One wrong `exact` discredits the table.
 
 ## Status
 
-Pre-v0. 19 modes, all `provisional`; 3 source taxonomies; 90% of AgentRx and
-86% of Agent-Xray mapped — Agent-Xray from a full read of its classifier, not
-its README (see [`registry/crosswalk/notes/`](registry/crosswalk/notes/)). The
-remaining modes are week-one reading, not coding — see
-[`registry/crosswalk/academic.yaml`](registry/crosswalk/academic.yaml) for the
-queue.
+Pre-v0. **24 modes**, all `provisional`; **6 source taxonomies**, every one
+mapped from a full read of its operative definitions (classifier code, judge
+prompts, paper text, ground-truth annotations), with the evidence in
+[`registry/crosswalk/notes/`](registry/crosswalk/notes/):
 
-Findings are already falling out of the structure, which is the point. One
-has already changed the registry: Agent-Xray's `tool_bug` exposed an empty
-`tool` layer, and **`AF-0149`** (tool defect) now fills it. `afr gaps` surfaces
-six more from the two tools, plus one orphan:
+| source | kind | mapped |
+|---|---|---|
+| [AgentRx](https://github.com/microsoft/AgentRx) | LLM judge, 10 labels | 9/10 |
+| [Agent-Xray](https://github.com/GeeIHadAGoodTime/Agent-Xray) | rule classifier, 22 labels | 19/22 |
+| [ToolFailBench](https://arxiv.org/abs/2607.04686) | benchmark, 5 labels | 4/5 |
+| [AgentFail](https://arxiv.org/abs/2509.23735) | 307 annotated failures, 16 root causes | 15/16 |
+| [Model or Harness?](https://arxiv.org/abs/2607.28802) | 41 modes with fault side | 27/41 |
+| [Characterizing Faults](https://arxiv.org/abs/2603.06847) | 385 framework defects, 14 categories | 5/14 — mostly out of scope by design |
 
-- **tool never exposed by the harness** (`agent-xray:routing_bug`)
-- **wrong tool selected** (`agent-xray:tool_selection_bug`)
-- **required step skipped with the goal correct** (`agentrx:Instruction/Plan
-  Adherence Failure` — the most common failure event in AgentRx's own data)
-- **fabricated fact or claim about state** (`agentrx:Invention of New Information`)
-- **external access block** — CAPTCHA / 403 / paywall (`agentrx:Guardrails Triggered`)
-- **connectivity failure** — DNS / refused / unreachable (`agentrx:System Failure`)
-- **`AF-0142`** (stale context re-read) has **no source mapping** — a failure
-  everyone has seen that no published taxonomy names.
+No mode is an orphan: every AF id has at least one source, and the five
+newest (`AF-0153` required step omitted, `AF-0157` wrong tool selected,
+`AF-0161` fabricated content, `AF-0166` unnecessary action, `AF-0170`
+external service failure) each have two or more. The rule that produced them:
+**a gap becomes a mode only when a second independent taxonomy names the same
+thing** — one mode per vendor category is how a shared namespace becomes a
+house style.
 
-Modes for these get written once a second independent source names the same
-thing — one mode per vendor category is how a shared namespace becomes a house
-style.
+`afr gaps` lists what is still unnamed. The ones with more than one source
+behind them are the next candidates; the single-source ones (the whole memory
+family, recovery failure, sycophancy, prompt injection, external access
+blocks) wait for a second.
+
+One open question the read surfaced rather than settled: [Model or
+Harness?](https://arxiv.org/abs/2607.28802) puts repetition, delegation and
+insufficient-sourcing failures on the **model** side because the information
+to avoid them was in context; AFR currently has them on `harness`. See
+[`notes/model-or-harness.md`](registry/crosswalk/notes/model-or-harness.md).
 
 ## Repo layout
 
 ```
 registry/modes/AF-####.yaml     canonical mode records (CC0)
 registry/crosswalk/*.yaml       one file per third-party taxonomy (CC0)
+registry/crosswalk/notes/       the full-read evidence behind each crosswalk
 registry/SCHEMA.md              field semantics and relation direction
 afr/                            the library (Apache-2.0), no dependencies
 afr/_index.json                 compiled from YAML, committed, CI-enforced

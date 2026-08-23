@@ -16,8 +16,10 @@ discriminators:
   - "vs AF-0023: the tool exists here only in the model's output, not in the schema"
   - "vs AF-0042: the fabrication is in the call, not in reading the result"
   - "vs AF-0149: the tool does not exist; an existing tool that misbehaves is AF-0149"
+  - "vs AF-0157: the tool does not exist; in AF-0157 an existing, wrong tool was chosen"
+  - "vs AF-0161: fabrication is in the tool or parameter name at call time, not in content or claims"
 
-near_neighbors: [AF-0023, AF-0042, AF-0149]
+near_neighbors: [AF-0023, AF-0042, AF-0149, AF-0157, AF-0161]
 
 references: []
 examples: []

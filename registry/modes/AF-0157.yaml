@@ -1,0 +1,31 @@
+id: AF-0157
+title: "Wrong tool selected"
+status: provisional
+layer: model
+
+description: >
+  A tool fit for the step was available and advertised, and the agent
+  invoked a different, less suitable one — functionally wrong or grossly
+  inefficient — with a well-formed call, or worked around the needed tool
+  with an inferior path. The call mechanics are fine; the choice is not.
+
+symptoms:
+  - "a tool suited to the step is in the advertised set and is not called"
+  - "the tool that was called cannot produce what the step needs, or produces it at far higher cost"
+  - "calls are schema-valid; no invocation error is raised"
+  - "later steps compensate for the shortfall (re-query, manual parsing, guessing) or the result is degraded"
+
+discriminators:
+  - "vs AF-0023: the calls are well-formed; the choice of tool is wrong"
+  - "vs AF-0011: the tool used exists and was advertised"
+  - "vs AF-0088: the goal and plan are right; the instrument for one step is wrong"
+  - "vs AF-0153: something was done in the step - the wrong thing - rather than nothing"
+  - "vs AF-0166: the step needed a tool; the wrong one was chosen, rather than a tool being used where none was needed"
+
+near_neighbors: [AF-0023, AF-0011, AF-0088, AF-0153, AF-0166]
+
+references:
+  - "Agent-Xray 'tool_selection_bug' - https://github.com/GeeIHadAGoodTime/Agent-Xray"
+  - "Model or Harness? 'Incorrect Tool Selection' - https://arxiv.org/abs/2607.28802"
+  - "AgentFail 'F1.1 Tool or Action Planning Error' - https://arxiv.org/abs/2509.23735"
+examples: []

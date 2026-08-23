@@ -20,22 +20,25 @@ follows the detectors. The read notes are public in the AFR repo.
 ### Your taxonomy changed ours
 
 This is the mapping working in the direction I hoped it would. Three Agent-Xray
-categories name things the registry could not name; one is already fixed and
-two are recorded as open gaps:
+categories named things the registry could not name. Two of them are now modes,
+written because of Agent-Xray and cited as such; one is still an open gap:
 
 - **`tool_bug`** — the *intended* meaning (right tool, bad result) is a
   tool-layer defect, and the registry had no `tool`-layer mode at all. It now
-  has one, `AF-0149`, written because of this category and cited as such.
-  `tool_bug` maps `overlaps` to it rather than `exact` because, as detected
-  (`unknown_tool` + `validation` + `other` errors dominating), the category
-  also catches fabricated tools and schema errors, which map to two other
-  modes — the file lists all three.
-- **`routing_bug`** — a step whose exposed tool list is empty. Tool-not-exposed
-  is a harness failure no taxonomy I have mapped names; the nearest AF mode is
-  the user-intent-layer cousin "intent not supported", mapped `overlaps`.
+  has `AF-0149` (tool defect). `tool_bug` maps `overlaps` to it rather than
+  `exact` because, as detected (`unknown_tool` + `validation` + `other` errors
+  dominating), the category also catches fabricated tools and schema errors,
+  which map to two other modes — the file lists all three.
 - **`tool_selection_bug`** — right tool available, something else used, no
-  invocation error. Wrong-tool-selected is a distinct thing from
-  plan/intent misalignment; mapped `overlaps` to that for now.
+  invocation error. The registry had nothing for wrong-tool-selected; it now
+  has `AF-0157`, and `tool_selection_bug` maps `exact` to it. (The second
+  source that justified writing it was "Incorrect Tool Selection" in
+  arXiv 2607.28802 — a mode only gets written once two independent taxonomies
+  name the same thing.)
+- **`routing_bug`** — a step whose exposed tool list is empty. Tool-not-exposed
+  is a harness failure no other taxonomy I have read names, so it stays a
+  recorded gap; the nearest AF mode is the user-intent-layer cousin "intent not
+  supported", mapped `overlaps`.
 
 The 22-category cascade is the most granular taxonomy I have read, and
 separating `spin` from `stuck_loop`, and `test_failure_loop` from both, is a

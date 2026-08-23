@@ -1,0 +1,32 @@
+id: AF-0153
+title: "Required step omitted"
+status: provisional
+layer: model
+
+description: >
+  Pursuing the correct goal, with the needed information available, the agent
+  leaves out a step the task, plan, policy or specification required — a tool
+  call, a confirmation, a check, a sub-task — and continues or concludes
+  without it. The goal and the rest of the plan are right; one prescribed
+  action is missing.
+
+symptoms:
+  - "an action present in the reference sequence or mandated by policy is absent from the trace"
+  - "a required confirmation, authentication or verification step does not precede the action it was meant to gate"
+  - "an answer or completion is produced without the evidence or side-effect the omitted step would have provided"
+  - "the stated goal and the surrounding plan are otherwise correct"
+
+discriminators:
+  - "vs AF-0088: the goal and plan are right; only a prescribed step is missing"
+  - "vs AF-0077: the run continues past the omission; AF-0077 is omission by stopping"
+  - "vs AF-0086: a prescribed step was skipped, not merely too little evidence gathered for a conclusion"
+  - "vs AF-0157: nothing was done in the step's place; AF-0157 substitutes a wrong tool"
+  - "vs AF-0166: something required is absent; AF-0166 is something unrequired present"
+
+near_neighbors: [AF-0088, AF-0077, AF-0086, AF-0157, AF-0166]
+
+references:
+  - "AgentRx 'Instruction/Plan Adherence Failure' (under-execution) - https://arxiv.org/abs/2602.02475"
+  - "ToolFailBench 'Tool-Skip' - https://arxiv.org/abs/2607.04686"
+  - "Model or Harness? 'Instruction-Following Failure' - https://arxiv.org/abs/2607.28802"
+examples: []

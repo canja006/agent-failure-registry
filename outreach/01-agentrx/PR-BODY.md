@@ -26,29 +26,33 @@ taxonomy it describes means it stays visible to the people it helps, and it
 gets noticed when the taxonomy changes. If you would rather it live only
 upstream, say so and I will close this — the mapping is useful either way.
 
-### Your taxonomy found four gaps in ours
+### Your taxonomy changed ours
 
 This is the mapping working in the direction I hoped it would. Four AgentRx
-categories name things the registry cannot yet name exactly; all four are
-recorded as open gaps:
+categories named things the registry could not name exactly. Three of them are
+now modes — written because AgentRx and at least one other independent
+taxonomy named the same thing, and cited as such — and one is still an open
+gap:
 
 - **`Instruction/Plan Adherence Failure`** — your checklist defines this as
-  *goal correct, required step skipped / reordered / padded*. The registry has
-  "premature termination" (one kind of under-execution, mapped `narrower`) but
-  no mode for the general case — which, by your own annotations, is the most
-  common failure event in the corpus.
-- **`Invention of New Information`** — the registry's nearest mode is
-  fabricated *tool and parameter schemas* (mapped `narrower`). Fabricated
-  facts, hallucinated state ("download succeeded"), and unjustified omission
-  have no mode.
+  *goal correct, required step skipped / reordered / padded*, and your own
+  annotations make it the most common failure event in the corpus. The
+  registry had only "premature termination" for it. It now has `AF-0153`
+  (required step omitted) and `AF-0166` (unnecessary action), with premature
+  termination as the third slice; the category maps `narrower` to all three.
+- **`Invention of New Information`** — the registry's only mode was fabricated
+  *tool and parameter schemas*. It now has `AF-0161` (fabricated content) for
+  invented facts and hallucinated state. Your category also covers
+  unjustified *omission*, which neither mode does, so both map `narrower`.
+- **`System Failure`** — the connectivity half (DNS / refused / unreachable /
+  service unavailable) had no mode; it is now `AF-0170` (external service
+  failure), alongside the existing time/step budget, rate-limit cascade and
+  tool-internal error modes.
 - **`Guardrails Triggered`** — your definition spans RAI/safety refusals *and*
   external site access restrictions (CAPTCHA, 403, paywall, robots.txt). The
   registry's "guardrail block" is the harness's own policy gate, so it maps
   `narrower`; the external-access half is an environment-layer block nobody
-  has named.
-- **`System Failure`** — splits into time/step budget, rate-limit cascade and
-  tool-internal error (all `narrower`), but pure connectivity failure
-  (DNS / connection refused / endpoint unreachable) has no mode.
+  else has named yet, so it stays a recorded gap.
 
 ### Mapping decisions worth flagging
 

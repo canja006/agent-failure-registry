@@ -10,7 +10,7 @@ from afr.model import invert
 
 class TestModes(unittest.TestCase):
     def test_every_mode_loads(self):
-        self.assertEqual(len(afr.modes()), 19)
+        self.assertEqual(len(afr.modes()), 24)
 
     def test_lookup(self):
         m = afr.mode("AF-0142")
@@ -73,7 +73,7 @@ class TestCrosswalk(unittest.TestCase):
 
     def test_one_to_many(self):
         hits = afr.map("agentrx", "System Failure")
-        self.assertEqual(len(hits), 3)
+        self.assertEqual([h.id for h in hits], ["AF-0170", "AF-0136", "AF-0130", "AF-0149"])
         self.assertTrue(all(h.relation == "narrower" for h in hits))
 
     def test_deliberately_unmapped(self):
@@ -98,11 +98,16 @@ class TestCrosswalk(unittest.TestCase):
         hits = afr.unmap("AF-0064", "agent-xray")
         cats = {h.category for h in hits}
         self.assertEqual(cats, {"context_overflow", "memory_overload"})
+        self.assertEqual(len(afr.sources()), 6)
 
-    def test_registry_only_gap(self):
-        # AF-0142 is the mode no existing taxonomy names.
-        for src in afr.sources():
-            self.assertEqual(afr.unmap("AF-0142", src.id), [])
+    def test_no_orphan_modes(self):
+        # Every mode has at least one source. AF-0142 was the last orphan;
+        # Model-or-Harness "State Tracking Failure" names re-reads as a sub-case.
+        hits = afr.unmap("AF-0142", "model-or-harness")
+        self.assertEqual([(h.category, h.relation) for h in hits],
+                         [("State Tracking Failure", "broader")])
+        for m in afr.modes():
+            self.assertTrue(any(afr.unmap(m.id, s.id) for s in afr.sources()), m.id)
 
     def test_coverage(self):
         c = afr.coverage("agent-xray")
@@ -123,11 +128,19 @@ class TestCrosswalk(unittest.TestCase):
 
     def test_gap_notes_survive_partial_mapping(self):
         # A category can be mapped by overlaps and still be a roadmap item.
-        for cat in ("routing_bug", "tool_selection_bug"):
-            hits = afr.map("agent-xray", cat)
+        for src, cat in (("agent-xray", "routing_bug"), ("agentrx", "Guardrails Triggered")):
+            hits = afr.map(src, cat)
             self.assertTrue(hits, cat)
-            self.assertTrue(all(h.relation == "overlaps" for h in hits), cat)
+            self.assertTrue(all(h.relation != "exact" for h in hits), cat)
             self.assertTrue(hits[0].note.startswith("GAP"), cat)
+
+    def test_two_source_modes(self):
+        # Each mode written from the academic read has >= 2 independent sources.
+        for af_id in ("AF-0153", "AF-0157", "AF-0161", "AF-0166", "AF-0170"):
+            srcs = {s.id for s in afr.sources() if afr.unmap(af_id, s.id)}
+            self.assertGreaterEqual(len(srcs), 2, "%s: %s" % (af_id, srcs))
+        self.assertEqual(afr.normalize({"tool_selection_bug": 1}, "agent-xray")[0].best.id, "AF-0157")
+        self.assertEqual(afr.normalize({"Tool-Skip": 1}, "toolfailbench")[0].best.id, "AF-0153")
 
 
 class TestNormalizeAndProfile(unittest.TestCase):
@@ -143,7 +156,7 @@ class TestNormalizeAndProfile(unittest.TestCase):
         self.assertEqual(by_cat, {"timeout": 2, "early_abort": 1})
 
     def test_best_prefers_exact(self):
-        labels = afr.normalize({"tool_selection_bug": 1}, "agent-xray")
+        labels = afr.normalize({"reasoning_bug": 1}, "agent-xray")
         self.assertEqual(labels[0].best.relation, "overlaps")
         labels = afr.normalize({"spin": 1}, "agent-xray")
         self.assertEqual(labels[0].best.relation, "exact")

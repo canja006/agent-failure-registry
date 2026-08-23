@@ -18,8 +18,9 @@ discriminators:
   - "vs AF-0011: nothing was invented at call time"
   - "vs AF-0086: enough was read; what was read was misinterpreted"
   - "vs AF-0149: the output was correct and misread; an incorrect or unusable output is AF-0149"
+  - "vs AF-0161: a real output was misread; in AF-0161 content was added that no output supports"
 
-near_neighbors: [AF-0023, AF-0011, AF-0086, AF-0149]
+near_neighbors: [AF-0023, AF-0011, AF-0086, AF-0149, AF-0161]
 
 references: []
 examples: []

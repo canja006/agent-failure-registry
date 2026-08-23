@@ -1,0 +1,170 @@
+source:
+  id: model-or-harness
+  name: "Model or Harness? (interaction-centric taxonomy)"
+  vendor: academic
+  url: https://arxiv.org/abs/2607.28802
+  license: n/a
+  taxonomy_size: 41
+  observed: "2026-08-23"
+
+# Read in full: S3 (mechanism axis), S4, S5 (failure families) and App. B
+# (verbatim definitions), v1. 41 role-specific failure modes = an interaction
+# edge (model <-> owner/grader/third party/context/memory/tool/peer/subagent/
+# external env/local env) plus a FAULT SIDE; 36 model-side, 5 other-side.
+# Root-cause rule = first unrecovered failure (cites AgentRx). The example set
+# is illustrative, not prevalence. Names that recur across edges are
+# qualified here: "(peer)" / "(subagent)", "(external environment)" /
+# "(local environment)". Notes, including the layer cross-check against
+# AFR's `layer` field: notes/model-or-harness.md.
+
+mappings:
+  # --- users: model - owner ---
+  - category: "Instruction-Grader Mismatch"
+    af: [{id: AF-0103, relation: overlaps}]
+    note: "Owner-side: instruction differs from the owner's real intent as the grader captures it; the agent follows the instruction and is judged against the intent. Not an agent fault; AF-0103 is the nearest shape."
+  - category: "Over-initiative"
+    af:
+      - {id: AF-0103, relation: overlaps}
+      - {id: AF-0166, relation: overlaps}
+    note: "GAP: consequential action taken where a clarifying question was due, or information volunteered unasked. Acting-beyond-scope has no AF mode; the clarify-first half is AF-0103, the surplus-action half AF-0166."
+  - category: "Under-initiative"
+    af: [{id: AF-0077, relation: overlaps}]
+    note: "GAP: halting, over-deferring, or demanding confirmation the task did not need. The halting half is AF-0077; over-deferral has no AF mode."
+  - category: "Satisficing"
+    af:
+      - {id: AF-0077, relation: exact}
+      - {id: AF-0086, relation: overlaps}
+    note: "'Declares the job done while real work remains undone or only stubbed in' - AF-0077 to the letter; the paper adds the motive (effort minimisation), which AFR does not record. 'Stops at the first result that clears a low bar' overlaps AF-0086."
+  - category: "Instruction-Following Failure"
+    af:
+      - {id: AF-0153, relation: narrower}
+      - {id: AF-0077, relation: narrower}
+      - {id: AF-0088, relation: overlaps}
+    note: "Ignores parts of the spec, partially completes, or violates explicit constraints (time, call or token limits). AF-0153 and AF-0077 are each one slice."
+  - category: "Reasoning Failure"
+    af:
+      - {id: AF-0125, relation: overlaps}
+      - {id: AF-0088, relation: overlaps}
+    note: "'Fundamentally incapable of reasoning through the problem; flawed plan; logical error.'"
+  - category: "Unauthorized Irreversible Action"
+    af: []
+    note: "GAP: high or infinite rollback-cost action taken without a mandatory human confirmation gate. No AF mode; the inverse of AF-0095."
+  - category: "Sycophancy"
+    af: []
+    note: "GAP: output tailored to agree with the user over truth. No AF mode; single source so far."
+  - category: "Domain Knowledge Deficit"
+    af: [{id: AF-0125, relation: broader}]
+    note: "One of AF-0125's named dimensions (domain knowledge)."
+  - category: "Value Misalignment"
+    af: []
+    note: "Flawed ethical deliberation even when the action is right. Out of AFR's trajectory-symptom scope; not marked GAP."
+  # --- users: model - grader ---
+  - category: "Specification Gaming"
+    af: [{id: AF-0088, relation: overlaps}]
+    note: "GAP: exploiting the reward/grading channel. AF-0088's 'optimises a proxy objective not requested' is the honest-mistake version; deliberate gaming has no mode."
+  - category: "Evaluation Awareness"
+    af: []
+    note: "Behaviour change on inferring it is being evaluated; the paper notes it may be 'detectable only via internal activations'. Fails AFR's trajectory-observability bar; not marked GAP."
+  # --- users: model - third party ---
+  - category: "Indirect Prompt Injection"
+    af: []
+    note: "GAP: directives in third-party content treated as owner instructions. Security-shaped; no AF mode."
+  - category: "Contextual Sycophancy"
+    af: []
+    note: "GAP: adopts the views of third-party content it is analysing. No AF mode; single source."
+  # --- harness: model - context ---
+  - category: "State Tracking Failure"
+    af:
+      - {id: AF-0058, relation: exact}
+      - {id: AF-0049, relation: narrower}
+      - {id: AF-0142, relation: narrower}
+    note: "'Trapped in a repetitive execution cycle ... fails to recognize its repeated steps are no longer making progress' - AF-0058. Test loops and re-reads are its named sub-cases. The paper puts this on the MODEL side; AFR's layer is harness - see notes."
+  - category: "Goal Drift"
+    af: [{id: AF-0088, relation: overlaps}]
+    note: "GAP: recent context displaces the original instruction over a long run. Distinct mechanism (recency); ends up looking like AF-0088 late in the trajectory."
+  - category: "Context Rationale Erosion"
+    af: [{id: AF-0064, relation: exact}]
+    note: "Harness compaction keeps an instruction's surface action but drops its rationale; the model, working from the lossy summary, reverses a decision it had honoured. AF-0064's summarisation case exactly; attributed to the harness when compaction is harness-driven, as AFR does."
+  # --- harness: model - memory (AFR has no memory edge) ---
+  - category: "Missed Write"
+    af: []
+    note: "GAP: relevant fact not stored to durable memory. AFR has no memory modes; single source."
+  - category: "State Staleness"
+    af: [{id: AF-0118, relation: overlaps}]
+    note: "GAP: stored memory not updated when the world changes. AF-0118 is the environment-side cousin."
+  - category: "Overgeneralization"
+    af: []
+    note: "GAP: one-off workaround stored as a permanent rule. Memory; no AF mode."
+  - category: "Memory Rationale Erosion"
+    af: []
+    note: "GAP: memory written without the reasoning behind it, later reversed. Memory twin of Context Rationale Erosion; no AF mode."
+  - category: "Pollution"
+    af: []
+    note: "GAP: transient logs dumped into durable memory. No AF mode."
+  - category: "Redundancy"
+    af: []
+    note: "GAP: same information written repeatedly to memory. No AF mode."
+  - category: "Missed Read"
+    af: []
+    note: "GAP: memory holds the fact; model does not consult it. No AF mode."
+  - category: "Memory Following Failure"
+    af: []
+    note: "GAP: memory read and then ignored. No AF mode."
+  # --- harness: model - tool ---
+  - category: "Malformed Arguments"
+    af: [{id: AF-0023, relation: exact}]
+    note: "Call does not fit the tool's schema; immediate exception."
+  - category: "Suboptimal Arguments"
+    af: []
+    note: "GAP: structurally valid but low-signal arguments (vague phrase into grep). Near AF-0023 but not invalid; no AF mode."
+  - category: "Incorrect Tool Selection"
+    af: [{id: AF-0157, relation: exact}]
+    note: "'Selects a tool that is completely wrong for the task or fundamentally inefficient.'"
+  - category: "Tool Hallucination"
+    af: [{id: AF-0011, relation: exact}]
+    note: "Calls a tool absent from the declared schema; immediate crash."
+  - category: "Tool Feedback Neglect"
+    af: [{id: AF-0042, relation: broader}]
+    note: "Fails to act on an explicit signal in the tool response - the 'error field not acknowledged' slice of AF-0042."
+  - category: "Tool Recovery Failure"
+    af:
+      - {id: AF-0058, relation: overlaps}
+      - {id: AF-0042, relation: overlaps}
+    note: "GAP: after a tool anomaly (503, rate-limit, corrupted data) the model either retries futilely or over-trusts the broken data instead of pivoting. Failure-to-recover has no AF mode; this paper names it three times across edges."
+  - category: "Mistranslation"
+    af: [{id: AF-0149, relation: broader}]
+    note: "Tool-side: the integration layer garbles an observation or mis-maps the action. One kind of AF-0149; the paper's only tool-side fault."
+  # --- harness: model - model ---
+  - category: "Delegation Failure (peer)"
+    af: [{id: AF-0071, relation: overlaps}]
+    note: "Peers fail to coordinate division of work and dependencies. AF-0071 is orchestrator-shaped; peer coordination is adjacent."
+  - category: "Communication Failure (peer)"
+    af: [{id: AF-0071, relation: overlaps}]
+    note: "Peers fail to exchange needed information."
+  - category: "Delegation Failure (subagent)"
+    af: [{id: AF-0071, relation: broader}]
+    note: "Orchestrator assigns work with wrong scope or dependencies - AF-0071's first clause; AF-0071 also covers the result side."
+  - category: "Communication Failure (subagent)"
+    af: [{id: AF-0071, relation: broader}]
+    note: "Orchestrator omits context, fails to route, or fails to use the sub-agent's output; or the sub-agent fails to report. AF-0071's first and third clauses."
+  # --- environment: model - external ---
+  - category: "Service Failure"
+    af:
+      - {id: AF-0170, relation: exact}
+      - {id: AF-0130, relation: narrower}
+    note: "External service hits an internal error, timeout or rate limit and fails the request outright, unrecoverably. The rate-limit case is AF-0130's trigger."
+  - category: "Stale State Delivery"
+    af: [{id: AF-0118, relation: overlaps}]
+    note: "GAP: service returns a healthy status but stale data, with no freshness signal. AF-0118 is 'the world changed'; this is 'the service lied about freshness'. No exact AF mode."
+  - category: "Recovery Failure (external environment)"
+    af: [{id: AF-0077, relation: overlaps}]
+    note: "GAP: the environment problem was recoverable and the model gave up or acted on a false assumption instead of retrying, diagnosing, routing around or asking. Failure-to-recover has no AF mode."
+  # --- environment: model - local ---
+  - category: "Observation Failure"
+    af:
+      - {id: AF-0042, relation: overlaps}
+      - {id: AF-0103, relation: overlaps}
+    note: "A cue present in the observation space is overlooked and the model acts without resolving the ambiguity it would have settled."
+  - category: "Recovery Failure (local environment)"
+    af: [{id: AF-0077, relation: overlaps}]
+    note: "GAP: same definition as the external-environment variant, for local conditions (missing file, broken state)."

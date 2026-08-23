@@ -1,0 +1,90 @@
+source:
+  id: agentfail
+  name: AgentFail
+  vendor: academic
+  url: https://arxiv.org/abs/2509.23735
+  license: n/a
+  taxonomy_size: 16
+  observed: "2026-08-23"
+
+# Read in full: S3-S4 (v2) plus the Figure 4 taxonomy image, which is the
+# only place all sixteen root causes are listed. 307 real failures from
+# platform-orchestrated (Coze, Dify) multi-agent workflows. REPAIR-ORIENTED
+# ROOT CAUSES, not symptoms: each category is "why it failed / what to fix",
+# so relations are mostly `overlaps` against AFR's symptom-level modes.
+# Dataset (the best source of `examples` for several modes):
+# https://github.com/Jenna-Ma/JaWs-AgentFail . Notes: notes/agentfail.md.
+
+mappings:
+  # Agent-level
+  - category: "F1.1 Tool or Action Planning Error"
+    af:
+      - {id: AF-0157, relation: overlaps}
+      - {id: AF-0088, relation: overlaps}
+    note: "Wrong tool or action chosen for the step (7 cases)."
+  - category: "F1.2 Response Format Error"
+    af:
+      - {id: AF-0023, relation: overlaps}
+    note: "A node's output does not match the format the next node expects (28). AF-0023 is the closest - the invalid-invocation shape seen from the consumer side. No AF mode for malformed inter-node output specifically."
+  - category: "F1.3 Response Content Deviation"
+    af:
+      - {id: AF-0153, relation: overlaps}
+      - {id: AF-0088, relation: overlaps}
+    note: "Content does not meet the instruction (47). The paper pairs it with F1.5 under 'response misalignments'; instruction-following shape."
+  - category: "F1.4 Knowledge or Reasoning Limitation"
+    af: [{id: AF-0125, relation: exact}]
+    note: "Most frequent root cause (55); repair = model upgrade or augmentation - AF-0125's third symptom."
+  - category: "F1.5 Poor Prompt Design"
+    af:
+      - {id: AF-0103, relation: overlaps}
+    note: "GAP: second most frequent (52). Harness prompt quality as a root cause - the same thing Agent-Xray's prompt_bug names. Cause-level rather than symptom-level, so it may not belong in a symptom registry at all; recorded as a gap to decide, not to fill by default."
+  - category: "F1.6 Language or Encoding Issue"
+    af: []
+    note: "Wrong language or character encoding in a node's output (15). No AF mode; borderline in scope."
+  - category: "F1.7 Tool Invocation or KB Retrieval Error"
+    af:
+      - {id: AF-0023, relation: overlaps}
+      - {id: AF-0149, relation: overlaps}
+    note: "Tool call fails or knowledge-base lookup returns wrong/nothing (9)."
+  # Structure-level
+  - category: "F2.1 Missing Input Verification"
+    af:
+      - {id: AF-0042, relation: overlaps}
+    note: "Workflow passes unchecked input between nodes (15); a node proceeds on a value it should have validated."
+  - category: "F2.2 Unreasonable Node Dependency"
+    af:
+      - {id: AF-0071, relation: overlaps}
+      - {id: AF-0088, relation: overlaps}
+    note: "Dependencies between workflow nodes wired wrongly (17)."
+  - category: "F2.3 Loops and Deadlocks"
+    af:
+      - {id: AF-0058, relation: overlaps}
+    note: "Workflow-structure loop or deadlock (3); the repetition is in the orchestration graph, not the agent's reasoning."
+  - category: "F2.4 Faulty Conditional Judgment"
+    af:
+      - {id: AF-0088, relation: overlaps}
+    note: "Branching condition routes to the wrong path (11)."
+  - category: "F2.5 Improper Task Decomposition"
+    af:
+      - {id: AF-0071, relation: overlaps}
+      - {id: AF-0088, relation: overlaps}
+    note: "Sub-tasks scoped wrongly (6) - AF-0071's incomplete/distorted brief."
+  - category: "F2.6 Context Conflict"
+    af:
+      - {id: AF-0071, relation: overlaps}
+    note: "Conflicting context supplied across nodes (8)."
+  - category: "F2.7 Cross-agent tool or interface mismatch"
+    af:
+      - {id: AF-0071, relation: overlaps}
+      - {id: AF-0149, relation: overlaps}
+    note: "Interface between agents/tools does not line up (11)."
+  # Platform-level
+  - category: "F3.1 Network and Resource Fluctuation"
+    af:
+      - {id: AF-0170, relation: broader}
+      - {id: AF-0136, relation: overlaps}
+    note: "Transient network or resource trouble (13). AF-0170 covers any upstream failure, so broader."
+  - category: "F3.2 Service Unavailability"
+    af:
+      - {id: AF-0170, relation: broader}
+    note: "External service down (10). AF-0170 also covers a live service failing a request, so broader."

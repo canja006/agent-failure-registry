@@ -17,8 +17,9 @@ symptoms:
 discriminators:
   - "vs AF-0130: a time or step ceiling, not a throughput quota; no 429-style errors"
   - "vs AF-0077: termination is external, not the agent's decision"
+  - "vs AF-0170: the run's own budget was exhausted, not a single upstream call failing"
 
-near_neighbors: [AF-0130, AF-0077]
+near_neighbors: [AF-0130, AF-0077, AF-0170]
 
 references: []
 examples: []

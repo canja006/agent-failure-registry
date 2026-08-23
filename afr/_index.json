@@ -1,6 +1,5 @@
 {
  "edges": {
-  "academic": {},
   "agent-xray": {
    "approval_block": {
     "af": [
@@ -183,11 +182,11 @@
    "tool_selection_bug": {
     "af": [
      {
-      "id": "AF-0088",
-      "relation": "overlaps"
+      "id": "AF-0157",
+      "relation": "exact"
      }
     ],
-    "note": "GAP: right tool available, agent used something else (search-only when browser exposed; or one tool across many URLs). No invocation error involved. No AF mode for wrong-tool-selected yet; AF-0088 is the nearest."
+    "note": "Right tool available, agent used something else (search-only when browser exposed; or one tool across many URLs). No invocation error involved. This category, with Model-or-Harness 'Incorrect Tool Selection', is why AF-0157 exists."
    },
    "unclassified": {
     "af": [],
@@ -196,6 +195,286 @@
    "valid_alternative_path": {
     "af": [],
     "note": "Not a failure."
+   }
+  },
+  "agentfail": {
+   "F1.1 Tool or Action Planning Error": {
+    "af": [
+     {
+      "id": "AF-0157",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Wrong tool or action chosen for the step (7 cases)."
+   },
+   "F1.2 Response Format Error": {
+    "af": [
+     {
+      "id": "AF-0023",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "A node's output does not match the format the next node expects (28). AF-0023 is the closest - the invalid-invocation shape seen from the consumer side. No AF mode for malformed inter-node output specifically."
+   },
+   "F1.3 Response Content Deviation": {
+    "af": [
+     {
+      "id": "AF-0153",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Content does not meet the instruction (47). The paper pairs it with F1.5 under 'response misalignments'; instruction-following shape."
+   },
+   "F1.4 Knowledge or Reasoning Limitation": {
+    "af": [
+     {
+      "id": "AF-0125",
+      "relation": "exact"
+     }
+    ],
+    "note": "Most frequent root cause (55); repair = model upgrade or augmentation - AF-0125's third symptom."
+   },
+   "F1.5 Poor Prompt Design": {
+    "af": [
+     {
+      "id": "AF-0103",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: second most frequent (52). Harness prompt quality as a root cause - the same thing Agent-Xray's prompt_bug names. Cause-level rather than symptom-level, so it may not belong in a symptom registry at all; recorded as a gap to decide, not to fill by default."
+   },
+   "F1.6 Language or Encoding Issue": {
+    "af": [],
+    "note": "Wrong language or character encoding in a node's output (15). No AF mode; borderline in scope."
+   },
+   "F1.7 Tool Invocation or KB Retrieval Error": {
+    "af": [
+     {
+      "id": "AF-0023",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0149",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Tool call fails or knowledge-base lookup returns wrong/nothing (9)."
+   },
+   "F2.1 Missing Input Verification": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Workflow passes unchecked input between nodes (15); a node proceeds on a value it should have validated."
+   },
+   "F2.2 Unreasonable Node Dependency": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Dependencies between workflow nodes wired wrongly (17)."
+   },
+   "F2.3 Loops and Deadlocks": {
+    "af": [
+     {
+      "id": "AF-0058",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Workflow-structure loop or deadlock (3); the repetition is in the orchestration graph, not the agent's reasoning."
+   },
+   "F2.4 Faulty Conditional Judgment": {
+    "af": [
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Branching condition routes to the wrong path (11)."
+   },
+   "F2.5 Improper Task Decomposition": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Sub-tasks scoped wrongly (6) - AF-0071's incomplete/distorted brief."
+   },
+   "F2.6 Context Conflict": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Conflicting context supplied across nodes (8)."
+   },
+   "F2.7 Cross-agent tool or interface mismatch": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0149",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Interface between agents/tools does not line up (11)."
+   },
+   "F3.1 Network and Resource Fluctuation": {
+    "af": [
+     {
+      "id": "AF-0170",
+      "relation": "broader"
+     },
+     {
+      "id": "AF-0136",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Transient network or resource trouble (13). AF-0170 covers any upstream failure, so broader."
+   },
+   "F3.2 Service Unavailability": {
+    "af": [
+     {
+      "id": "AF-0170",
+      "relation": "broader"
+     }
+    ],
+    "note": "External service down (10). AF-0170 also covers a live service failing a request, so broader."
+   }
+  },
+  "agentic-faults": {
+   "Agent Lifecycle and State": {
+    "af": [
+     {
+      "id": "AF-0058",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0071",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0077",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0153",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "38. Scheduling, delegation logic, state transitions, termination logic. Runtime face: skipped tasks, repeated actions, lost intermediate state, uncontrolled loops, failure to stop."
+   },
+   "Dependency and Environment Management": {
+    "af": [],
+    "note": "72 - the largest category. Dependency resolution, installation, upstream breaking changes. Out of scope."
+   },
+   "Documentation Issues": {
+    "af": [],
+    "note": "8. Out of scope."
+   },
+   "Execution Monitoring": {
+    "af": [],
+    "note": "5. Logging/tracing/metrics defects. Out of scope."
+   },
+   "External Access": {
+    "af": [
+     {
+      "id": "AF-0170",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0118",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "19. Invalid endpoints, connection settings, credentials, permissions. Runtime face: unreachable service (AF-0170), credential invalidated mid-run (AF-0118)."
+   },
+   "Failure Handling & Implementation Robustness": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0149",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "47. Suppressed exceptions, mis-propagated errors, broken recovery. Runtime face: silent failures and the system continuing on erroneous state - the harness-side cause of what a trajectory shows as AF-0042 / AF-0149."
+   },
+   "Input Interpretation": {
+    "af": [],
+    "note": "59. Parsing, validation, encoding and type-assumption bugs in pipeline code. Framework defect; out of scope. (Its 'Data Schema Mismatch' root cause is the same shape as AgentFail F1.2.)"
+   },
+   "LLM Interaction Faults": {
+    "af": [
+     {
+      "id": "AF-0064",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0166",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "48. Model/provider misconfiguration, incompatible API usage, token accounting, context-window handling. Runtime face: context overflow / truncated prompts (AF-0064), unintended or redundant tool invocation (AF-0166), rejected API calls."
+   },
+   "Memory Management": {
+    "af": [],
+    "note": "8. Serialization, timestamps, persistent-storage bugs in the memory implementation. Framework defect; not a trajectory-observable agent failure."
+   },
+   "Platform & Integration Compatibility": {
+    "af": [],
+    "note": "15. OS/architecture/container assumptions. Out of scope."
+   },
+   "Resource Interaction": {
+    "af": [],
+    "note": "21. Invalid paths, filesystem assumptions, storage/database misconfiguration. Framework/config defect; out of scope."
+   },
+   "System Coordination": {
+    "af": [],
+    "note": "6. Race conditions in concurrent/streaming execution. Out of scope."
+   },
+   "Tool Invocation": {
+    "af": [
+     {
+      "id": "AF-0023",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0149",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "11. Defective tool, or tool invoked against its API contract (unsupported args, malformed request). Both sides of the AF-0023 / AF-0149 line."
+   },
+   "User Interface Defects": {
+    "af": [],
+    "note": "13. Dashboards misrepresenting state. Out of scope."
    }
   },
   "agentrx": {
@@ -215,11 +494,19 @@
    "Instruction/Plan Adherence Failure": {
     "af": [
      {
+      "id": "AF-0153",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0166",
+      "relation": "narrower"
+     },
+     {
       "id": "AF-0077",
       "relation": "narrower"
      }
     ],
-    "note": "GAP: goal is correct (checklist Q1 excludes wrong-problem cases) but a step required by the plan, domain policy or orchestrator was skipped, reordered or padded with unneeded actions. Stopping early (AF-0077) is one kind of under-execution; the general 'required step skipped / policy deviated from' has no AF mode - and it is the most common failure event in AgentRx's own annotations."
+    "note": "Goal is correct (checklist Q1 excludes wrong-problem cases) but a step required by the plan, domain policy or orchestrator was skipped, reordered or padded with unneeded actions. AF splits it: under-execution (AF-0153, with stopping early AF-0077 as its own mode) and over-execution (AF-0166). The most common failure event in AgentRx's own annotations; this category is one of the sources for AF-0153 and AF-0166."
    },
    "Intent Not Supported": {
     "af": [
@@ -251,11 +538,15 @@
    "Invention of New Information": {
     "af": [
      {
+      "id": "AF-0161",
+      "relation": "narrower"
+     },
+     {
       "id": "AF-0011",
       "relation": "narrower"
      }
     ],
-    "note": "GAP: AF-0011 covers fabricated tool/parameter schemas only. The category also covers fabricated facts, hallucinated state ('download succeeded'), and unjustified omission of relevant information - no AF mode for fabricated fact/claim yet."
+    "note": "Fabricated facts and hallucinated state ('download succeeded') are AF-0161; fabricated tool/parameter schemas are AF-0011. The category also covers unjustified OMISSION of relevant information, which neither mode does - hence narrower, not exact. One of the sources for AF-0161."
    },
    "Misinterpretation of Tool Output": {
     "af": [
@@ -273,6 +564,10 @@
    "System Failure": {
     "af": [
      {
+      "id": "AF-0170",
+      "relation": "narrower"
+     },
+     {
       "id": "AF-0136",
       "relation": "narrower"
      },
@@ -285,7 +580,7 @@
       "relation": "narrower"
      }
     ],
-    "note": "GAP: explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it: time/step budget, rate-limit cascade, and tool-internal errors (5xx). Pure connectivity failure (DNS/refused/unreachable) has no AF mode yet. Context truncation is not in the definition and is no longer mapped here."
+    "note": "Explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it by mechanism: upstream service failure (AF-0170, listed first), time/step budget, rate-limit cascade, tool-internal error. 'Premature termination' of the run itself is the residue none of them names. Context truncation is not in the definition and is not mapped here. One of the sources for AF-0170."
    },
    "Underspecified User Intent": {
     "af": [
@@ -295,6 +590,389 @@
      }
     ],
     "note": "A specific required piece of information is absent from all evidence and the agent proceeded without it or failed to ask. AF-0103 describes the same failure from the 'picked a reading silently' side."
+   }
+  },
+  "model-or-harness": {
+   "Communication Failure (peer)": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Peers fail to exchange needed information."
+   },
+   "Communication Failure (subagent)": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "broader"
+     }
+    ],
+    "note": "Orchestrator omits context, fails to route, or fails to use the sub-agent's output; or the sub-agent fails to report. AF-0071's first and third clauses."
+   },
+   "Context Rationale Erosion": {
+    "af": [
+     {
+      "id": "AF-0064",
+      "relation": "exact"
+     }
+    ],
+    "note": "Harness compaction keeps an instruction's surface action but drops its rationale; the model, working from the lossy summary, reverses a decision it had honoured. AF-0064's summarisation case exactly; attributed to the harness when compaction is harness-driven, as AFR does."
+   },
+   "Contextual Sycophancy": {
+    "af": [],
+    "note": "GAP: adopts the views of third-party content it is analysing. No AF mode; single source."
+   },
+   "Delegation Failure (peer)": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Peers fail to coordinate division of work and dependencies. AF-0071 is orchestrator-shaped; peer coordination is adjacent."
+   },
+   "Delegation Failure (subagent)": {
+    "af": [
+     {
+      "id": "AF-0071",
+      "relation": "broader"
+     }
+    ],
+    "note": "Orchestrator assigns work with wrong scope or dependencies - AF-0071's first clause; AF-0071 also covers the result side."
+   },
+   "Domain Knowledge Deficit": {
+    "af": [
+     {
+      "id": "AF-0125",
+      "relation": "broader"
+     }
+    ],
+    "note": "One of AF-0125's named dimensions (domain knowledge)."
+   },
+   "Evaluation Awareness": {
+    "af": [],
+    "note": "Behaviour change on inferring it is being evaluated; the paper notes it may be 'detectable only via internal activations'. Fails AFR's trajectory-observability bar; not marked GAP."
+   },
+   "Goal Drift": {
+    "af": [
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: recent context displaces the original instruction over a long run. Distinct mechanism (recency); ends up looking like AF-0088 late in the trajectory."
+   },
+   "Incorrect Tool Selection": {
+    "af": [
+     {
+      "id": "AF-0157",
+      "relation": "exact"
+     }
+    ],
+    "note": "'Selects a tool that is completely wrong for the task or fundamentally inefficient.'"
+   },
+   "Indirect Prompt Injection": {
+    "af": [],
+    "note": "GAP: directives in third-party content treated as owner instructions. Security-shaped; no AF mode."
+   },
+   "Instruction-Following Failure": {
+    "af": [
+     {
+      "id": "AF-0153",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0077",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Ignores parts of the spec, partially completes, or violates explicit constraints (time, call or token limits). AF-0153 and AF-0077 are each one slice."
+   },
+   "Instruction-Grader Mismatch": {
+    "af": [
+     {
+      "id": "AF-0103",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Owner-side: instruction differs from the owner's real intent as the grader captures it; the agent follows the instruction and is judged against the intent. Not an agent fault; AF-0103 is the nearest shape."
+   },
+   "Malformed Arguments": {
+    "af": [
+     {
+      "id": "AF-0023",
+      "relation": "exact"
+     }
+    ],
+    "note": "Call does not fit the tool's schema; immediate exception."
+   },
+   "Memory Following Failure": {
+    "af": [],
+    "note": "GAP: memory read and then ignored. No AF mode."
+   },
+   "Memory Rationale Erosion": {
+    "af": [],
+    "note": "GAP: memory written without the reasoning behind it, later reversed. Memory twin of Context Rationale Erosion; no AF mode."
+   },
+   "Missed Read": {
+    "af": [],
+    "note": "GAP: memory holds the fact; model does not consult it. No AF mode."
+   },
+   "Missed Write": {
+    "af": [],
+    "note": "GAP: relevant fact not stored to durable memory. AFR has no memory modes; single source."
+   },
+   "Mistranslation": {
+    "af": [
+     {
+      "id": "AF-0149",
+      "relation": "broader"
+     }
+    ],
+    "note": "Tool-side: the integration layer garbles an observation or mis-maps the action. One kind of AF-0149; the paper's only tool-side fault."
+   },
+   "Observation Failure": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0103",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "A cue present in the observation space is overlooked and the model acts without resolving the ambiguity it would have settled."
+   },
+   "Over-initiative": {
+    "af": [
+     {
+      "id": "AF-0103",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0166",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: consequential action taken where a clarifying question was due, or information volunteered unasked. Acting-beyond-scope has no AF mode; the clarify-first half is AF-0103, the surplus-action half AF-0166."
+   },
+   "Overgeneralization": {
+    "af": [],
+    "note": "GAP: one-off workaround stored as a permanent rule. Memory; no AF mode."
+   },
+   "Pollution": {
+    "af": [],
+    "note": "GAP: transient logs dumped into durable memory. No AF mode."
+   },
+   "Reasoning Failure": {
+    "af": [
+     {
+      "id": "AF-0125",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "'Fundamentally incapable of reasoning through the problem; flawed plan; logical error.'"
+   },
+   "Recovery Failure (external environment)": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: the environment problem was recoverable and the model gave up or acted on a false assumption instead of retrying, diagnosing, routing around or asking. Failure-to-recover has no AF mode."
+   },
+   "Recovery Failure (local environment)": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: same definition as the external-environment variant, for local conditions (missing file, broken state)."
+   },
+   "Redundancy": {
+    "af": [],
+    "note": "GAP: same information written repeatedly to memory. No AF mode."
+   },
+   "Satisficing": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "exact"
+     },
+     {
+      "id": "AF-0086",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "'Declares the job done while real work remains undone or only stubbed in' - AF-0077 to the letter; the paper adds the motive (effort minimisation), which AFR does not record. 'Stops at the first result that clears a low bar' overlaps AF-0086."
+   },
+   "Service Failure": {
+    "af": [
+     {
+      "id": "AF-0170",
+      "relation": "exact"
+     },
+     {
+      "id": "AF-0130",
+      "relation": "narrower"
+     }
+    ],
+    "note": "External service hits an internal error, timeout or rate limit and fails the request outright, unrecoverably. The rate-limit case is AF-0130's trigger."
+   },
+   "Specification Gaming": {
+    "af": [
+     {
+      "id": "AF-0088",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: exploiting the reward/grading channel. AF-0088's 'optimises a proxy objective not requested' is the honest-mistake version; deliberate gaming has no mode."
+   },
+   "Stale State Delivery": {
+    "af": [
+     {
+      "id": "AF-0118",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: service returns a healthy status but stale data, with no freshness signal. AF-0118 is 'the world changed'; this is 'the service lied about freshness'. No exact AF mode."
+   },
+   "State Staleness": {
+    "af": [
+     {
+      "id": "AF-0118",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: stored memory not updated when the world changes. AF-0118 is the environment-side cousin."
+   },
+   "State Tracking Failure": {
+    "af": [
+     {
+      "id": "AF-0058",
+      "relation": "exact"
+     },
+     {
+      "id": "AF-0049",
+      "relation": "narrower"
+     },
+     {
+      "id": "AF-0142",
+      "relation": "narrower"
+     }
+    ],
+    "note": "'Trapped in a repetitive execution cycle ... fails to recognize its repeated steps are no longer making progress' - AF-0058. Test loops and re-reads are its named sub-cases. The paper puts this on the MODEL side; AFR's layer is harness - see notes."
+   },
+   "Suboptimal Arguments": {
+    "af": [],
+    "note": "GAP: structurally valid but low-signal arguments (vague phrase into grep). Near AF-0023 but not invalid; no AF mode."
+   },
+   "Sycophancy": {
+    "af": [],
+    "note": "GAP: output tailored to agree with the user over truth. No AF mode; single source so far."
+   },
+   "Tool Feedback Neglect": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "broader"
+     }
+    ],
+    "note": "Fails to act on an explicit signal in the tool response - the 'error field not acknowledged' slice of AF-0042."
+   },
+   "Tool Hallucination": {
+    "af": [
+     {
+      "id": "AF-0011",
+      "relation": "exact"
+     }
+    ],
+    "note": "Calls a tool absent from the declared schema; immediate crash."
+   },
+   "Tool Recovery Failure": {
+    "af": [
+     {
+      "id": "AF-0058",
+      "relation": "overlaps"
+     },
+     {
+      "id": "AF-0042",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: after a tool anomaly (503, rate-limit, corrupted data) the model either retries futilely or over-trusts the broken data instead of pivoting. Failure-to-recover has no AF mode; this paper names it three times across edges."
+   },
+   "Unauthorized Irreversible Action": {
+    "af": [],
+    "note": "GAP: high or infinite rollback-cost action taken without a mandatory human confirmation gate. No AF mode; the inverse of AF-0095."
+   },
+   "Under-initiative": {
+    "af": [
+     {
+      "id": "AF-0077",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "GAP: halting, over-deferring, or demanding confirmation the task did not need. The halting half is AF-0077; over-deferral has no AF mode."
+   },
+   "Value Misalignment": {
+    "af": [],
+    "note": "Flawed ethical deliberation even when the action is right. Out of AFR's trajectory-symptom scope; not marked GAP."
+   }
+  },
+  "toolfailbench": {
+   "Output-Fabrication": {
+    "af": [
+     {
+      "id": "AF-0161",
+      "relation": "broader"
+     }
+    ],
+    "note": "Tool called; answer adds invented structured information not present in the return. AF-0161 covers fabricated content in general, so it is broader."
+   },
+   "Result-Ignore": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "broader"
+     }
+    ],
+    "note": "Tool called; final answer omits the returned value (typically in favour of the memorised prior). The ignore-in-favour-of-prior slice of AF-0042, which also covers misinterpretation."
+   },
+   "Tool-Skip": {
+    "af": [
+     {
+      "id": "AF-0153",
+      "relation": "broader"
+     }
+    ],
+    "note": "No valid executed tool call on a tool-required task; includes answers written in a tool-style format with no call behind them (App. D.1). AF-0153 covers any prescribed step left out, so it is broader. The tool-style-answer variant also brushes AF-0161."
+   },
+   "Unnecessary-Tool-Use": {
+    "af": [
+     {
+      "id": "AF-0166",
+      "relation": "broader"
+     }
+    ],
+    "note": "Control task (no tool needed) answered with a tool call anyway. The one-extra-call slice of AF-0166. Rare label; judge kappa 0.23 but raw agreement 0.95."
+   },
+   "Wrong-Answer": {
+    "af": [],
+    "note": "Control task answered directly and incorrectly - a parametric knowledge error, not a tool-use failure. Left unmapped on purpose; AF-0125 would overstate it."
    }
   }
  },
@@ -328,7 +1006,9 @@
    "discriminators": [
     "vs AF-0023: the tool exists here only in the model's output, not in the schema",
     "vs AF-0042: the fabrication is in the call, not in reading the result",
-    "vs AF-0149: the tool does not exist; an existing tool that misbehaves is AF-0149"
+    "vs AF-0149: the tool does not exist; an existing tool that misbehaves is AF-0149",
+    "vs AF-0157: the tool does not exist; in AF-0157 an existing, wrong tool was chosen",
+    "vs AF-0161: fabrication is in the tool or parameter name at call time, not in content or claims"
    ],
    "examples": [],
    "id": "AF-0011",
@@ -336,7 +1016,9 @@
    "near_neighbors": [
     "AF-0023",
     "AF-0042",
-    "AF-0149"
+    "AF-0149",
+    "AF-0157",
+    "AF-0161"
    ],
    "references": [],
    "status": "provisional",
@@ -353,7 +1035,8 @@
     "vs AF-0011: the tool and parameters exist; only the values are wrong",
     "vs AF-0088: the tool choice is appropriate for the plan; the call itself is malformed",
     "vs AF-0042: the call itself is malformed or rejected; nothing was misread downstream",
-    "vs AF-0149: the call itself violates the schema; a schema-valid call that fails inside the tool is AF-0149"
+    "vs AF-0149: the call itself violates the schema; a schema-valid call that fails inside the tool is AF-0149",
+    "vs AF-0157: the call is malformed; in AF-0157 the call is valid and the tool is the wrong choice"
    ],
    "examples": [],
    "id": "AF-0023",
@@ -362,7 +1045,8 @@
     "AF-0011",
     "AF-0088",
     "AF-0042",
-    "AF-0149"
+    "AF-0149",
+    "AF-0157"
    ],
    "references": [],
    "status": "provisional",
@@ -379,7 +1063,8 @@
     "vs AF-0023: the call succeeded; the failure is in interpretation",
     "vs AF-0011: nothing was invented at call time",
     "vs AF-0086: enough was read; what was read was misinterpreted",
-    "vs AF-0149: the output was correct and misread; an incorrect or unusable output is AF-0149"
+    "vs AF-0149: the output was correct and misread; an incorrect or unusable output is AF-0149",
+    "vs AF-0161: a real output was misread; in AF-0161 content was added that no output supports"
    ],
    "examples": [],
    "id": "AF-0042",
@@ -388,7 +1073,8 @@
     "AF-0023",
     "AF-0011",
     "AF-0086",
-    "AF-0149"
+    "AF-0149",
+    "AF-0161"
    ],
    "references": [],
    "status": "provisional",
@@ -428,7 +1114,8 @@
     "vs AF-0049: not scoped to a test/verify cycle",
     "vs AF-0095: no policy or approval event in the trace; the repetition is unprompted",
     "vs AF-0125: attempts are identical, not varied failing approaches",
-    "vs AF-0130: no quota or 429 errors in the trace; the repetition originates in the agent"
+    "vs AF-0130: no quota or 429 errors in the trace; the repetition originates in the agent",
+    "vs AF-0166: the same action repeated, not a superfluous distinct one"
    ],
    "examples": [],
    "id": "AF-0058",
@@ -438,7 +1125,8 @@
     "AF-0049",
     "AF-0095",
     "AF-0125",
-    "AF-0130"
+    "AF-0130",
+    "AF-0166"
    ],
    "references": [],
    "status": "provisional",
@@ -499,7 +1187,8 @@
     "vs AF-0007: the work was possible with available tools",
     "vs AF-0095: nothing blocked the agent from continuing",
     "vs AF-0086: sub-goals are left undone; the issue is stopping, not thin evidence behind a conclusion",
-    "vs AF-0136: the agent chose to stop; no external deadline cut it off"
+    "vs AF-0136: the agent chose to stop; no external deadline cut it off",
+    "vs AF-0153: the agent stopped; in AF-0153 it continued past the missing step"
    ],
    "examples": [],
    "id": "AF-0077",
@@ -508,7 +1197,8 @@
     "AF-0007",
     "AF-0095",
     "AF-0086",
-    "AF-0136"
+    "AF-0136",
+    "AF-0153"
    ],
    "references": [],
    "status": "provisional",
@@ -524,7 +1214,9 @@
    "discriminators": [
     "vs AF-0042: the sources read were interpreted correctly, there were just too few",
     "vs AF-0077: the agent did not stop early; it concluded early",
-    "vs AF-0071: no sub-agent is involved; evidence was never gathered rather than gathered and dropped"
+    "vs AF-0071: no sub-agent is involved; evidence was never gathered rather than gathered and dropped",
+    "vs AF-0153: too little evidence behind a conclusion, not a prescribed step left out",
+    "vs AF-0161: the claim is under-sourced, not invented; AF-0161 has no support at all"
    ],
    "examples": [],
    "id": "AF-0086",
@@ -532,7 +1224,9 @@
    "near_neighbors": [
     "AF-0042",
     "AF-0077",
-    "AF-0071"
+    "AF-0071",
+    "AF-0153",
+    "AF-0161"
    ],
    "references": [],
    "status": "provisional",
@@ -548,7 +1242,10 @@
    "discriminators": [
     "vs AF-0103: the intent was clear enough to plan against",
     "vs AF-0023: the plan is wrong, not the mechanics of a call",
-    "vs AF-0071: the plan itself is wrong; nothing is lost at a delegation boundary"
+    "vs AF-0071: the plan itself is wrong; nothing is lost at a delegation boundary",
+    "vs AF-0153: the plan itself is wrong; AF-0153 has the right plan with one prescribed step missing",
+    "vs AF-0157: the goal is wrong; AF-0157 has the right goal and the wrong instrument for a step",
+    "vs AF-0166: the plan serves the wrong goal; AF-0166 serves the right goal with a surplus action"
    ],
    "examples": [],
    "id": "AF-0088",
@@ -556,7 +1253,10 @@
    "near_neighbors": [
     "AF-0103",
     "AF-0023",
-    "AF-0071"
+    "AF-0071",
+    "AF-0153",
+    "AF-0157",
+    "AF-0166"
    ],
    "references": [],
    "status": "provisional",
@@ -618,7 +1318,8 @@
    "discriminators": [
     "vs AF-0142: the content genuinely changed here",
     "vs AF-0130: drift is in state, not in throughput limits",
-    "vs AF-0149: the environment changed underneath the agent; a tool that fails against unchanged state is AF-0149"
+    "vs AF-0149: the environment changed underneath the agent; a tool that fails against unchanged state is AF-0149",
+    "vs AF-0170: the target changed state; in AF-0170 it is unavailable"
    ],
    "examples": [],
    "id": "AF-0118",
@@ -626,7 +1327,8 @@
    "near_neighbors": [
     "AF-0142",
     "AF-0130",
-    "AF-0149"
+    "AF-0149",
+    "AF-0170"
    ],
    "references": [],
    "status": "provisional",
@@ -666,7 +1368,8 @@
    "discriminators": [
     "vs AF-0058: repetition is driven by the limit, not by the agent's reasoning",
     "vs AF-0136: quota exhaustion rather than a time or step ceiling",
-    "vs AF-0118: the environment's state is unchanged; only its quota is exhausted"
+    "vs AF-0118: the environment's state is unchanged; only its quota is exhausted",
+    "vs AF-0170: throttling with a 429/quota pattern, not a service that is down or unreachable"
    ],
    "examples": [],
    "id": "AF-0130",
@@ -674,7 +1377,8 @@
    "near_neighbors": [
     "AF-0058",
     "AF-0136",
-    "AF-0118"
+    "AF-0118",
+    "AF-0170"
    ],
    "references": [],
    "status": "provisional",
@@ -689,14 +1393,16 @@
    "description": "A step or the whole run exceeds an externally imposed budget \u2014 wall-clock time, or a maximum step / iteration count \u2014 and is cut off, leaving the task partially executed and the agent unaware of the boundary. The two budgets present identically in a trajectory, so they share a mode.",
    "discriminators": [
     "vs AF-0130: a time or step ceiling, not a throughput quota; no 429-style errors",
-    "vs AF-0077: termination is external, not the agent's decision"
+    "vs AF-0077: termination is external, not the agent's decision",
+    "vs AF-0170: the run's own budget was exhausted, not a single upstream call failing"
    ],
    "examples": [],
    "id": "AF-0136",
    "layer": "environment",
    "near_neighbors": [
     "AF-0130",
-    "AF-0077"
+    "AF-0077",
+    "AF-0170"
    ],
    "references": [],
    "status": "provisional",
@@ -737,7 +1443,9 @@
     "vs AF-0023: the call passed validation; the failure originates inside the tool",
     "vs AF-0011: the tool exists and was advertised; nothing was invented",
     "vs AF-0042: the output was genuinely wrong or unusable, not merely misread",
-    "vs AF-0118: the same call against the same state fails; nothing in the environment changed between calls"
+    "vs AF-0118: the same call against the same state fails; nothing in the environment changed between calls",
+    "vs AF-0161: the tool returned the bad value; in AF-0161 the agent produced it",
+    "vs AF-0170: the tool's own code or integration failed; in AF-0170 the tool ran and its upstream dependency failed"
    ],
    "examples": [],
    "id": "AF-0149",
@@ -746,7 +1454,9 @@
     "AF-0023",
     "AF-0011",
     "AF-0042",
-    "AF-0118"
+    "AF-0118",
+    "AF-0161",
+    "AF-0170"
    ],
    "references": [
     "Agent-Xray `tool_bug` (https://github.com/GeeIHadAGoodTime/Agent-Xray/blob/main/src/agent_xray/root_cause.py) - the category that exposed the registry's empty tool layer"
@@ -759,18 +1469,166 @@
     "an identical call succeeds later, or elsewhere, with no change to arguments or target state"
    ],
    "title": "Tool defect"
+  },
+  {
+   "description": "Pursuing the correct goal, with the needed information available, the agent leaves out a step the task, plan, policy or specification required \u2014 a tool call, a confirmation, a check, a sub-task \u2014 and continues or concludes without it. The goal and the rest of the plan are right; one prescribed action is missing.",
+   "discriminators": [
+    "vs AF-0088: the goal and plan are right; only a prescribed step is missing",
+    "vs AF-0077: the run continues past the omission; AF-0077 is omission by stopping",
+    "vs AF-0086: a prescribed step was skipped, not merely too little evidence gathered for a conclusion",
+    "vs AF-0157: nothing was done in the step's place; AF-0157 substitutes a wrong tool",
+    "vs AF-0166: something required is absent; AF-0166 is something unrequired present"
+   ],
+   "examples": [],
+   "id": "AF-0153",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0088",
+    "AF-0077",
+    "AF-0086",
+    "AF-0157",
+    "AF-0166"
+   ],
+   "references": [
+    "AgentRx 'Instruction/Plan Adherence Failure' (under-execution) - https://arxiv.org/abs/2602.02475",
+    "ToolFailBench 'Tool-Skip' - https://arxiv.org/abs/2607.04686",
+    "Model or Harness? 'Instruction-Following Failure' - https://arxiv.org/abs/2607.28802"
+   ],
+   "status": "provisional",
+   "symptoms": [
+    "an action present in the reference sequence or mandated by policy is absent from the trace",
+    "a required confirmation, authentication or verification step does not precede the action it was meant to gate",
+    "an answer or completion is produced without the evidence or side-effect the omitted step would have provided",
+    "the stated goal and the surrounding plan are otherwise correct"
+   ],
+   "title": "Required step omitted"
+  },
+  {
+   "description": "A tool fit for the step was available and advertised, and the agent invoked a different, less suitable one \u2014 functionally wrong or grossly inefficient \u2014 with a well-formed call, or worked around the needed tool with an inferior path. The call mechanics are fine; the choice is not.",
+   "discriminators": [
+    "vs AF-0023: the calls are well-formed; the choice of tool is wrong",
+    "vs AF-0011: the tool used exists and was advertised",
+    "vs AF-0088: the goal and plan are right; the instrument for one step is wrong",
+    "vs AF-0153: something was done in the step - the wrong thing - rather than nothing",
+    "vs AF-0166: the step needed a tool; the wrong one was chosen, rather than a tool being used where none was needed"
+   ],
+   "examples": [],
+   "id": "AF-0157",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0023",
+    "AF-0011",
+    "AF-0088",
+    "AF-0153",
+    "AF-0166"
+   ],
+   "references": [
+    "Agent-Xray 'tool_selection_bug' - https://github.com/GeeIHadAGoodTime/Agent-Xray",
+    "Model or Harness? 'Incorrect Tool Selection' - https://arxiv.org/abs/2607.28802",
+    "AgentFail 'F1.1 Tool or Action Planning Error' - https://arxiv.org/abs/2509.23735"
+   ],
+   "status": "provisional",
+   "symptoms": [
+    "a tool suited to the step is in the advertised set and is not called",
+    "the tool that was called cannot produce what the step needs, or produces it at far higher cost",
+    "calls are schema-valid; no invocation error is raised",
+    "later steps compensate for the shortfall (re-query, manual parsing, guessing) or the result is degraded"
+   ],
+   "title": "Wrong tool selected"
+  },
+  {
+   "description": "The agent introduces a fact, value, citation or claim about state that no input, context item or tool output supports \u2014 inventing a figure, asserting that a file was written or a step succeeded, or attributing a result to a tool that did not return it \u2014 and proceeds on it.",
+   "discriminators": [
+    "vs AF-0011: the fabrication is in content or claims, not in a tool or parameter name at call time",
+    "vs AF-0042: no real output was misread; content was added that no output supports",
+    "vs AF-0149: the tool did not return the bad value; the agent produced it",
+    "vs AF-0086: the claim is ungrounded, not merely under-sourced"
+   ],
+   "examples": [],
+   "id": "AF-0161",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0011",
+    "AF-0042",
+    "AF-0149",
+    "AF-0086"
+   ],
+   "references": [
+    "AgentRx 'Invention of New Information' - https://arxiv.org/abs/2602.02475",
+    "ToolFailBench 'Output-Fabrication' and tool-style answers without a call (App. D.1) - https://arxiv.org/abs/2607.04686"
+   ],
+   "status": "provisional",
+   "symptoms": [
+    "a value or claim in the agent's output is absent from every input, context item and tool result up to that step",
+    "a result is attributed to a tool that was not called or did not return it",
+    "a state change is asserted (file written, order placed, download complete) that later observation does not confirm",
+    "downstream steps rely on the invented claim"
+   ],
+   "title": "Fabricated content"
+  },
+  {
+   "description": "The agent performs an action the task did not require and the plan did not need \u2014 a tool call, a side-effect, a sub-task \u2014 while the goal stays correct. The result may still be right; cost, latency or risk is incurred for nothing.",
+   "discriminators": [
+    "vs AF-0058: a superfluous distinct action, not a repetition of the same one",
+    "vs AF-0088: goal and plan are right; one action is surplus",
+    "vs AF-0153: the inverse - something unrequired is present rather than something required absent",
+    "vs AF-0157: no tool was needed for the step at all, rather than the wrong one chosen for a needed step"
+   ],
+   "examples": [],
+   "id": "AF-0166",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0058",
+    "AF-0088",
+    "AF-0153",
+    "AF-0157"
+   ],
+   "references": [
+    "AgentRx 'Instruction/Plan Adherence Failure' (over-execution) - https://arxiv.org/abs/2602.02475",
+    "ToolFailBench 'Unnecessary-Tool-Use' - https://arxiv.org/abs/2607.04686",
+    "Model or Harness? 'Over-initiative' (partial) - https://arxiv.org/abs/2607.28802"
+   ],
+   "status": "provisional",
+   "symptoms": [
+    "a tool call or step appears that the reference solution or control condition does not contain",
+    "the action's result is not used by any later step or by the final answer",
+    "the task is otherwise completed correctly"
+   ],
+   "title": "Unnecessary action"
+  },
+  {
+   "description": "A remote service or endpoint the agent depends on \u2014 an API, a site, a model host, a database \u2014 fails the request on its own side: unreachable, DNS or connection refused, timed out, 5xx, declared unavailable. The call was well-formed and the local tool ran; what failed was upstream of it.",
+   "discriminators": [
+    "vs AF-0149: the tool ran correctly; its upstream dependency failed",
+    "vs AF-0130: the service is down or unreachable, not throttling; no 429/quota pattern",
+    "vs AF-0136: a single upstream call timed out, rather than the run's own budget being exhausted",
+    "vs AF-0118: nothing about the target's state changed; it is unavailable"
+   ],
+   "examples": [],
+   "id": "AF-0170",
+   "layer": "environment",
+   "near_neighbors": [
+    "AF-0149",
+    "AF-0130",
+    "AF-0136",
+    "AF-0118"
+   ],
+   "references": [
+    "AgentRx 'System Failure' - https://arxiv.org/abs/2602.02475",
+    "Model or Harness? 'Service Failure' - https://arxiv.org/abs/2607.28802",
+    "AgentFail 'F3.1 Network and Resource Fluctuation', 'F3.2 Service Unavailability' - https://arxiv.org/abs/2509.23735"
+   ],
+   "status": "provisional",
+   "symptoms": [
+    "connection, DNS, timeout or 5xx error naming a remote host or endpoint",
+    "the local tool wrapper executed; the failure is in the response from upstream",
+    "the same call later succeeds without change, or the service is independently reported down",
+    "the run halts or degrades at the dependent step"
+   ],
+   "title": "External service failure"
   }
  ],
  "sources": [
-  {
-   "id": "academic",
-   "license": "n/a",
-   "name": "Published taxonomies",
-   "observed": "2026-08-23",
-   "taxonomy_size": 0,
-   "url": "https://arxiv.org",
-   "vendor": "various"
-  },
   {
    "id": "agent-xray",
    "license": "MIT",
@@ -781,6 +1639,24 @@
    "vendor": "community"
   },
   {
+   "id": "agentfail",
+   "license": "n/a",
+   "name": "AgentFail",
+   "observed": "2026-08-23",
+   "taxonomy_size": 16,
+   "url": "https://arxiv.org/abs/2509.23735",
+   "vendor": "academic"
+  },
+  {
+   "id": "agentic-faults",
+   "license": "n/a",
+   "name": "Characterizing Faults in Agentic AI (fault-type taxonomy)",
+   "observed": "2026-08-23",
+   "taxonomy_size": 14,
+   "url": "https://arxiv.org/abs/2603.06847",
+   "vendor": "academic"
+  },
+  {
    "id": "agentrx",
    "license": "MIT",
    "name": "AgentRx",
@@ -788,7 +1664,25 @@
    "taxonomy_size": 10,
    "url": "https://github.com/microsoft/AgentRx",
    "vendor": "Microsoft Research"
+  },
+  {
+   "id": "model-or-harness",
+   "license": "n/a",
+   "name": "Model or Harness? (interaction-centric taxonomy)",
+   "observed": "2026-08-23",
+   "taxonomy_size": 41,
+   "url": "https://arxiv.org/abs/2607.28802",
+   "vendor": "academic"
+  },
+  {
+   "id": "toolfailbench",
+   "license": "n/a",
+   "name": "ToolFailBench",
+   "observed": "2026-08-23",
+   "taxonomy_size": 5,
+   "url": "https://arxiv.org/abs/2607.04686",
+   "vendor": "academic"
   }
  ],
- "version": "d6c5eeba84bc"
+ "version": "cc5833e72923"
 }

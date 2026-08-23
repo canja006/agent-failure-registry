@@ -17,8 +17,11 @@ discriminators:
   - "vs AF-0103: the intent was clear enough to plan against"
   - "vs AF-0023: the plan is wrong, not the mechanics of a call"
   - "vs AF-0071: the plan itself is wrong; nothing is lost at a delegation boundary"
+  - "vs AF-0153: the plan itself is wrong; AF-0153 has the right plan with one prescribed step missing"
+  - "vs AF-0157: the goal is wrong; AF-0157 has the right goal and the wrong instrument for a step"
+  - "vs AF-0166: the plan serves the wrong goal; AF-0166 serves the right goal with a surplus action"
 
-near_neighbors: [AF-0103, AF-0023, AF-0071]
+near_neighbors: [AF-0103, AF-0023, AF-0071, AF-0153, AF-0157, AF-0166]
 
 references: []
 examples: []

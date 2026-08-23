@@ -1,0 +1,30 @@
+id: AF-0170
+title: "External service failure"
+status: provisional
+layer: environment
+
+description: >
+  A remote service or endpoint the agent depends on — an API, a site, a model
+  host, a database — fails the request on its own side: unreachable, DNS or
+  connection refused, timed out, 5xx, declared unavailable. The call was
+  well-formed and the local tool ran; what failed was upstream of it.
+
+symptoms:
+  - "connection, DNS, timeout or 5xx error naming a remote host or endpoint"
+  - "the local tool wrapper executed; the failure is in the response from upstream"
+  - "the same call later succeeds without change, or the service is independently reported down"
+  - "the run halts or degrades at the dependent step"
+
+discriminators:
+  - "vs AF-0149: the tool ran correctly; its upstream dependency failed"
+  - "vs AF-0130: the service is down or unreachable, not throttling; no 429/quota pattern"
+  - "vs AF-0136: a single upstream call timed out, rather than the run's own budget being exhausted"
+  - "vs AF-0118: nothing about the target's state changed; it is unavailable"
+
+near_neighbors: [AF-0149, AF-0130, AF-0136, AF-0118]
+
+references:
+  - "AgentRx 'System Failure' - https://arxiv.org/abs/2602.02475"
+  - "Model or Harness? 'Service Failure' - https://arxiv.org/abs/2607.28802"
+  - "AgentFail 'F3.1 Network and Resource Fluctuation', 'F3.2 Service Unavailability' - https://arxiv.org/abs/2509.23735"
+examples: []
