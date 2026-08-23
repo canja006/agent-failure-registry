@@ -16,8 +16,11 @@ symptoms:
 discriminators:
   - "vs AF-0142: repetition here is of actions, not of reads"
   - "vs AF-0049: not scoped to a test/verify cycle"
+  - "vs AF-0095: no policy or approval event in the trace; the repetition is unprompted"
+  - "vs AF-0125: attempts are identical, not varied failing approaches"
+  - "vs AF-0130: no quota or 429 errors in the trace; the repetition originates in the agent"
 
-near_neighbors: [AF-0142, AF-0049]
+near_neighbors: [AF-0142, AF-0049, AF-0095, AF-0125, AF-0130]
 
 references: []
 examples: []

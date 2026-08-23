@@ -47,13 +47,32 @@ def main():
             if nn == m.id:
                 errors.append("%s: lists itself as a near neighbor" % where)
         # A discriminator naming a mode should have it as a declared neighbour.
+        cited = set()
         for disc in m.discriminators:
             for ref in re.findall(r"AF-\d{4}", disc):
+                cited.add(ref)
                 if ref not in m.near_neighbors:
                     warnings.append(
                         "%s: discriminator cites %s but it is not in near_neighbors"
                         % (where, ref)
                     )
+        # ...and every declared neighbour should come with a discriminator.
+        for nn in m.near_neighbors:
+            if nn not in cited:
+                warnings.append(
+                    "%s: near_neighbor %s has no `vs %s:` discriminator" % (where, nn, nn)
+                )
+
+    # Confusion is symmetric: if A lists B, B must list A. One-sided links are
+    # how a confusion set silently decays, so this is an error, not a warning.
+    by_id = {m.id: m for m in modes}
+    for m in modes:
+        for nn in m.near_neighbors:
+            if nn in by_id and m.id not in by_id[nn].near_neighbors:
+                errors.append(
+                    "%s: lists %s as a near neighbor, but %s does not list %s"
+                    % (m.id, nn, nn, m.id)
+                )
 
     for src in afr.sources():
         cats = data.categories(src.id)

@@ -15,8 +15,9 @@ symptoms:
 discriminators:
   - "vs AF-0042: the sources read were interpreted correctly, there were just too few"
   - "vs AF-0077: the agent did not stop early; it concluded early"
+  - "vs AF-0071: no sub-agent is involved; evidence was never gathered rather than gathered and dropped"
 
-near_neighbors: [AF-0042, AF-0077]
+near_neighbors: [AF-0042, AF-0077, AF-0071]
 
 references: []
 examples: []

@@ -16,8 +16,9 @@ symptoms:
 discriminators:
   - "vs AF-0103: the intent here is clear, not underspecified"
   - "vs AF-0095: nothing blocked the agent; the capability was simply absent"
+  - "vs AF-0077: the capability was absent; the agent did not stop short of work it could have done"
 
-near_neighbors: [AF-0103, AF-0095]
+near_neighbors: [AF-0103, AF-0095, AF-0077]
 
 references: []
 examples: []

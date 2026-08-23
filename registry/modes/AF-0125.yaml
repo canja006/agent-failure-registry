@@ -16,8 +16,9 @@ symptoms:
 discriminators:
   - "vs AF-0058: attempts vary rather than repeat"
   - "vs AF-0064: not a window-management artefact"
+  - "vs AF-0049: attempts differ qualitatively; not an edit/verify loop with an unchanging test signal"
 
-near_neighbors: [AF-0058, AF-0064]
+near_neighbors: [AF-0058, AF-0064, AF-0049]
 
 references: []
 examples: []

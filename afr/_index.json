@@ -294,14 +294,16 @@
    "description": "The user's goal is coherent and well specified, but lies outside what the agent's tool set or permissions can accomplish. The agent proceeds anyway instead of reporting the gap.",
    "discriminators": [
     "vs AF-0103: the intent here is clear, not underspecified",
-    "vs AF-0095: nothing blocked the agent; the capability was simply absent"
+    "vs AF-0095: nothing blocked the agent; the capability was simply absent",
+    "vs AF-0077: the capability was absent; the agent did not stop short of work it could have done"
    ],
    "examples": [],
    "id": "AF-0007",
    "layer": "user-intent",
    "near_neighbors": [
     "AF-0103",
-    "AF-0095"
+    "AF-0095",
+    "AF-0077"
    ],
    "references": [],
    "status": "provisional",
@@ -338,14 +340,16 @@
    "description": "The agent calls a tool that genuinely exists but with arguments that violate its schema \u2014 wrong types, missing required fields, malformed structure, or a call made in an invalid state.",
    "discriminators": [
     "vs AF-0011: the tool and parameters exist; only the values are wrong",
-    "vs AF-0088: the tool choice is appropriate for the plan; the call itself is malformed"
+    "vs AF-0088: the tool choice is appropriate for the plan; the call itself is malformed",
+    "vs AF-0042: the call itself is malformed or rejected; nothing was misread downstream"
    ],
    "examples": [],
    "id": "AF-0023",
    "layer": "model",
    "near_neighbors": [
     "AF-0011",
-    "AF-0088"
+    "AF-0088",
+    "AF-0042"
    ],
    "references": [],
    "status": "provisional",
@@ -360,14 +364,16 @@
    "description": "The tool returned correct output and the agent drew a conclusion the output does not support \u2014 inverting a boolean, missing an error field, reading a truncated result as complete.",
    "discriminators": [
     "vs AF-0023: the call succeeded; the failure is in interpretation",
-    "vs AF-0011: nothing was invented at call time"
+    "vs AF-0011: nothing was invented at call time",
+    "vs AF-0086: enough was read; what was read was misinterpreted"
    ],
    "examples": [],
    "id": "AF-0042",
    "layer": "model",
    "near_neighbors": [
     "AF-0023",
-    "AF-0011"
+    "AF-0011",
+    "AF-0086"
    ],
    "references": [],
    "status": "provisional",
@@ -404,14 +410,20 @@
    "description": "The agent retries the same action, or cycles a small set of actions, without the environment state or its own information changing between attempts.",
    "discriminators": [
     "vs AF-0142: repetition here is of actions, not of reads",
-    "vs AF-0049: not scoped to a test/verify cycle"
+    "vs AF-0049: not scoped to a test/verify cycle",
+    "vs AF-0095: no policy or approval event in the trace; the repetition is unprompted",
+    "vs AF-0125: attempts are identical, not varied failing approaches",
+    "vs AF-0130: no quota or 429 errors in the trace; the repetition originates in the agent"
    ],
    "examples": [],
    "id": "AF-0058",
    "layer": "harness",
    "near_neighbors": [
     "AF-0142",
-    "AF-0049"
+    "AF-0049",
+    "AF-0095",
+    "AF-0125",
+    "AF-0130"
    ],
    "references": [],
    "status": "provisional",
@@ -470,14 +482,18 @@
    "description": "The agent stops and reports completion while parts of the requested task remain undone, unverified, or explicitly deferred.",
    "discriminators": [
     "vs AF-0007: the work was possible with available tools",
-    "vs AF-0095: nothing blocked the agent from continuing"
+    "vs AF-0095: nothing blocked the agent from continuing",
+    "vs AF-0086: sub-goals are left undone; the issue is stopping, not thin evidence behind a conclusion",
+    "vs AF-0136: the agent chose to stop; no external deadline cut it off"
    ],
    "examples": [],
    "id": "AF-0077",
    "layer": "model",
    "near_neighbors": [
     "AF-0007",
-    "AF-0095"
+    "AF-0095",
+    "AF-0086",
+    "AF-0136"
    ],
    "references": [],
    "status": "provisional",
@@ -492,14 +508,16 @@
    "description": "The agent commits to a conclusion on evidence too thin to support it, without gathering readily available additional sources.",
    "discriminators": [
     "vs AF-0042: the sources read were interpreted correctly, there were just too few",
-    "vs AF-0077: the agent did not stop early; it concluded early"
+    "vs AF-0077: the agent did not stop early; it concluded early",
+    "vs AF-0071: no sub-agent is involved; evidence was never gathered rather than gathered and dropped"
    ],
    "examples": [],
    "id": "AF-0086",
    "layer": "harness",
    "near_neighbors": [
     "AF-0042",
-    "AF-0077"
+    "AF-0077",
+    "AF-0071"
    ],
    "references": [],
    "status": "provisional",
@@ -514,14 +532,16 @@
    "description": "The agent constructs a plan, or routes to a sub-task, that does not serve the user's actual goal \u2014 solving an adjacent or reformulated problem instead.",
    "discriminators": [
     "vs AF-0103: the intent was clear enough to plan against",
-    "vs AF-0023: the plan is wrong, not the mechanics of a call"
+    "vs AF-0023: the plan is wrong, not the mechanics of a call",
+    "vs AF-0071: the plan itself is wrong; nothing is lost at a delegation boundary"
    ],
    "examples": [],
    "id": "AF-0088",
    "layer": "model",
    "near_neighbors": [
     "AF-0103",
-    "AF-0023"
+    "AF-0023",
+    "AF-0071"
    ],
    "references": [],
    "status": "provisional",
@@ -536,14 +556,16 @@
    "description": "A policy, approval gate, or safety filter halts the agent, and the agent neither surfaces the block clearly nor adapts its approach around it.",
    "discriminators": [
     "vs AF-0007: the capability exists; policy withheld it",
-    "vs AF-0058: retries follow a block rather than a null result"
+    "vs AF-0058: retries follow a block rather than a null result",
+    "vs AF-0077: a block event precedes the stop; the halt is imposed, not chosen"
    ],
    "examples": [],
    "id": "AF-0095",
    "layer": "harness",
    "near_neighbors": [
     "AF-0007",
-    "AF-0058"
+    "AF-0058",
+    "AF-0077"
    ],
    "references": [],
    "status": "provisional",
@@ -602,14 +624,16 @@
    "description": "The task exceeds what the underlying model can do at all \u2014 reasoning depth, context length, domain knowledge \u2014 rather than failing on procedure or tooling.",
    "discriminators": [
     "vs AF-0058: attempts vary rather than repeat",
-    "vs AF-0064: not a window-management artefact"
+    "vs AF-0064: not a window-management artefact",
+    "vs AF-0049: attempts differ qualitatively; not an edit/verify loop with an unchanging test signal"
    ],
    "examples": [],
    "id": "AF-0125",
    "layer": "model",
    "near_neighbors": [
     "AF-0058",
-    "AF-0064"
+    "AF-0064",
+    "AF-0049"
    ],
    "references": [],
    "status": "provisional",
@@ -624,14 +648,16 @@
    "description": "A throughput or quota limit triggers retries which themselves consume quota, degrading the run beyond the original limit.",
    "discriminators": [
     "vs AF-0058: repetition is driven by the limit, not by the agent's reasoning",
-    "vs AF-0136: quota exhaustion rather than elapsed-time expiry"
+    "vs AF-0136: quota exhaustion rather than elapsed-time expiry",
+    "vs AF-0118: the environment's state is unchanged; only its quota is exhausted"
    ],
    "examples": [],
    "id": "AF-0130",
    "layer": "environment",
    "near_neighbors": [
     "AF-0058",
-    "AF-0136"
+    "AF-0136",
+    "AF-0118"
    ],
    "references": [],
    "status": "provisional",
@@ -718,5 +744,5 @@
    "vendor": "Microsoft Research"
   }
  ],
- "version": "393d57546211"
+ "version": "ae6acc1fab99"
 }

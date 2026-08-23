@@ -15,8 +15,9 @@ symptoms:
 discriminators:
   - "vs AF-0007: the capability exists; policy withheld it"
   - "vs AF-0058: retries follow a block rather than a null result"
+  - "vs AF-0077: a block event precedes the stop; the halt is imposed, not chosen"
 
-near_neighbors: [AF-0007, AF-0058]
+near_neighbors: [AF-0007, AF-0058, AF-0077]
 
 references: []
 examples: []

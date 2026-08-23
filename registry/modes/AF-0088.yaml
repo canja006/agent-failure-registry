@@ -16,8 +16,9 @@ symptoms:
 discriminators:
   - "vs AF-0103: the intent was clear enough to plan against"
   - "vs AF-0023: the plan is wrong, not the mechanics of a call"
+  - "vs AF-0071: the plan itself is wrong; nothing is lost at a delegation boundary"
 
-near_neighbors: [AF-0103, AF-0023]
+near_neighbors: [AF-0103, AF-0023, AF-0071]
 
 references: []
 examples: []

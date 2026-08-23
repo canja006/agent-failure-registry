@@ -16,8 +16,9 @@ symptoms:
 discriminators:
   - "vs AF-0011: the tool and parameters exist; only the values are wrong"
   - "vs AF-0088: the tool choice is appropriate for the plan; the call itself is malformed"
+  - "vs AF-0042: the call itself is malformed or rejected; nothing was misread downstream"
 
-near_neighbors: [AF-0011, AF-0088]
+near_neighbors: [AF-0011, AF-0088, AF-0042]
 
 references: []
 examples: []

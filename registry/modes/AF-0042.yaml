@@ -16,8 +16,9 @@ symptoms:
 discriminators:
   - "vs AF-0023: the call succeeded; the failure is in interpretation"
   - "vs AF-0011: nothing was invented at call time"
+  - "vs AF-0086: enough was read; what was read was misinterpreted"
 
-near_neighbors: [AF-0023, AF-0011]
+near_neighbors: [AF-0023, AF-0011, AF-0086]
 
 references: []
 examples: []
