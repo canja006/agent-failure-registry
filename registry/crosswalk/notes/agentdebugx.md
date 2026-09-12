@@ -39,3 +39,49 @@ for bundles to interoperate with AF ids** — an AF id is derivable from
 - Remaining GAPs (single source): `reflection.causal_misattribution`,
   `multiagent.role_drift`, `multimodal.perception_error` (non-text
   perception; AF-0042 nearest).
+
+## Second read, 2026-09-12 — v0.5.2, 23 modes
+
+Prompted by the maintainers on issue #7: the seed set had grown to 23 and the
+crosswalk still described 19. Re-read `src/agentdebug/schema/taxonomy.py` at
+tag **v0.5.2** (`e180ac2`) and pinned this file to that tag rather than `main`
+— they asked that integrations pin the taxonomy revision, and the first read
+going stale in three weeks is the argument for it.
+
+**What changed.** One new family, `observation` (4 modes), adapted from
+TrajDebug's `obs` module (THU-KEG/TrajDebug, MIT). The module comment states
+the reasoning plainly: reading environment and tool feedback wrongly had no
+home, `memory.retrieval_failure` is failing to *retrieve* rather than
+misreading what was retrieved, and `multimodal.perception_error` is images, UI
+and audio only.
+
+**The family is finer than AF-0042.** AF-0042 "Tool output misread" was
+written from AgentRx and ToolFailBench, where the unit of analysis is a tool
+call. This family splits that surface four ways — misread, ignored, wrongly
+bound, read too early — and widens it from tool output to environment
+observations. So three of the four cite AF-0042, and none of them `exact`:
+
+- `observation.misread` → AF-0042 `overlaps`. Neither contains the other:
+  AF-0042 is tool-scoped where this also covers environment observations, and
+  AF-0042 still spans reading a truncated result as complete, which this
+  taxonomy splits out as `observation.timing`.
+- `observation.timing` → AF-0042 `overlaps`. Truncated-read-as-complete is one
+  slice of it; a pending or not-yet-settled response that is not truncated has
+  no AF mode.
+- `observation.grounding_fail` → **GAP**, single source. The value is read
+  correctly and bound to the wrong entity, element or field. AF-0042 is the
+  nearest and is not it: nothing was misinterpreted.
+
+**`observation.ignored` produced a mode.** It is the second independent source,
+with ToolFailBench's `Result-Ignore`, for an observation that was returned and
+then not used — the same pairing rule that produced AF-0174 from
+`memory.retrieval_failure` and Model-or-Harness "Missed Read". Written as
+**AF-0178 "Returned observation unused"**, and `Result-Ignore` re-pointed onto
+it from AF-0042 (`broader`, its single-turn slice). AF-0042 keeps what its
+title says: a return that was read and misinterpreted. AF-0178 is the return
+that never entered the decision, which is a different repair.
+
+That also answers, in one direction, the maintainers' point that several AF
+modes landing on one category makes automatic comparison hard: where the
+pressure came from AF being *coarser* than the source, the fix was to split AF,
+not to add a fourth citation to AF-0042.

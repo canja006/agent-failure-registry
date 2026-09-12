@@ -10,7 +10,7 @@ from afr.model import invert
 
 class TestModes(unittest.TestCase):
     def test_every_mode_loads(self):
-        self.assertEqual(len(afr.modes()), 25)
+        self.assertEqual(len(afr.modes()), 26)
 
     def test_lookup(self):
         m = afr.mode("AF-0142")

@@ -282,6 +282,37 @@
     ],
     "note": "GAP: misreads an image, UI, audio or file artifact and acts on bad perception. AF-0042 is the nearest (misreading an observation); non-text perception has no AF mode."
    },
+   "observation.grounding_fail": {
+    "af": [],
+    "note": "GAP: the value is read correctly and bound to the wrong entity, element or field, so later reasoning is built on the wrong object. No AF mode; single source so far. AF-0042 is the nearest and is not it - nothing was misinterpreted."
+   },
+   "observation.ignored": {
+    "af": [
+     {
+      "id": "AF-0178",
+      "relation": "exact"
+     }
+    ],
+    "note": "Information the next decision needs is present in the current or a visible prior observation and the agent proceeds without it. Second independent source, with ToolFailBench's Result-Ignore, for an observation returned and not used - AF-0178 was written from the pair and Result-Ignore re-pointed onto it."
+   },
+   "observation.misread": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Reads the environment or tool response and takes the wrong value or meaning from it. Neither contains the other: AF-0042 is scoped to tool output where this category also covers environment observations, and AF-0042 still spans reading a truncated result as complete, which this taxonomy splits out as observation.timing."
+   },
+   "observation.timing": {
+    "af": [
+     {
+      "id": "AF-0042",
+      "relation": "overlaps"
+     }
+    ],
+    "note": "Treats a partial, pending or not-yet-ready response as final. AF-0042's 'reading a truncated result as complete' is one slice; a pending or not-yet-settled response that is not truncated has no AF mode."
+   },
    "planning.constraint_ignorance": {
     "af": [
      {
@@ -1159,11 +1190,11 @@
    "Result-Ignore": {
     "af": [
      {
-      "id": "AF-0042",
+      "id": "AF-0178",
       "relation": "broader"
      }
     ],
-    "note": "Tool called; final answer omits the returned value (typically in favour of the memorised prior). The ignore-in-favour-of-prior slice of AF-0042, which also covers misinterpretation."
+    "note": "Tool called; final answer omits the returned value (typically in favour of the memorised prior). The single-turn slice of AF-0178. Re-pointed 2026-09-12: this label previously mapped to AF-0042 (broader), which conflates ignoring a return with misreading one; AgentDebugX's observation.ignored was the second independent source that let AF-0178 be written, and this label is the first."
    },
    "Tool-Skip": {
     "af": [
@@ -1281,7 +1312,8 @@
     "vs AF-0011: nothing was invented at call time",
     "vs AF-0086: enough was read; what was read was misinterpreted",
     "vs AF-0149: the output was correct and misread; an incorrect or unusable output is AF-0149",
-    "vs AF-0161: a real output was misread; in AF-0161 content was added that no output supports"
+    "vs AF-0161: a real output was misread; in AF-0161 content was added that no output supports",
+    "vs AF-0178: the output was read and misinterpreted; in AF-0178 it never entered the decision at all"
    ],
    "examples": [
     "tau-bench traj 38 (AgentRx ground truth): at step 37 the assistant picks the cheapest umbrella from the tool output without registering that the listing marks it unavailable"
@@ -1293,7 +1325,8 @@
     "AF-0011",
     "AF-0086",
     "AF-0149",
-    "AF-0161"
+    "AF-0161",
+    "AF-0178"
    ],
    "references": [],
    "status": "provisional",
@@ -1442,7 +1475,8 @@
     "vs AF-0071: no sub-agent is involved; evidence was never gathered rather than gathered and dropped",
     "vs AF-0153: too little evidence behind a conclusion, not a prescribed step left out",
     "vs AF-0161: the claim is under-sourced, not invented; AF-0161 has no support at all",
-    "vs AF-0174: external evidence was left ungathered; in AF-0174 the agent's own store held the fact"
+    "vs AF-0174: external evidence was left ungathered; in AF-0174 the agent's own store held the fact",
+    "vs AF-0178: evidence was never gathered; in AF-0178 it was returned and went unused"
    ],
    "examples": [
     "Magentic-One traj 0ec43718 (AgentRx ground truth): WebSurfer returns a partial list of gyms near the Mothman Museum and the Orchestrator concludes from it without verifying completeness"
@@ -1455,7 +1489,8 @@
     "AF-0071",
     "AF-0153",
     "AF-0161",
-    "AF-0174"
+    "AF-0174",
+    "AF-0178"
    ],
    "references": [],
    "status": "stable",
@@ -1882,7 +1917,8 @@
    "discriminators": [
     "vs AF-0064: nothing was evicted or truncated; the store still holds the entry",
     "vs AF-0142: failing to read something stored, not redundantly re-reading something unchanged",
-    "vs AF-0086: the missing evidence was the agent's own stored memory, not an external source left ungathered"
+    "vs AF-0086: the missing evidence was the agent's own stored memory, not an external source left ungathered",
+    "vs AF-0178: the unused fact was in the persistent store; in AF-0178 it was returned in this run's trace"
    ],
    "examples": [],
    "id": "AF-0174",
@@ -1890,7 +1926,8 @@
    "near_neighbors": [
     "AF-0064",
     "AF-0142",
-    "AF-0086"
+    "AF-0086",
+    "AF-0178"
    ],
    "references": [
     "Model or Harness? 'Missed Read' and 'Memory Following Failure' - https://arxiv.org/abs/2607.28802",
@@ -1903,6 +1940,33 @@
     "the agent re-asks or re-derives something the store already held, or contradicts it"
    ],
    "title": "Stored memory unused"
+  },
+  {
+   "description": "A tool or environment response that answers the agent's current question is present in the trace, and the next decision does not reflect it. Nothing was misinterpreted: the observation simply did not enter the step that needed it, which falls back on a prior belief, a re-derivation, or a guess instead.",
+   "discriminators": [
+    "vs AF-0042: the return was read and a conclusion drawn that it does not support; here it did not enter the decision at all",
+    "vs AF-0174: the unused fact was returned in this run's trace; in AF-0174 it sits in the persistent memory store",
+    "vs AF-0086: the evidence was returned and went unused; in AF-0086 it was never gathered"
+   ],
+   "examples": [],
+   "id": "AF-0178",
+   "layer": "model",
+   "near_neighbors": [
+    "AF-0042",
+    "AF-0174",
+    "AF-0086"
+   ],
+   "references": [
+    "ToolFailBench 'Result-Ignore' - https://arxiv.org/abs/2607.04686",
+    "AgentDebugX 'observation.ignored', from TrajDebug obs.IgnoreOutput - https://github.com/AgentDebugX/AgentDebugX"
+   ],
+   "status": "provisional",
+   "symptoms": [
+    "a value the next step depends on appears in a returned observation and is absent from that step",
+    "the stated answer contradicts a returned observation still visible in context",
+    "the agent re-asks, re-derives or assumes something an earlier observation in the same run already stated"
+   ],
+   "title": "Returned observation unused"
   }
  ],
  "sources": [
@@ -1919,8 +1983,8 @@
    "id": "agentdebugx",
    "license": "MIT",
    "name": "AgentDebugX",
-   "observed": "2026-08-23",
-   "taxonomy_size": 19,
+   "observed": "2026-09-12",
+   "taxonomy_size": 23,
    "url": "https://github.com/AgentDebugX/AgentDebugX",
    "vendor": "community"
   },
@@ -1970,5 +2034,5 @@
    "vendor": "academic"
   }
  ],
- "version": "6f0a765b82e1"
+ "version": "d77737251c46"
 }

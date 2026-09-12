@@ -4,13 +4,15 @@ source:
   vendor: community
   url: https://github.com/AgentDebugX/AgentDebugX
   license: MIT
-  taxonomy_size: 19
-  observed: "2026-08-23"
+  taxonomy_size: 23
+  observed: "2026-09-12"
 
-# Read in full: src/agentdebug/schema/taxonomy.py at main (last push
-# 2026-08-21) - the seed failure taxonomy the Detect stage classifies into.
-# 19 seed modes in 8 families (memory, reflection, planning, action, system,
-# multiagent, verification, multimodal), each with signals, repair
+# Read in full: src/agentdebug/schema/taxonomy.py, pinned at v0.5.2 (e180ac2)
+# - the seed failure taxonomy the Detect stage classifies into. Re-read
+# 2026-09-12 after the maintainers reported growth (issue #7); first read
+# 2026-08-23 at 19 modes, so this file is pinned to a tag rather than main.
+# 23 seed modes in 9 families (memory, reflection, planning, action, system,
+# multiagent, verification, multimodal, observation), each with signals, repair
 # suggestions and a `source` citation (AgentDebug, MAST, Who&When, AgentRx,
 # AgentSight) - the taxonomy already crosswalks informally. The seed set is
 # "designed to be extended by generated, project-specific taxonomy nodes"
@@ -95,3 +97,17 @@ mappings:
   - category: "multimodal.perception_error"
     af: [{id: AF-0042, relation: overlaps}]
     note: "GAP: misreads an image, UI, audio or file artifact and acts on bad perception. AF-0042 is the nearest (misreading an observation); non-text perception has no AF mode."
+
+  # -- observation (added in v0.5.x, adapted from TrajDebug's obs module) ----
+  - category: "observation.misread"
+    af: [{id: AF-0042, relation: overlaps}]
+    note: "Reads the environment or tool response and takes the wrong value or meaning from it. Neither contains the other: AF-0042 is scoped to tool output where this category also covers environment observations, and AF-0042 still spans reading a truncated result as complete, which this taxonomy splits out as observation.timing."
+  - category: "observation.ignored"
+    af: [{id: AF-0178, relation: exact}]
+    note: "Information the next decision needs is present in the current or a visible prior observation and the agent proceeds without it. Second independent source, with ToolFailBench's Result-Ignore, for an observation returned and not used - AF-0178 was written from the pair and Result-Ignore re-pointed onto it."
+  - category: "observation.grounding_fail"
+    af: []
+    note: "GAP: the value is read correctly and bound to the wrong entity, element or field, so later reasoning is built on the wrong object. No AF mode; single source so far. AF-0042 is the nearest and is not it - nothing was misinterpreted."
+  - category: "observation.timing"
+    af: [{id: AF-0042, relation: overlaps}]
+    note: "Treats a partial, pending or not-yet-ready response as final. AF-0042's 'reading a truncated result as complete' is one slice; a pending or not-yet-settled response that is not truncated has no AF mode."

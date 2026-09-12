@@ -18,8 +18,9 @@ discriminators:
   - "vs AF-0064: nothing was evicted or truncated; the store still holds the entry"
   - "vs AF-0142: failing to read something stored, not redundantly re-reading something unchanged"
   - "vs AF-0086: the missing evidence was the agent's own stored memory, not an external source left ungathered"
+  - "vs AF-0178: the unused fact was in the persistent store; in AF-0178 it was returned in this run's trace"
 
-near_neighbors: [AF-0064, AF-0142, AF-0086]
+near_neighbors: [AF-0064, AF-0142, AF-0086, AF-0178]
 
 references:
   - "Model or Harness? 'Missed Read' and 'Memory Following Failure' - https://arxiv.org/abs/2607.28802"

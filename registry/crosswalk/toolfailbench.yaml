@@ -22,8 +22,8 @@ mappings:
 
   - category: "Result-Ignore"
     af:
-      - {id: AF-0042, relation: broader}
-    note: "Tool called; final answer omits the returned value (typically in favour of the memorised prior). The ignore-in-favour-of-prior slice of AF-0042, which also covers misinterpretation."
+      - {id: AF-0178, relation: broader}
+    note: "Tool called; final answer omits the returned value (typically in favour of the memorised prior). The single-turn slice of AF-0178. Re-pointed 2026-09-12: this label previously mapped to AF-0042 (broader), which conflates ignoring a return with misreading one; AgentDebugX's observation.ignored was the second independent source that let AF-0178 be written, and this label is the first."
 
   - category: "Output-Fabrication"
     af:

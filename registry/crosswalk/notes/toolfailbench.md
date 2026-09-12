@@ -16,7 +16,7 @@ judges (Qwen3.5-397B-A17B, GLM-4.7), ties to the rule classifier.
 | label | set | operational definition | mapping |
 |---|---|---|---|
 | Tool-Skip | required | no valid executed tool call; includes tool-style answers ("Per <tool>…") with no call (App. D.1) | AF-0153 broader |
-| Result-Ignore | required | called; final answer omits the returned value | AF-0042 broader |
+| Result-Ignore | required | called; final answer omits the returned value | AF-0178 broader |
 | Output-Fabrication | required | called; answer adds invented structured information not in the return | AF-0161 broader |
 | Unnecessary-Tool-Use | control | called a tool anyway | AF-0166 broader |
 | Wrong-Answer | control | no tool, wrong answer — parametric knowledge error | `[]` not a tool-use failure |
@@ -25,7 +25,12 @@ Agreement (Table 8): TS κ .78, RI .53, OF .60, UTU .23 (rare; raw .95).
 
 **Why it matters for AFR.** It is the second independent source for three of
 the gaps recorded from AgentRx/Agent-Xray, which is what let AF-0153, AF-0161
-and AF-0166 be written. Its labels are all `broader` from the AF side because
+and AF-0166 be written. A fourth followed later: `Result-Ignore` was
+re-pointed from AF-0042 to **AF-0178 "Returned observation unused"** on
+2026-09-12, once AgentDebugX's `observation.ignored` named the same failure
+independently. AF-0042 had been carrying both meanings — a return read and
+misinterpreted, and a return not read at all — and only the first is what its
+title says. Its labels are all `broader` from the AF side because
 each is a tightly scoped single-turn slice of a general mode.
 
 App. D.2 excludes an invalid-raw-token run as "a harness or formatting issue"

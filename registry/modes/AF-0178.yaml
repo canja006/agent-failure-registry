@@ -1,0 +1,27 @@
+id: AF-0178
+title: "Returned observation unused"
+status: provisional
+layer: model
+
+description: >
+  A tool or environment response that answers the agent's current question is
+  present in the trace, and the next decision does not reflect it. Nothing was
+  misinterpreted: the observation simply did not enter the step that needed it,
+  which falls back on a prior belief, a re-derivation, or a guess instead.
+
+symptoms:
+  - "a value the next step depends on appears in a returned observation and is absent from that step"
+  - "the stated answer contradicts a returned observation still visible in context"
+  - "the agent re-asks, re-derives or assumes something an earlier observation in the same run already stated"
+
+discriminators:
+  - "vs AF-0042: the return was read and a conclusion drawn that it does not support; here it did not enter the decision at all"
+  - "vs AF-0174: the unused fact was returned in this run's trace; in AF-0174 it sits in the persistent memory store"
+  - "vs AF-0086: the evidence was returned and went unused; in AF-0086 it was never gathered"
+
+near_neighbors: [AF-0042, AF-0174, AF-0086]
+
+references:
+  - "ToolFailBench 'Result-Ignore' - https://arxiv.org/abs/2607.04686"
+  - "AgentDebugX 'observation.ignored', from TrajDebug obs.IgnoreOutput - https://github.com/AgentDebugX/AgentDebugX"
+examples: []
