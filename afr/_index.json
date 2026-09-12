@@ -814,7 +814,7 @@
       "relation": "narrower"
      }
     ],
-    "note": "Explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it by mechanism: upstream service failure (AF-0170, listed first), time/step budget, rate-limit cascade, tool-internal error. 'Premature termination' of the run itself is the residue none of them names. Context truncation is not in the definition and is not mapped here. One of the sources for AF-0170."
+    "note": "Explicit infra/connectivity signal during a tool call - timeout, connection refused, DNS failure, endpoint unreachable, service unavailable, premature termination. AF splits it by mechanism: upstream service failure (AF-0170), time/step budget, rate-limit cascade, tool-internal error - four narrower edges that tie, so the category profiles as ambiguous rather than resolving to any one of them. 'Premature termination' of the run itself is the residue none of them names. Context truncation is not in the definition and is not mapped here. One of the sources for AF-0170."
    },
    "Underspecified User Intent": {
     "af": [
@@ -2034,5 +2034,5 @@
    "vendor": "academic"
   }
  ],
- "version": "d77737251c46"
+ "version": "6fe28ed4c41c"
 }

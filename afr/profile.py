@@ -13,11 +13,23 @@ class Profile:
     by_mode: Dict[str, int] = field(default_factory=dict)
     by_layer: Dict[str, int] = field(default_factory=dict)
     unmapped: Dict[str, int] = field(default_factory=dict)
+    ambiguous: Dict[str, int] = field(default_factory=dict)
     source: str = ""
 
     @property
     def unmapped_total(self) -> int:
         return sum(self.unmapped.values())
+
+    @property
+    def ambiguous_total(self) -> int:
+        """Labels whose category ties for strongest across several modes.
+
+        Counted apart from `by_mode` rather than attributed to one of them:
+        the tie is the crosswalk saying this category is coarser than the
+        registry, and resolving it by file order is how a profile changes
+        when a file is reordered.
+        """
+        return sum(self.ambiguous.values())
 
     def top(self, n: int = 5) -> List[tuple]:
         ranked = sorted(self.by_mode.items(), key=lambda kv: (-kv[1], kv[0]))
@@ -50,6 +62,13 @@ class Profile:
             ):
                 pct = 100.0 * count / self.total
                 lines.append("%-9s %5.1f%%  %s" % ("unmapped", pct, cat))
+        if self.ambiguous:
+            lines.append("-" * (width + 34))
+            for cat, count in sorted(
+                self.ambiguous.items(), key=lambda kv: (-kv[1], kv[0])
+            ):
+                pct = 100.0 * count / self.total
+                lines.append("%-9s %5.1f%%  %s" % ("ambiguous", pct, cat))
         lines.append("-" * (width + 34))
         lines.append(
             "by layer: "
@@ -65,7 +84,9 @@ def profile(labels: List[Label]) -> Profile:
     """Aggregate normalised labels into a failure profile.
 
     Only the strongest mapping per label is counted, so a category that maps to
-    three AF modes does not inflate the totals.
+    three AF modes does not inflate the totals. A category whose strongest
+    relation is shared by several modes is counted as `ambiguous` instead of
+    being attributed to whichever of them the crosswalk happens to list first.
     """
     p = Profile()
     for label in labels:
@@ -74,7 +95,8 @@ def profile(labels: List[Label]) -> Profile:
             p.source = label.source
         best = label.best
         if best is None:
-            p.unmapped[label.category] = p.unmapped.get(label.category, 0) + label.count
+            bucket = p.ambiguous if label.mapped else p.unmapped
+            bucket[label.category] = bucket.get(label.category, 0) + label.count
             continue
         p.by_mode[best.id] = p.by_mode.get(best.id, 0) + label.count
         try:

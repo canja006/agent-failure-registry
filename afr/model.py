@@ -5,6 +5,9 @@ from typing import List, Optional
 
 RELATIONS = ("exact", "broader", "narrower", "overlaps")
 
+# Strength order for picking a label's strongest mapping. Lower is stronger.
+RELATION_STRENGTH = {"exact": 0, "narrower": 1, "broader": 2, "overlaps": 3}
+
 #: Inverting a mapping swaps containment but preserves identity and overlap.
 _INVERSE = {
     "exact": "exact",
@@ -98,9 +101,34 @@ class Label:
         return bool(self.af)
 
     @property
-    def best(self) -> Optional[Mapping]:
-        """The strongest available mapping, preferring exact over partial."""
+    def strongest(self) -> List[Mapping]:
+        """Every mapping sharing the strongest relation this label carries.
+
+        More than one when the crosswalk records genuine lossiness: four
+        `narrower` edges mean the source category splits four ways, and the
+        registry has no basis for calling one of them the answer.
+        """
         if not self.af:
-            return None
-        order = {"exact": 0, "narrower": 1, "broader": 2, "overlaps": 3}
-        return sorted(self.af, key=lambda m: order.get(m.relation, 9))[0]
+            return []
+        rank = min(RELATION_STRENGTH.get(m.relation, 9) for m in self.af)
+        return [m for m in self.af if RELATION_STRENGTH.get(m.relation, 9) == rank]
+
+    @property
+    def ambiguous(self) -> bool:
+        """True when several mappings tie for strongest."""
+        return len(self.strongest) > 1
+
+    @property
+    def best(self) -> Optional[Mapping]:
+        """The single strongest mapping, or None when several tie.
+
+        Returning None on a tie is deliberate. Which of several equally
+        ranked modes happens to be listed first in a crosswalk file is not a
+        fact about the failure, and letting file order decide meant a profile
+        could change because a file was reordered - reported by the
+        AgentDebugX maintainers, 2026-09-12. A tie is a statement that the
+        source category is coarser than the registry, and callers should see
+        it rather than be handed an arbitrary winner.
+        """
+        strongest = self.strongest
+        return strongest[0] if len(strongest) == 1 else None

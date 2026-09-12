@@ -1,6 +1,7 @@
 import os
 import sys
 import unittest
+from dataclasses import replace
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -135,13 +136,16 @@ class TestCrosswalk(unittest.TestCase):
                          {"valid_alternative_path", "consultative_success", "unclassified"})
 
     def test_tool_layer_exists(self):
-        # AF-0149 closed the registry's empty tool layer; tool_bug's best
-        # mapping lands there rather than on the agent-side error modes.
+        # AF-0149 closed the registry's empty tool layer. tool_bug reaches it,
+        # but ties with two agent-side modes at `overlaps`, so no single mode
+        # is its answer - see test_tie_is_not_resolved_by_file_order.
         m = afr.mode("AF-0149")
         self.assertEqual(m.layer, "tool")
         labels = afr.normalize({"tool_bug": 1}, "agent-xray")
-        self.assertEqual(labels[0].best.id, "AF-0149")
         self.assertEqual({h.id for h in labels[0].af}, {"AF-0149", "AF-0011", "AF-0023"})
+        self.assertIn("AF-0149", {m.id for m in labels[0].strongest})
+        self.assertTrue(labels[0].ambiguous)
+        self.assertIsNone(labels[0].best)
 
     def test_gap_notes_survive_partial_mapping(self):
         # A category can be mapped by overlaps and still be a roadmap item.
@@ -173,10 +177,23 @@ class TestNormalizeAndProfile(unittest.TestCase):
         self.assertEqual(by_cat, {"timeout": 2, "early_abort": 1})
 
     def test_best_prefers_exact(self):
-        labels = afr.normalize({"reasoning_bug": 1}, "agent-xray")
-        self.assertEqual(labels[0].best.relation, "overlaps")
         labels = afr.normalize({"spin": 1}, "agent-xray")
         self.assertEqual(labels[0].best.relation, "exact")
+        self.assertFalse(labels[0].ambiguous)
+
+    def test_tie_is_not_resolved_by_file_order(self):
+        # Reported by the AgentDebugX maintainers, 2026-09-12: `best` used to
+        # take the first of several equally ranked mappings, so reordering a
+        # crosswalk file silently changed which mode a profile counted.
+        labels = afr.normalize({"reasoning_bug": 1}, "agent-xray")
+        label = labels[0]
+        self.assertTrue(label.ambiguous)
+        self.assertIsNone(label.best)
+        self.assertEqual({m.id for m in label.strongest}, {"AF-0042", "AF-0125"})
+        reversed_label = replace(label, af=list(reversed(label.af)))
+        self.assertEqual(reversed_label.best, label.best)
+        self.assertEqual({m.id for m in reversed_label.strongest},
+                         {m.id for m in label.strongest})
 
     def test_profile_totals(self):
         p = afr.profile(afr.normalize(
@@ -191,10 +208,14 @@ class TestNormalizeAndProfile(unittest.TestCase):
         self.assertEqual(p.by_layer, {"model": 6, "environment": 3})
 
     def test_no_double_counting_on_multi_map(self):
-        # "System Failure" maps to three modes; it must count once.
+        # "System Failure" splits four ways at the same relation: it must be
+        # counted once, and as ambiguous rather than attributed to one of them.
         p = afr.profile(afr.normalize({"System Failure": 4}, "agentrx"))
         self.assertEqual(p.total, 4)
-        self.assertEqual(sum(p.by_mode.values()), 4)
+        self.assertEqual(sum(p.by_mode.values()), 0)
+        self.assertEqual(p.ambiguous_total, 4)
+        self.assertEqual(p.ambiguous, {"System Failure": 4})
+        self.assertEqual(p.unmapped_total, 0)
 
     def test_render_is_stable(self):
         p = afr.profile(afr.normalize({"stuck_loop": 1}, "agent-xray"))
